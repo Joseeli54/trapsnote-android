@@ -1,114 +1,92 @@
 package com.exam.sid.aplicacion;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.exam.sid.aplicacion.model.Post;
+import com.exam.sid.aplicacion.remote.APIService;
+import com.exam.sid.aplicacion.remote.ApiUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-import com.exam.sid.aplicacion.Objetos.Cuenta;
-import com.exam.sid.aplicacion.Objetos.FirebaseReferences;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+public class Main extends AppCompatActivity{
 
-public class Main extends AppCompatActivity implements View.OnClickListener {
-
-    Button buttonRegister, buttonSignIn;
-    EditText editTextEmail, editTextPass;
-
-    FirebaseAuth.AuthStateListener mAuthListener;
+    private static final String TAG = "MainActivity";
+    private TextView mResponseTv;
+    private APIService mAPIService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        buttonRegister = (Button) findViewById(R.id.register_button);
-        buttonSignIn = (Button) findViewById(R.id.signin_button);
-        editTextEmail = (EditText) findViewById(R.id.login_email);
-        editTextPass = (EditText) findViewById(R.id.login_password);
+        /*se crean variables finales de tipo EditText de los parametros que se utilizaran*/
+        final EditText name = (EditText) findViewById(R.id.name);
+        final EditText lastName = (EditText) findViewById(R.id.SegundoNombre);
+        final EditText email = (EditText) findViewById(R.id.email);
+        final EditText password = (EditText) findViewById(R.id.password);
 
-        buttonRegister.setOnClickListener(this);
-        buttonSignIn.setOnClickListener(this);
+        Button submitBtn = (Button) findViewById(R.id.btn_submit); //Boton del layout llamado Submit
+        mResponseTv = (TextView) findViewById(R.id.tv_response); //Aviso que te da los mensajes
+        mAPIService = ApiUtils.getAPIService(); //aqui se instancia el mAPIService
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
+
+        submitBtn.setOnClickListener(new View.OnClickListener() { //si presiono Submit
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Log.i("SESION", "sesion iniciada con email: " + user.getEmail());
-                } else {
-                    Log.i("SESION", "sesion cerrada");
+            public void onClick(View view) {
+
+                /*Se crean nuevas variables String y se les asigna las finales*/
+
+                String nombre = name.getText().toString().trim();
+                String last_nombre = lastName.getText().toString().trim();
+                String correo = email.getText().toString().trim();
+                String clave = password.getText().toString().trim();
+
+                /*Se verifican las variables*/
+
+                if(!TextUtils.isEmpty(nombre) && !TextUtils.isEmpty(correo) &&
+                        !TextUtils.isEmpty(last_nombre) && !TextUtils.isEmpty(clave)) {
+
+                    /*Se envian*/
+                    sendPost(nombre, last_nombre, correo, clave);
                 }
             }
-        };
+        });
 
     }
 
-    private void IniciarSesion(String email, String pass) {
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    public void sendPost(String name, String last_name, String email, String password) {
+
+        /*Aqui implemento el savePost de la clase ApiService*/
+        mAPIService.savePost(name,last_name, email, password).enqueue(new Callback<Post>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Log.i("SESION", "sesion iniciada");
-                    TextView IBMensaje = (TextView) findViewById(R.id.mensajeinicio);
-                    IBMensaje.setText("Sesion Iniciada");
-                    controlador2();
-                } else {
-                    Log.e("SESION", task.getException().getMessage() + "");
+            public void onResponse(Call<Post> call, Response<Post> response) {
+
+                if (response.isSuccessful()) { //Si es satisfactorio me envia el mensaje con todos los datos
+                    showResponse(response.body().toString());
+                    Log.i(TAG, "post submitted to API." + response.body().toString());
+                } else { //Si no, me devuelve error
+                    showResponse("Error");
                 }
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) { //Si hay una excepcion o problema de red me envia esto
+                Log.e(TAG, "Unable to submit post to API.");
             }
         });
     }
 
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.signin_button:
-                String emailInicio = editTextEmail.getText().toString();
-                String passInicio = editTextPass.getText().toString();
-                IniciarSesion(emailInicio, passInicio);
-                break;
-            case R.id.register_button:
-                controlador();
-                break;
+    public void showResponse(String response) { //aqui hago visible el aviso de mensaje
+        if(mResponseTv.getVisibility() == View.GONE) {
+            mResponseTv.setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseAuth.getInstance().addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
-        }
-    }
-
-    public void controlador() {
-        Intent ListSong = new Intent(getApplicationContext(), Login.class);
-        startActivity(ListSong);
-    }
-
-    public void controlador2(){
-        Intent ListSong = new Intent(getApplicationContext(), Tareas.class);
-        startActivity(ListSong);
+        mResponseTv.setText(response);
     }
 }
