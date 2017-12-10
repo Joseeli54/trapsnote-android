@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/libritos"
+    android:orientation="vertical"
+    android:paddingBottom="16px"
+    android:paddingLeft="16px"
+    android:paddingRight="16px"
+    android:paddingTop="16px"
+    android:weightSum="1"
+    tools:context="com.exam.sid.aplicacion.Main">
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:elevation="1dp"
+        android:text=" Task"
+        android:textColor="@android:color/background_light"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome My Friend"
+        android:textSize="20sp"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/background_light"
+        />
+
+</LinearLayout>
