@@ -23,78 +23,63 @@
         android:textColor="@android:color/background_light"
         android:textSize="36sp" />
 
-    <TextView
-        android:id="@+id/space"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.08" />
-
-
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/et_name"
+        android:background="@color/colorPrimaryDark"
+        android:layout_weight="0.09"
+        android:layout_marginTop="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.09"
-        android:background="@color/colorPrimaryDark"
-        android:ems="10"
-        android:hint="@string/name"
-        android:inputType="textPersonName"
         android:paddingLeft="16px"
-        android:textColorHint="@color/common_google_signin_btn_text_light_focused" />
-
-    <TextView
-        android:id="@+id/space2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="0dp" />
+        android:hint="@string/hint_nombre"
+        android:textColorHint="@android:color/background_dark"
+        />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/et_last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
         android:layout_weight="0.09"
         android:background="@color/colorPrimaryDark"
+        android:hint="@string/hint_last_nombre"
+        android:paddingLeft="16px"
+        android:textColorHint="@android:color/background_dark" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_marginTop="18dp"
+        android:layout_weight="0.09"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/email"
+        android:paddingLeft="16px"
         android:inputType="textEmailAddress"
-        android:paddingLeft="16px"
-        android:textColorHint="@color/common_google_signin_btn_text_light_focused" />
-
-    <TextView
-        android:id="@+id/space3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:hint="@string/hint_email"
+        android:textColorHint="@android:color/background_dark"
+        />
 
     <EditText
-        android:id="@+id/register_password"
+        android:id="@+id/et_password"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="18dp"
+        android:layout_weight="0.09"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.08"
-        android:background="@color/colorPrimaryDark"
         android:ems="10"
-        android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingLeft="16px"
-        android:textColorHint="@color/common_google_signin_btn_text_light_focused" />
+        android:hint="@string/hint_password"
+        android:textColorHint="@android:color/background_dark"
+        />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+    <Button android:background="@color/colorPrimary"
+        android:layout_marginTop="18dp"
         android:layout_height="wrap_content"
-        android:text="TextView" />
-
-    <Button
-        android:id="@+id/guardar_registro"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="Registrer User" />
-
-    <TextView
-        android:id="@+id/mensajelbl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp" />
+        android:text="@string/action_register"
+        android:id="@+id/guardar_registro"/>
 
     <TextView
         android:id="@+id/link_to_login"
@@ -107,6 +92,18 @@
         android:text="¿Ya tienes cuenta? Accede!"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="20dip" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/tv_response"
+        android:layout_weight="0.10"
+        android:visibility="gone"
+        android:textColor="@android:color/background_light"
+        android:background="@android:color/background_dark"
+        android:textAlignment="center"
+        android:paddingTop="10dp"
+        android:textSize="20sp" />
 
 
 </LinearLayout>
