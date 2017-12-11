@@ -1,93 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_post"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/libritos"
-    android:orientation="vertical"
-    android:paddingBottom="16px"
     android:paddingLeft="16px"
     android:paddingRight="16px"
     android:paddingTop="16px"
-    android:weightSum="1"
+    android:paddingBottom="16px"
     tools:context="com.exam.sid.aplicacion.Main">
 
     <TextView
-        android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:elevation="1dp"
-        android:text=" TrapsNotes"
-        android:textColor="@android:color/background_light"
-        android:textSize="36sp" />
-
-    <ImageView
-        android:id="@+id/icono"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/icon" />
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:text="@string/title_enter_post"/>
 
     <EditText
-        android:id="@+id/login_email"
+        android:id="@+id/et_name"
+        android:layout_marginTop="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.17"
+        android:hint="@string/hint_nombre"/>
+
+    <EditText
+        android:id="@+id/et_last_name"
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_last_nombre"/>
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:background="@color/colorAccent"
-        android:hint="@string/email"
-        android:paddingLeft="16px"
-        android:textColor="@android:color/background_light"
-        android:textColorHint="@android:color/background_light"
-        android:textColorLink="@color/colorAccent" />
+        android:hint="@string/hint_email"/>
 
     <EditText
-        android:id="@+id/login_password"
+        android:id="@+id/et_password"
+        android:layout_marginTop="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.15"
-        android:background="@color/colorPrimaryDark"
-        android:hint="@string/password"
-        android:paddingLeft="16px"
-        android:textColor="@android:color/background_light"
-        android:textColorHint="@android:color/background_light"
-        android:textColorLink="@color/colorAccent"
         android:ems="10"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:hint="@string/hint_password"/>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_marginTop="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="@string/action_submit"/>
 
-        <Button
-            android:id="@+id/signin_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/black"
-            android:text="@string/sign_in"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/register_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/holo_blue_dark"
-            android:text="@string/register"
-            android:textColor="@android:color/white" />
-
-        >
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_verify"
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_verify"/>
 
     <TextView
-        android:id="@+id/mensajeinicio"
+        android:id="@+id/tv_response"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/background_dark"
-        android:textSize="18sp" />
-</LinearLayout>
+        android:layout_marginTop="35dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/black"
+        android:visibility="gone" />
 
+</LinearLayout>
