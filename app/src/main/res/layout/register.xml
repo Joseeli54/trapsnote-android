@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/libritos"
+    android:orientation="vertical"
+    android:paddingBottom="16px"
+    android:paddingLeft="16px"
+    android:paddingRight="16px"
+    android:paddingTop="16px"
+    android:weightSum="1"
+    tools:context="com.exam.sid.aplicacion.Main">
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:elevation="1dp"
+        android:text=" Register"
+        android:textColor="@android:color/background_light"
+        android:textSize="36sp" />
+
+    <EditText
+        android:id="@+id/et_name"
+        android:background="@color/colorPrimaryDark"
+        android:layout_weight="0.09"
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16px"
+        android:hint="@string/hint_nombre"
+        android:textColorHint="@android:color/background_dark"
+        />
+
+    <EditText
+        android:id="@+id/et_last_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_weight="0.09"
+        android:background="@color/colorPrimaryDark"
+        android:hint="@string/hint_last_nombre"
+        android:paddingLeft="16px"
+        android:textColorHint="@android:color/background_dark" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_marginTop="18dp"
+        android:layout_weight="0.09"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:paddingLeft="16px"
+        android:inputType="textEmailAddress"
+        android:hint="@string/hint_email"
+        android:textColorHint="@android:color/background_dark"
+        />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="18dp"
+        android:layout_weight="0.09"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:paddingLeft="16px"
+        android:hint="@string/hint_password"
+        android:textColorHint="@android:color/background_dark"
+        />
+
+    <Button android:background="@color/colorPrimary"
+        android:layout_marginTop="18dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/action_register"
+        android:id="@+id/guardar_registro"/>
+
+    <TextView
+        android:id="@+id/link_to_login"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dip"
+        android:layout_marginTop="40dip"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="¿Ya tienes cuenta? Accede!"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="20dip" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/tv_response"
+        android:layout_weight="0.10"
+        android:visibility="gone"
+        android:textColor="@android:color/background_light"
+        android:background="@android:color/background_dark"
+        android:textAlignment="center"
+        android:paddingTop="10dp"
+        android:textSize="20sp" />
+
+
+</LinearLayout>
