@@ -3,10 +3,10 @@ package com.exam.sid.aplicacion.model;
 public class Usuarios {
 
     private String id;
+    private String username;
     private String name;
     private String last_name;
     private String email;
-    private String password;
     private Integer v;
 
     public String getId() {
@@ -15,6 +15,14 @@ public class Usuarios {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUsername(){
+        return username;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
     }
 
     public String getName() {
@@ -41,14 +49,6 @@ public class Usuarios {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Integer getV() {
         return v;
     }
@@ -60,11 +60,10 @@ public class Usuarios {
     @Override
     public String toString(){ // aqui se muestran los datos completos
         return "Get{"+
-                "name='"+ name + '\''+
+                "username='"+ username + '\''+
+                ", name='"+ name + '\''+
                 ", last_name='"+ last_name + '\''+
-                ", email='"+ email+ '\''+
-                ", password="+ password +
-                '}';
+                ", email='"+ email+ '\''+ '}';
     }
 
 }
