@@ -2,22 +2,14 @@ package com.exam.sid.aplicacion.model;
 
 public class Get { // aqui se convierte el lenguaje json a java, para poder asignarle el valor y enviarlos a la url
 
-    private Usuarios[] usuarios;
+    private Usuarios usuario;
 
-    public String getUsuarios() {
-        return Conglomerado();
+    public Usuarios getUsuario(){
+        return this.usuario;
     }
 
-    public void setUsuarios(Usuarios usuarios, int i) {
-        this.usuarios[i] = usuarios;
-    }
-
-    public String Conglomerado(){
-        String res = "";
-        for (int i = 0; i < usuarios.length; i++){
-            res += "[" + this.usuarios[i].getEmail() + "] \n";
-        }
-        return res;
+    public void setUsuario(Usuarios usuario) {
+        this.usuario = usuario;
     }
 
 }

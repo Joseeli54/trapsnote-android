@@ -1,17 +1,28 @@
 package com.exam.sid.aplicacion.model;
 
-public class User{
+public class Post {
 
+    String username;
     String name;
     String last_name;
     String email;
     String password;
 
-    public User(String name, String last_name, String email, String password){
+    public Post(String username, String name, String last_name,
+                String email, String password){
+        this.username = username;
         this.name = name;
         this.last_name = last_name;
         this.email = email;
         this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {
