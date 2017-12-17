@@ -46,12 +46,7 @@ public class Main extends AppCompatActivity{
             }
         });
 
-        btnRegister.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-               mover_a_Registro();
-            }
-        });
+
 
     }
 
@@ -100,10 +95,7 @@ public class Main extends AppCompatActivity{
         mResponseTv.setText(response);
     }
 
-    public void mover_a_Registro() {
-        Intent ListSong = new Intent(getApplicationContext(), Register.class);
-        startActivity(ListSong);
-    }
+
 
     public void mover_a_Tareas() {
         Intent ListSong = new Intent(getApplicationContext(), Task.class);

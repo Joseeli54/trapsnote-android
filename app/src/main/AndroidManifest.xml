@@ -23,12 +23,6 @@
         </activity>
 
         <activity
-            android:name=".Register"
-            android:label="@string/Register"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
             android:name=".Task"
             android:label="@string/Task"
             android:screenOrientation="portrait">
