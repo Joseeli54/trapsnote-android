@@ -25,11 +25,23 @@
         android:textSize="36sp" />
 
     <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/tv_response"
+        android:layout_weight="0.10"
+        android:layout_marginTop="15dp"
+        android:visibility="gone"
+        android:textColor="@android:color/background_light"
+        android:background="@android:color/background_dark"
+        android:textAlignment="center"
+        android:paddingTop="10dp"
+        android:textSize="20sp" />
+
+    <TextView
         android:id="@+id/welcome"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome My Friend"
         android:textSize="20sp"
         android:background="@color/colorAccent"
         android:textColor="@android:color/background_light"

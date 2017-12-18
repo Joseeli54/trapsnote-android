@@ -16,12 +16,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Elias Barrientos on 12/15/2017.
- */
-
 public class Update extends AppCompatActivity {
-
     private TextView mResponseTv;
     public static final String BASE_URL = "https://dry-forest-40048.herokuapp.com/";
 
