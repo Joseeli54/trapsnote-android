@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,7 +13,7 @@
     android:paddingRight="16px"
     android:paddingTop="16px"
     android:weightSum="1"
-    tools:context="com.exam.sid.aplicacion.Main">
+    >
 
     <TextView
         android:id="@+id/titulo"
@@ -23,89 +25,155 @@
         android:textColor="@android:color/background_light"
         android:textSize="36sp" />
 
-    <TextView
-        android:layout_height="wrap_content"
+    <ScrollView
         android:layout_width="match_parent"
-        android:id="@+id/tv_response"
-        android:layout_weight="0.10"
-        android:layout_marginTop="15dp"
-        android:visibility="gone"
-        android:textColor="@android:color/background_light"
-        android:background="@android:color/background_dark"
-        android:textAlignment="center"
-        android:paddingTop="10dp"
-        android:textSize="20sp" />
+        android:layout_height="fill_parent">
 
-    <EditText
-        android:id="@+id/et_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.09"
-        android:background="@color/colorPrimaryDark"
-        android:hint="@string/hint_username"
-        android:paddingLeft="16px"
-        android:textColorHint="@android:color/background_dark" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/et_name"
-        android:background="@color/colorPrimaryDark"
-        android:layout_weight="0.09"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16px"
-        android:hint="@string/hint_nombre"
-        android:textColorHint="@android:color/background_dark"
-        />
+            <EditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_marginTop="20dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:hint="@string/hint_username"
+                android:paddingLeft="16px"
+                android:textColorHint="@android:color/background_dark"
+                />
 
-    <EditText
-        android:id="@+id/et_last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.09"
-        android:background="@color/colorPrimaryDark"
-        android:hint="@string/hint_last_nombre"
-        android:paddingLeft="16px"
-        android:textColorHint="@android:color/background_dark" />
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:hint="@string/hint_nombre"
+                android:paddingLeft="16px"
+                android:textColorHint="@android:color/background_dark"
+                android:textColor="@android:color/background_dark"
+                android:inputType="text"
+                android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ"/>
 
-    <EditText
-        android:id="@+id/et_email"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.09"
-        android:background="@color/colorPrimaryDark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:paddingLeft="16px"
-        android:inputType="textEmailAddress"
-        android:hint="@string/hint_email"
-        android:textColorHint="@android:color/background_dark"
-        />
+            <EditText
+                android:id="@+id/et_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:hint="@string/hint_last_nombre"
+                android:paddingLeft="16px"
+                android:textColorHint="@android:color/background_dark" />
 
-    <EditText
-        android:id="@+id/et_password"
-        android:background="@color/colorPrimaryDark"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.09"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:paddingLeft="16px"
-        android:hint="@string/hint_password"
-        android:textColorHint="@android:color/background_dark"
-        />
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:ems="10"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="16px"
+                android:textColorHint="@android:color/background_dark" />
 
-    <Button android:background="@color/colorPrimary"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="@string/action_register"
-        android:id="@+id/guardar_registro"/>
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:ems="10"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:paddingLeft="16px"
+                android:textColorHint="@android:color/background_dark" />
 
+            <TextView
+                android:id="@+id/fechaNac"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@mipmap/libros"
+                android:paddingTop="5dp"
+                android:text="Fecha de Nacimiento"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_dark"
+                android:textSize="20sp" />
 
+            <EditText
+                android:id="@+id/dia"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:hint="Dia"
+                android:ems="10"
+                android:paddingLeft="16px"
+                android:textColor="@android:color/background_dark"
+                android:inputType="phone"
+                android:digits="1234567890" />
 
+            <EditText
+                android:id="@+id/mes"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:hint="Mes"
+                android:ems="10"
+                android:paddingLeft="16px"
+                android:textColor="@android:color/background_dark"
+                android:inputType="phone"
+                android:digits="1234567890" />
+
+            <EditText
+                android:id="@+id/year"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:hint="Año"
+                android:ems="10"
+                android:paddingLeft="16px"
+                android:textColor="@android:color/background_dark"
+                android:inputType="phone"
+                android:digits="1234567890" />
+
+            <Button
+                android:id="@+id/guardar_registro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimary"
+                android:text="@string/action_register" />
+
+            <TextView
+                android:id="@+id/tv_response"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_weight="0.10"
+                android:background="@android:color/background_dark"
+                android:paddingTop="10dp"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="20sp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

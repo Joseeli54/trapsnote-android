@@ -3,7 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="name">Name</string>
     <string name="action_register">Submit Register</string>
-    <string name="accion_sign_in">Search</string>
+    <string name="accion_sign_in">Sign In</string>
+    <string name="action_search">Search</string>
     <string name="title_enter_post">Enter</string>
     <string name="hint_username">Nick</string>
     <string name="hint_nombre">Nombre</string>
@@ -16,4 +17,7 @@
     <string name="Task">Task</string>
     <string name="Update">Update</string>
     <string name="hint_last_nombre">Last_name</string>
+    <string name="Dia">Dia</string>
+    <string name="Mes">Mes</string>
+    <string name="Year">Year</string>
 </resources>
