@@ -1,5 +1,7 @@
 package com.exam.sid.aplicacion.model;
 
+import java.util.Date;
+
 public class Post {
 
     String username;
@@ -7,12 +9,20 @@ public class Post {
     String last_name;
     String email;
     String password;
+    Date fechaDeNacimiento;
 
     public Post(String username, String name, String last_name,
-                String email, String password){
+                String email, String password, Date fecha){
         this.username = username;
         this.name = name;
         this.last_name = last_name;
+        this.email = email;
+        this.password = password;
+        this.fechaDeNacimiento = fecha;
+
+    }
+
+    public Post(String email, String password){
         this.email = email;
         this.password = password;
     }
