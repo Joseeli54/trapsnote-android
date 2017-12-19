@@ -12,14 +12,13 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-/**
- * Created by Elias Barrientos on 11/26/2017.
- */
-
 public interface UserClient{
 
     @POST("usuarios")
     Call<Post> createAccount(@Body Post post);
+
+    @POST("/login")
+    Call<Post> postLogin(@Body Post post);
 
     @GET("usuarios/{username}")
     Call<Get> getList(@Path("username") String username);
