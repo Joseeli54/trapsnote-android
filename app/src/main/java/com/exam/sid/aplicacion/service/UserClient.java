@@ -30,4 +30,11 @@ public interface UserClient{
     Call<Patch> sendUpdate(@Path("username") String username,
                            @Body Patch patch);
 
+    @POST("{username}/tareas")
+    Call<Tareas> sendTask(@Path("username") String username,
+                          @Body Tareas tareas);
+
+    @GET("{username}/tareas")
+    Call<Get> getTask(@Path("username") String username);
+
 }

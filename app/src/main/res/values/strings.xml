@@ -20,4 +20,8 @@
     <string name="Dia">Dia</string>
     <string name="Mes">Mes</string>
     <string name="Year">Year</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="categoria">Categoria</string>
+    <string name="send_task">Save Task</string>
+    <string name="numero">Numero de Tarea</string>
 </resources>
