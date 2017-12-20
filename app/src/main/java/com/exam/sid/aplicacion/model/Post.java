@@ -3,14 +3,12 @@ package com.exam.sid.aplicacion.model;
 import java.util.Date;
 
 public class Post {
-
     String username;
     String name;
     String last_name;
     String email;
     String password;
     Date fechaDeNacimiento;
-
     public Post(String username, String name, String last_name,
                 String email, String password, Date fecha){
         this.username = username;
