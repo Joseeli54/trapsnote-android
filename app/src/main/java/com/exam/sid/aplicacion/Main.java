@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.exam.sid.aplicacion.model.Get;
+import com.exam.sid.aplicacion.model.Post;
 import com.exam.sid.aplicacion.model.Usuarios;
 import com.exam.sid.aplicacion.service.UserClient;
 
@@ -27,7 +28,7 @@ public class Main extends AppCompatActivity{
     public static final String BASE_URL = "https://dry-forest-40048.herokuapp.com";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
@@ -39,7 +40,26 @@ public class Main extends AppCompatActivity{
         mResponseTv = (TextView) findViewById(R.id.tv_response);
         Button btnRegister = (Button) findViewById(R.id.register_button);
         Button btnGetDelete = (Button) findViewById(R.id.delete_button);
-        Button btnGetList = (Button) findViewById(R.id.signin_button);
+        Button btnGetList = (Button) findViewById(R.id.search_button);
+        Button btnSignIn = (Button) findViewById(R.id.signin_button);
+
+        mResponseTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showResponse("");
+                tocoResponse();
+            }
+        });
+
+        btnSignIn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                showResponse("Cargando...");
+                Post post = new Post(email.getText().toString(),
+                        password.getText().toString());
+                sendLogin(post, email, password);
+            }
+        });
 
         btnGetList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +90,44 @@ public class Main extends AppCompatActivity{
                 mover_a_Actualizacion();
             }
         });
+
+    }
+
+    private void sendLogin(Post post, final TextView email, final TextView password){
+
+        Retrofit retrofit =
+                new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+        UserClient client = retrofit.create(UserClient.class);
+
+        Call<Post> listCall = client.postLogin(post);
+        listCall.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+
+                if(response.code() == 200){
+                    String token = response.headers().get("x-auth");
+                    if(token != null){
+                        showResponse("Activo");
+                        mover_a_Tareas(token, response.body().getName()+" "+
+                                              response.body().getLastName(),
+                                              response.body().getUsername());
+                        DeleteDate(email,password);
+                    }
+                }else if(response.code() == 400){
+                    showResponse("Correo/Contraseña incorrecto");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                showResponse("Problem Connection");
+            }
+        });
+
 
     }
 
@@ -132,6 +190,12 @@ public class Main extends AppCompatActivity{
         });
     }
 
+    public void tocoResponse(){
+        if(mResponseTv.getVisibility() == View.VISIBLE) {
+            mResponseTv.setVisibility(View.GONE);
+        }
+    }
+
     public void showResponse(String response) { //aqui hago visible el aviso de mensaje
         if(mResponseTv.getVisibility() == View.GONE) {
             mResponseTv.setVisibility(View.VISIBLE);
@@ -145,13 +209,22 @@ public class Main extends AppCompatActivity{
         }
     }
 
+    public void DeleteDate(TextView email, TextView password){
+        email.setText("");
+        password.setText("");
+    }
+
     public void mover_a_Registro() {
         Intent ListSong = new Intent(getApplicationContext(), Register.class);
         startActivity(ListSong);
     }
 
-    public void mover_a_Tareas() {
+    public void mover_a_Tareas(String token, String name, String username) {
         Intent ListSong = new Intent(getApplicationContext(), Task.class);
+        ListSong.putExtra("variable_string", token);
+        ListSong.putExtra("variable_name", name);
+        ListSong.putExtra("variable_name", name);
+        ListSong.putExtra("variable_username", username);
         startActivity(ListSong);
     }
 

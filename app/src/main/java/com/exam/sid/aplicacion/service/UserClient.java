@@ -3,6 +3,7 @@ package com.exam.sid.aplicacion.service;
 import com.exam.sid.aplicacion.model.Get;
 import com.exam.sid.aplicacion.model.Patch;
 import com.exam.sid.aplicacion.model.Post;
+import com.exam.sid.aplicacion.model.Tareas;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,8 +19,18 @@ import retrofit2.http.Path;
 
 public interface UserClient{
 
+    @POST("{username}/tareas")
+    Call<Tareas> sendTask(@Path("username") String username,
+                          @Body Tareas tareas);
+
+    @GET("{username}/tareas")
+    Call<Get> getTask(@Path("username") String username);
+
     @POST("usuarios")
     Call<Post> createAccount(@Body Post post);
+
+    @POST("/login")
+    Call<Post> postLogin(@Body Post post);
 
     @GET("usuarios/{username}")
     Call<Get> getList(@Path("username") String username);
