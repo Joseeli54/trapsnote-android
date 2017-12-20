@@ -158,6 +158,10 @@ public class Task extends AppCompatActivity {
         if(mResponseTv.getVisibility() == View.GONE) {
             mResponseTv.setVisibility(View.VISIBLE);
         }
+        
+        
+        
+        
         mResponseTv.setText(response);
     }
 
