@@ -1,5 +1,4 @@
 package com.exam.sid.aplicacion.model;
-
 import java.util.Date;
 
 public class Post {
