@@ -23,4 +23,5 @@
     <string name="descripcion">Descripcion</string>
     <string name="categoria">Categoria</string>
     <string name="send_task">Save Task</string>
+    <string name="numero">Numero de Tarea</string>
 </resources>

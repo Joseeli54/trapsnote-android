@@ -19,13 +19,6 @@ import retrofit2.http.Path;
 
 public interface UserClient{
 
-    @POST("{username}/tareas")
-    Call<Tareas> sendTask(@Path("username") String username,
-                          @Body Tareas tareas);
-
-    @GET("{username}/tareas")
-    Call<Get> getTask(@Path("username") String username);
-
     @POST("usuarios")
     Call<Post> createAccount(@Body Post post);
 
@@ -41,5 +34,13 @@ public interface UserClient{
     @PATCH("usuarios/{username}")
     Call<Patch> sendUpdate(@Path("username") String username,
                            @Body Patch patch);
+
+    @POST("{username}/tareas")
+    Call<Tareas> sendTask(@Path("username") String username,
+                          @Body Tareas tareas);
+
+    @GET("{username}/tareas")
+    Call<Get> getTask(@Path("username") String username);
+
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-    <LinearLayout
+<LinearLayout
     tools:context="com.exam.sid.aplicacion.Main"
     android:weightSum="1"
     android:paddingTop="16px"
@@ -120,14 +120,14 @@
             android:layout_weight="1"/>
 
         <Button
-        android:background="@android:color/black"
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:textColor="@android:color/white"
-        android:visibility="gone"
-        android:text="@string/action_search"
-        android:id="@+id/search_button"
-        android:layout_weight="1"/>
+            android:background="@android:color/black"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:textColor="@android:color/white"
+            android:visibility="gone"
+            android:text="@string/action_search"
+            android:id="@+id/search_button"
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/delete_button"

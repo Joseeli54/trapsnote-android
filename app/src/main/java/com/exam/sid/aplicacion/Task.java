@@ -24,11 +24,13 @@ public class Task extends AppCompatActivity {
 
     public static final String BASE_URL = "https://dry-forest-40048.herokuapp.com/";
     TextView mResponseTv, mWelcome;
-    Button btnTask;
+    Button btnTask, btnEliminar;
+    Tareas[] tareas;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task);
+
         Bundle datos = this.getIntent().getExtras();
         String token = datos.getString("variable_string");
         String name = datos.getString("variable_name");
@@ -114,7 +116,7 @@ public class Task extends AppCompatActivity {
             @Override
             public void onResponse(Call<Get> call, Response<Get> response) {
                 if(response.isSuccessful()){
-                    Tareas[] tareas = response.body().getTareas();
+                    tareas = response.body().getTareas();
 
                     if(tareas != null){
                         String res = "";
@@ -130,7 +132,7 @@ public class Task extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<Get> call, Throwable t) {
-
+                     showWelcome("Hay un problema con el servidor");
             }
         });
     }

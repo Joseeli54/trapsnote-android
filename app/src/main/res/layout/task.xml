@@ -51,6 +51,39 @@
         android:text="Crear Nueva Tarea"
         android:id="@+id/btn_tarea"/>
 
+            <EditText
+                android:id="@+id/et_descripcion"
+                android:background="@color/colorPrimaryDark"
+                android:layout_weight="0.09"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="150px"
+                android:paddingLeft="16px"
+                android:hint="@string/descripcion"
+                android:textColorHint="@android:color/background_dark"
+                />
+
+            <EditText
+                android:id="@+id/et_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:hint="@string/categoria"
+                android:paddingLeft="16px"
+                android:textColorHint="@android:color/background_dark" />
+
+            <Button android:background="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:text="@string/send_task"
+                android:id="@+id/guardar_tarea"/>
+
             <Button android:background="@color/colorPrimary"
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
@@ -71,41 +104,6 @@
                 android:layout_width="match_parent"
                 android:text="Modificar Alguna Tarea"
                 android:id="@+id/modificar_tarea"/>
-
-
-
-    <EditText
-        android:id="@+id/et_descripcion"
-        android:background="@color/colorPrimaryDark"
-        android:layout_weight="0.09"
-        android:layout_marginTop="10dp"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="150px"
-        android:paddingLeft="16px"
-        android:hint="@string/descripcion"
-        android:textColorHint="@android:color/background_dark"
-        />
-
-    <EditText
-        android:id="@+id/et_categoria"
-        android:layout_width="match_parent"
-        android:layout_height="70px"
-        android:layout_marginTop="10dp"
-        android:visibility="gone"
-        android:layout_weight="0.09"
-        android:background="@color/colorPrimaryDark"
-        android:hint="@string/categoria"
-        android:paddingLeft="16px"
-        android:textColorHint="@android:color/background_dark" />
-
-    <Button android:background="@color/colorPrimary"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:text="@string/send_task"
-        android:id="@+id/guardar_tarea"/>
 
     <TextView
         android:layout_height="wrap_content"
