@@ -3,6 +3,7 @@ package com.exam.sid.aplicacion.service;
 import com.exam.sid.aplicacion.model.Get;
 import com.exam.sid.aplicacion.model.Patch;
 import com.exam.sid.aplicacion.model.Post;
+import com.exam.sid.aplicacion.model.Tareas;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
