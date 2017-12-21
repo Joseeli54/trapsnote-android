@@ -219,7 +219,7 @@ public class Main extends AppCompatActivity{
         startActivity(ListSong);
     }
 
-    public void mover_a_Tareas(String token, String name) {
+    public void mover_a_Tareas(String token, String name, String username) {
         Intent ListSong = new Intent(getApplicationContext(), Task.class);
         ListSong.putExtra("variable_string", token);
         ListSong.putExtra("variable_name", name);
