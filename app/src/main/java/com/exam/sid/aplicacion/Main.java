@@ -112,7 +112,8 @@ public class Main extends AppCompatActivity{
                     if(token != null){
                         showResponse("Activo");
                         mover_a_Tareas(token, response.body().getName()+" "+
-                                response.body().getLastName());
+                                              response.body().getLastName(),
+                                              response.body().getUsername());
                         DeleteDate(email,password);
                     }
                 }else if(response.code() == 400){
@@ -218,10 +219,11 @@ public class Main extends AppCompatActivity{
         startActivity(ListSong);
     }
 
-    public void mover_a_Tareas(String token, String name) {
+    public void mover_a_Tareas(String token, String name, String username) {
         Intent ListSong = new Intent(getApplicationContext(), Task.class);
         ListSong.putExtra("variable_string", token);
         ListSong.putExtra("variable_name", name);
+        ListSong.putExtra("variable_username", username);
         startActivity(ListSong);
     }
 

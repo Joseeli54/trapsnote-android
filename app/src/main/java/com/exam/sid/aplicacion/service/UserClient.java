@@ -3,6 +3,7 @@ package com.exam.sid.aplicacion.service;
 import com.exam.sid.aplicacion.model.Get;
 import com.exam.sid.aplicacion.model.Patch;
 import com.exam.sid.aplicacion.model.Post;
+import com.exam.sid.aplicacion.model.Tareas;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -29,5 +30,12 @@ public interface UserClient{
     @PATCH("usuarios/{username}")
     Call<Patch> sendUpdate(@Path("username") String username,
                            @Body Patch patch);
+
+    @POST("{username}/tareas")
+    Call<Tareas> sendTask(@Path("username") String username,
+                          @Body Tareas tareas);
+
+    @GET("{username}/tareas")
+    Call<Get> getTask(@Path("username") String username);
 
 }

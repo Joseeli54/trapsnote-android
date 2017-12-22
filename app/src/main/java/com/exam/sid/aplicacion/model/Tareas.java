@@ -5,10 +5,18 @@ package com.exam.sid.aplicacion.model;
  */
 
 public class Tareas {
-
+    
+    private String _id;
     private String descripcion;
     private Boolean completado;
-    private String username_t;
+    private String username;
+     private String fechaRegistro;
+    private String categoria;
+
+    public Tareas(String categoria, String descripcion) {
+        this.categoria = categoria;
+        this.descripcion = descripcion;
+    } 
 
     public String getDescripcion() {
         return descripcion;
@@ -27,11 +35,11 @@ public class Tareas {
     }
 
     public String getUsername_t() {
-        return username_t;
+        return username;
     }
 
     public void setUsername_t(String username_t) {
-        this.username_t = username_t;
+        this.username = username_t;
     }
 
     @Override
@@ -39,6 +47,6 @@ public class Tareas {
         return "Get{"+
                 "descripcion='"+ descripcion + '\''+
                 ", completado='"+ completado + '\''+
-                ", username='"+ username_t + '\''+'}';
+                ", username='"+ username + '\''+'}';
     }
 }

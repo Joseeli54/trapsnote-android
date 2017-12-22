@@ -25,6 +25,87 @@
         android:textSize="36sp" />
 
     <TextView
+        android:id="@+id/welcome"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/background_light"
+        android:textAlignment="center"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+    <Button android:background="@color/colorPrimary"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Crear Nueva Tarea"
+        android:id="@+id/btn_tarea"/>
+
+            <EditText
+                android:id="@+id/et_descripcion"
+                android:background="@color/colorPrimaryDark"
+                android:layout_weight="0.09"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="150px"
+                android:paddingLeft="16px"
+                android:hint="@string/descripcion"
+                android:textColorHint="@android:color/background_dark"
+                />
+
+            <EditText
+                android:id="@+id/et_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="70px"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:hint="@string/categoria"
+                android:paddingLeft="16px"
+                android:textColorHint="@android:color/background_dark" />
+
+            <Button android:background="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:text="@string/send_task"
+                android:id="@+id/guardar_tarea"/>
+
+            <Button android:background="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Ver Tareas Actuales"
+                android:id="@+id/Ver_tarea"/>
+
+            <Button android:background="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Eliminar Tarea"
+                android:id="@+id/eliminar_tarea"/>
+
+            <Button android:background="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Modificar Alguna Tarea"
+                android:id="@+id/modificar_tarea"/>
+
+    <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/tv_response"
@@ -32,19 +113,13 @@
         android:layout_marginTop="15dp"
         android:visibility="gone"
         android:textColor="@android:color/background_light"
-        android:background="@android:color/background_dark"
+        android:background="@color/colorAccent"
         android:textAlignment="center"
         android:paddingTop="10dp"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/welcome"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/background_light"
-        />
+         </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>
