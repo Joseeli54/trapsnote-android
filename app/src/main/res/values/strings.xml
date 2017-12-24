@@ -10,11 +10,11 @@
     <string name="hint_nombre">Nombre</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
-    <string name="Register">Register</string>
+    <string name="Register">Trapsnotes</string>
     <string name="Delete">Delete</string>
     <string name="to_Update">To Update</string>
     <string name="action_update">Update Now</string>
-    <string name="Task">Task</string>
+    <string name="Task">Trapsnotes</string>
     <string name="Update">Update</string>
     <string name="hint_last_nombre">Last_name</string>
     <string name="Dia">Dia</string>
@@ -24,4 +24,5 @@
     <string name="categoria">Categoria</string>
     <string name="send_task">Save Task</string>
     <string name="numero">Numero de Tarea</string>
+    <string name="hint_register">Register</string>
 </resources>

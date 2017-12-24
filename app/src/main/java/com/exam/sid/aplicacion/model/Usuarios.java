@@ -1,13 +1,16 @@
 package com.exam.sid.aplicacion.model;
 
-public class Usuarios {
+public class Usuarios {   ///////////////////////////////////////////////////
+                         // Esta clase se encarga de guardar los datos    //
+                        // del usuario que se va a leer. Y tiene         //
+                       // sus respectivos getter y setter               //
+                      ///////////////////////////////////////////////////
 
-    private String id;
-    private String username;
-    private String name;
-    private String last_name;
-    private String email;
-    private Integer v;
+    private String id; //El Id del usuario
+    private String username; //El username del usuario
+    private String name; //El name del usuario
+    private String last_name; //El last_name del usuario
+    private String email; //El correo del usuario
 
     public String getId() {
         return id;
@@ -47,14 +50,6 @@ public class Usuarios {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Integer getV() {
-        return v;
-    }
-
-    public void setV(Integer v) {
-        this.v = v;
     }
 
     @Override

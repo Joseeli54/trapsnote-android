@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<LinearLayout
+    <LinearLayout
     tools:context="com.exam.sid.aplicacion.Main"
     android:weightSum="1"
     android:paddingTop="16px"
@@ -8,7 +8,7 @@
     android:paddingLeft="16px"
     android:paddingBottom="16px"
     android:orientation="vertical"
-    android:background="@mipmap/libritos"
+
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,14 +16,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
-        android:background="@color/colorAccent"
-        android:layout_height="wrap_content"
+        android:id="@+id/titulo"
         android:layout_width="match_parent"
-        android:textSize="36sp"
-        android:textColor="@android:color/background_light"
-        android:text=" TrapsNotes"
+        android:layout_height="wrap_content"
+        android:background="@color/common_google_signin_btn_text_light_default"
         android:elevation="1dp"
-        android:id="@+id/titulo"/>
+        android:text=" TrapsNotes"
+        android:textColor="@android:color/background_light"
+        android:textSize="36sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,28 +81,35 @@
         android:id="@+id/login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.30"
-        android:background="@color/colorAccent"
+        android:layout_weight="0.23"
+        android:background="@color/colorPrimaryDark"
         android:ems="10"
         android:hint="@string/hint_email"
         android:inputType="textEmailAddress"
         android:paddingLeft="16px"
-        android:textColor="@android:color/background_light"
-        android:textColorHint="@android:color/background_light"
+        android:textColor="@android:color/background_dark"
+        android:textColorHint="@color/colorAccent"
         android:textColorLink="@android:color/background_dark" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:background="@android:color/background_dark"
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.30"
+        android:layout_weight="0.23"
         android:background="@color/colorPrimaryDark"
         android:ems="10"
         android:hint="@string/hint_password"
         android:inputType="textPassword"
         android:paddingLeft="16px"
-        android:textColor="@android:color/background_light"
-        android:textColorHint="@android:color/background_light"
+        android:textColor="@android:color/background_dark"
+        android:textColorHint="@color/colorAccent"
         android:textColorLink="@android:color/background_dark" />
 
     <LinearLayout
@@ -120,25 +127,14 @@
             android:layout_weight="1"/>
 
         <Button
-            android:background="@android:color/black"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:textColor="@android:color/white"
-            android:visibility="gone"
-            android:text="@string/action_search"
-            android:id="@+id/search_button"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/delete_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="35dp"
-            android:layout_weight="1"
-            android:visibility="gone"
-            android:background="@android:color/holo_blue_dark"
-            android:text="@string/Delete"
-            android:textColor="@android:color/white" />
+        android:background="@android:color/black"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        android:text="@string/action_search"
+        android:id="@+id/search_button"
+        android:layout_weight="1"/>
 
         <Button
             android:id="@+id/register_button"
@@ -146,8 +142,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="35dp"
             android:layout_weight="1"
-            android:background="@android:color/holo_blue_dark"
-            android:text="@string/Register"
+            android:background="@color/colorUsers"
+            android:text="@string/hint_register"
             android:textColor="@android:color/white" />
 
     </LinearLayout>

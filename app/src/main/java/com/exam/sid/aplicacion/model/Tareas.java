@@ -4,18 +4,34 @@ package com.exam.sid.aplicacion.model;
  * Created by bosie on 17/12/17.
  */
 
-public class Tareas {
+public class Tareas {   ///////////////////////////////////////////////////
+                       // Esta clase se encarga de guardar los datos    //
+                      // de tareas que se van a enviar y a guardar.    //
+                     // Y tiene sus respectivos getter y setter       //
+                    ///////////////////////////////////////////////////
     
-    private String _id;
-    private String descripcion;
-    private Boolean completado;
-    private String username;
-     private String fechaRegistro;
-    private String categoria;
+    private String _id; /*Toda tarea tiene su Id, esta se devuelve una vez
+                          se crea la tarea del usuario*/
+    private String descripcion; //Descripcion de actividad o tarea que tenga el usuario
+    private Boolean completado; /*Esta variable booleana te avisa si la tarea se completo.
+                                  Al principio te devuelve un false */
+    private String username; //Toda tarea debe tener el username del usuario
+     private String fechaRegistro; /*El servicio te devuelve la fecha en la que se registro
+                                   la tarea*/
+    private String categoria; //Tipo de tarea que se va a realiza
 
-    public Tareas(String categoria, String descripcion) {
+    public Tareas(String categoria, String descripcion) { /*El sistema solo requiere que se envie
+                                                            categoria y descripcion*/
         this.categoria = categoria;
         this.descripcion = descripcion;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String id) {
+        this._id = id;
     } 
 
     public String getDescripcion() {

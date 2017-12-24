@@ -2,17 +2,21 @@ package com.exam.sid.aplicacion.model;
 
 import java.util.Date;
 
-public class Post {
+public class Post {   ///////////////////////////////////////////////////
+                     // Esta clase se encarga de guardar los datos    //
+                    // de usuarios que se van a enviar. Y tiene      //
+                   // sus respectivos getter y setter               //
+                  ///////////////////////////////////////////////////
 
-    String username;
-    String name;
-    String last_name;
-    String email;
-    String password;
-    Date fechaDeNacimiento;
+    String username; //Es obligatorio el username
+    String name; //Se envia el nombre de usuario
+    String last_name; //Se envia el segundo nombre
+    String email; //Se envia el correo
+    String password; //Se envia la contraseña para usarse en el login
+    Date fechaDeNacimiento; //Se envia la fechaNac para despues usarse
 
     public Post(String username, String name, String last_name,
-                String email, String password, Date fecha){
+                String email, String password, Date fecha){ //Constructor de datos, para crear el usuario
         this.username = username;
         this.name = name;
         this.last_name = last_name;
@@ -22,7 +26,7 @@ public class Post {
 
     }
 
-    public Post(String email, String password){
+    public Post(String email, String password){ //Constructor de email y password, para enviarlos al login
         this.email = email;
         this.password = password;
     }
