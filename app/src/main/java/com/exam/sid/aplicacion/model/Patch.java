@@ -4,14 +4,17 @@ package com.exam.sid.aplicacion.model;
  * Created by Elias Barrientos on 12/15/2017.
  */
 
-public class Patch {
+public class Patch {   ///////////////////////////////////////////////////
+                      // Esta clase se encarga de guardar los datos    //
+                     //   de usuarios que se van a modificar. Y tiene //
+                    // sus respectivos getter y setter               //
+                   ///////////////////////////////////////////////////
 
-    String username;
-    String name;
-    String last_name;
-    String email;
+    String username; //Este no se modifica solo se tiene para identificar al usuario
+    String name; //La variable name se cambia
+    String last_name; //La variable last_name se cambia
 
-    public Patch(String name, String last_name){
+    public Patch(String name, String last_name){ //constructor de name y last_name
         this.name = name;
         this.last_name = last_name;
     }

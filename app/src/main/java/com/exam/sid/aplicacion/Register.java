@@ -21,10 +21,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Register extends AppCompatActivity {
+        ////////////////////////////////////////////////////////////////////////
+       // Esta es la clase para registrar usuario, donde se pasan los datos. //
+      // Maneja el layout register.xml. Una vez registrado el usuario se    //
+     // puede retroceder a la vista de inicion de sesion.                  //
+    // /////////////////////////////////////////////////////////////////////
 
-    private TextView mResponseTv;
+    private TextView mResponseTv; //Aviso de mensaje
     public static final String BASE_URL = "https://dry-forest-40048.herokuapp.com/";
-
+    //URL principal del restApp
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +45,17 @@ public class Register extends AppCompatActivity {
         final EditText mes = (EditText) findViewById(R.id.mes);
         final EditText year = (EditText) findViewById(R.id.year);
 
+        /*
+        * Se inicializan las variables de cada EditText requerido para el registro
+        */
+
         mResponseTv = (TextView) findViewById(R.id.tv_response);
         Button btnActionRegister = (Button) findViewById(R.id.guardar_registro);
+
+        /*
+        * mResponseTv nuevamente se inicializa pero se queda invisible
+        * btnActionRegister se encarga de generar el envio de usuario
+        */
 
         btnActionRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,14 +66,14 @@ public class Register extends AppCompatActivity {
                         dia.getText().toString();
 
                 SimpleDateFormat sdfg = new SimpleDateFormat("yyyy-MM-dd");
-
-                Date fechaProg = null;
-
-                try {
-                    fechaProg = sdfg.parse(fecha);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                                                       ///////////////////////////////////
+                Date fechaProg = null;                //       Si toco el boton        //
+                                                     //     de btnActionRegister      //
+                try {                               //     Los String de fecha se    //
+                    fechaProg = sdfg.parse(fecha); // convierten en date, se pasan  //
+                } catch (ParseException e) {      // los datos del usuario al Post //
+                    e.printStackTrace();         // y se llama al metodo de envio //
+                }                               ///////////////////////////////////
 
                 Post post = new Post(username.getText().toString(),
                         name.getText().toString(),last_name.getText().toString(),
@@ -72,33 +86,36 @@ public class Register extends AppCompatActivity {
     }
 
     private void sendNetworkRequest(Post post) {
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
-        UserClient client = retrofit.create(UserClient.class);
+        Retrofit retrofit =                                                    //////////////////////////
+                new Retrofit.Builder()                                        //  Aqui se manda el    //
+                        .baseUrl(BASE_URL)                                   //  URL verifica y      //
+                        .addConverterFactory(GsonConverterFactory.create()) // se convierte en Json //
+                        .build();                                          // cada dato que este   //
+        UserClient client = retrofit.create(UserClient.class);            //     dentro de el.    //
+                                                                         //////////////////////////
         Call<Post> call = client.createAccount(post);
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
-                if(response.isSuccessful()) {
-                    showResponse("User Create Sucessfull");
-                }
-                else{
-                    showResponse("We can't identify error");
-                }
+                if(response.isSuccessful()) {                        /////////////////////////////////////////////////
+                    showResponse("User Create Sucessfull");         // Se crea la llamada al metodo CreateAccount. //
+                }                                                  // Si la respuesta es satisfactoria,se creo el //
+                else{                                             //  usuario, pero sino se manda un aviso de    //
+                    showResponse("We can't identify error");     //                 error                       //
+                }                                               /////////////////////////////////////////////////
             }
             @Override
-            public void onFailure(Call<Post> call, Throwable t) {
-                showResponse("Error Service");
-            }
+            public void onFailure(Call<Post> call, Throwable t) { //////////////////////////////////////
+                showResponse("Error Service");                   // Si no se puede hacer la peticion //
+            }                                                   //////////////////////////////////////
         });
     }
 
-    public void showResponse(String response) { //aqui hago visible el aviso de mensaje
-        if(mResponseTv.getVisibility() == View.GONE) {
-            mResponseTv.setVisibility(View.VISIBLE);
-        }
+    public void showResponse(String response) {
+                                                        ///////////////////////////////////////////
+        if(mResponseTv.getVisibility() == View.GONE) { // Aqui hago visible el aviso de mensaje //
+            mResponseTv.setVisibility(View.VISIBLE);  //     Y le agrego un nuevo texto        //
+        }                                            ///////////////////////////////////////////
         mResponseTv.setText(response);
     }
 }

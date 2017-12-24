@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/libritos"
     android:orientation="vertical"
     android:paddingBottom="16px"
     android:paddingLeft="16px"
@@ -18,7 +17,7 @@
         android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@color/common_google_signin_btn_text_light_default"
         android:elevation="1dp"
         android:text=" Task"
         android:textColor="@android:color/background_light"
@@ -26,14 +25,13 @@
 
     <TextView
         android:id="@+id/welcome"
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/background_light"
+        android:layout_marginTop="5dp"
+        android:background="@color/common_google_signin_btn_text_light_default"
         android:textAlignment="center"
-        />
+        android:textColor="@android:color/background_light"
+        android:textSize="20sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -44,81 +42,183 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-    <Button android:background="@color/colorPrimary"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="Crear Nueva Tarea"
-        android:id="@+id/btn_tarea"/>
+            <Button
+                android:id="@+id/btn_tarea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorUsers"
+                android:text="Crear Nueva Tarea"
+                android:textColor="@android:color/background_light" />
 
             <EditText
                 android:id="@+id/et_descripcion"
-                android:background="@color/colorPrimaryDark"
-                android:layout_weight="0.09"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="150px"
-                android:paddingLeft="16px"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
                 android:hint="@string/descripcion"
-                android:textColorHint="@android:color/background_dark"
-                />
+                android:paddingLeft="16px"
+                android:textColorHint="@color/colorAccent"
+                android:visibility="gone"
+                android:inputType="text"/>
 
             <EditText
                 android:id="@+id/et_categoria"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
                 android:layout_weight="0.09"
                 android:background="@color/colorPrimaryDark"
                 android:hint="@string/categoria"
                 android:paddingLeft="16px"
-                android:textColorHint="@android:color/background_dark" />
-
-            <Button android:background="@color/colorPrimary"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorAccent"
                 android:visibility="gone"
+                android:inputType="text"/>
+
+            <Button
+                android:id="@+id/guardar_tarea"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorUsers"
                 android:text="@string/send_task"
-                android:id="@+id/guardar_tarea"/>
+                android:visibility="gone"
+                android:textColor="@android:color/background_light"/>
 
-            <Button android:background="@color/colorPrimary"
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.2dp"
                 android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
+                android:background="@android:color/background_dark"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/Ver_tarea"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorUsers"
                 android:text="Ver Tareas Actuales"
-                android:id="@+id/Ver_tarea"/>
+                android:textColor="@android:color/background_light" />
 
-            <Button android:background="@color/colorPrimary"
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.2dp"
                 android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
+                android:background="@android:color/background_dark"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/eliminar_tarea"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorUsers"
                 android:text="Eliminar Tarea"
-                android:id="@+id/eliminar_tarea"/>
+                android:textColor="@android:color/background_light" />
 
-            <Button android:background="@color/colorPrimary"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/numeritos"
                 android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:hint="@string/numero"
+                android:paddingLeft="16px"
+                android:textColorHint="@color/colorAccent"
+                android:visibility="gone"
+                android:inputType="numberDecimal"/>
+
+            <Button
+                android:id="@+id/deletetask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimary"
+                android:text="Eliminar"
+                android:visibility="gone"
+                android:textColor="@android:color/background_light"/>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.2dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/background_dark"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/modificar_tarea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorUsers"
                 android:text="Modificar Alguna Tarea"
-                android:id="@+id/modificar_tarea"/>
+                android:textColor="@android:color/background_light" />
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:id="@+id/tv_response"
-        android:layout_weight="0.10"
-        android:layout_marginTop="15dp"
-        android:visibility="gone"
-        android:textColor="@android:color/background_light"
-        android:background="@color/colorAccent"
-        android:textAlignment="center"
-        android:paddingTop="10dp"
-        android:textSize="20sp" />
+            <EditText
+                android:id="@+id/updnumeritos"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:hint="@string/numero"
+                android:paddingLeft="16px"
+                android:textColorHint="@color/colorAccent"
+                android:visibility="gone"
+                android:inputType="numberDecimal"/>
 
-         </LinearLayout>
+            <EditText
+                android:id="@+id/cambio_descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:hint="@string/descripcion"
+                android:paddingLeft="16px"
+                android:textColorHint="@color/colorAccent"
+                android:visibility="gone"
+                android:inputType="text"/>
+
+            <EditText
+                android:id="@+id/cambio_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:hint="@string/categoria"
+                android:paddingLeft="16px"
+                android:textColorHint="@color/colorAccent"
+                android:visibility="gone"
+                android:inputType="text"/>
+
+            <Button
+                android:id="@+id/updatetask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimary"
+                android:text="Cambiar"
+                android:visibility="gone"
+                android:textColor="@android:color/background_light"/>
+
+            <TextView
+                android:id="@+id/tv_response"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/colorAccent"
+                android:paddingTop="10dp"
+                android:textColor="@android:color/background_light"
+                android:textSize="20sp"
+                android:visibility="gone" />
+
+        </LinearLayout>
     </ScrollView>
 
 

@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/libritos"
     android:orientation="vertical"
     android:paddingBottom="16px"
     android:paddingLeft="16px"
@@ -19,7 +18,7 @@
         android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@color/common_google_signin_btn_text_light_default"
         android:elevation="1dp"
         android:text=" Register"
         android:textColor="@android:color/background_light"
@@ -37,131 +36,169 @@
             <EditText
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
+                android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="0.09"
                 android:background="@color/colorPrimaryDark"
                 android:hint="@string/hint_username"
                 android:paddingLeft="16px"
-                android:textColorHint="@android:color/background_dark" />
+                android:textColorHint="@color/colorAccent"
+                android:inputType="textPersonName"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.2dp"
+                android:background="@android:color/background_dark"
+                android:visibility="visible" />
 
             <EditText
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
-                android:layout_marginTop="10dp"
+                android:layout_height="40dp"
                 android:layout_weight="0.09"
                 android:background="@color/colorPrimaryDark"
                 android:hint="@string/hint_nombre"
                 android:paddingLeft="16px"
-                android:textColorHint="@android:color/background_dark" />
+                android:textColorHint="@color/colorAccent"
+                android:inputType="textPersonName"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.2dp"
+                android:background="@android:color/background_dark"
+                android:visibility="visible" />
 
             <EditText
                 android:id="@+id/et_last_name"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
-                android:layout_marginTop="10dp"
+                android:layout_height="40dp"
                 android:layout_weight="0.09"
                 android:background="@color/colorPrimaryDark"
                 android:hint="@string/hint_last_nombre"
                 android:paddingLeft="16px"
-                android:textColorHint="@android:color/background_dark" />
+                android:textColorHint="@color/colorAccent"
+                android:inputType="textPersonName"/>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.2dp"
+                android:background="@android:color/background_dark"
+                android:visibility="visible" />
 
             <EditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
-                android:layout_marginTop="10dp"
+                android:layout_height="40dp"
                 android:layout_weight="0.09"
                 android:background="@color/colorPrimaryDark"
                 android:ems="10"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
                 android:paddingLeft="16px"
-                android:textColorHint="@android:color/background_dark" />
+                android:textColorHint="@color/colorAccent" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.2dp"
+                android:background="@android:color/background_dark"
+                android:visibility="visible" />
 
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
-                android:layout_marginTop="10dp"
+                android:layout_height="40dp"
                 android:layout_weight="0.09"
                 android:background="@color/colorPrimaryDark"
                 android:ems="10"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
                 android:paddingLeft="16px"
-                android:textColorHint="@android:color/background_dark" />
+                android:textColorHint="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/fechaNac"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="0.09"
-                android:background="@mipmap/libros"
+                android:background="@color/common_google_signin_btn_text_light_default"
                 android:paddingTop="5dp"
                 android:text="Fecha de Nacimiento"
                 android:textAlignment="center"
-                android:textColor="@android:color/background_dark"
-                android:textSize="20sp" />
+                android:textColor="@android:color/background_light"
+                android:textSize="22sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/dia"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
-                android:layout_marginTop="10dp"
+                android:layout_height="40dp"
+
                 android:layout_weight="0.09"
                 android:background="@color/colorPrimaryDark"
-                android:hint="Dia"
-                android:ems="10"
+                android:hint="@string/Dia"
                 android:paddingLeft="16px"
-                android:textColor="@android:color/background_dark" />
-
+                android:textColor="@android:color/background_dark"
+                android:textColorHint="@color/colorAccent"
+                android:inputType="numberDecimal" />
+            <View
+                android:layout_width="0.2dp"
+                android:layout_height="fill_parent"
+                android:background="@android:color/background_dark"
+                android:visibility="visible" />
             <EditText
                 android:id="@+id/mes"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
-                android:layout_marginTop="10dp"
+                android:layout_height="40dp"
                 android:layout_weight="0.09"
                 android:background="@color/colorPrimaryDark"
-                android:hint="Mes"
-                android:ems="10"
+                android:hint="@string/Mes"
                 android:paddingLeft="16px"
-                android:textColor="@android:color/background_dark" />
+                android:textColor="@android:color/background_dark"
+                android:textColorHint="@color/colorAccent"
+                android:inputType="number"/>
+            <View
+                android:layout_width="0.2dp"
+                android:layout_height="fill_parent"
+                android:background="@android:color/background_dark"
+                android:visibility="visible" />
 
             <EditText
                 android:id="@+id/year"
                 android:layout_width="match_parent"
-                android:layout_height="70px"
-                android:layout_marginTop="10dp"
+                android:layout_height="40dp"
                 android:layout_weight="0.09"
                 android:background="@color/colorPrimaryDark"
-                android:hint="Año"
-                android:ems="10"
+                android:hint="@string/Year"
                 android:paddingLeft="16px"
-                android:textColor="@android:color/background_dark" />
+                android:textColor="@android:color/background_dark"
+                android:textColorHint="@color/colorAccent"
+                android:inputType="number"/>
+
+        </LinearLayout>
 
             <Button
                 android:id="@+id/guardar_registro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorPrimary"
-                android:text="@string/action_register" />
+                android:background="@color/colorUsers"
+                android:text="@string/action_register"
+                android:textColor="@android:color/background_light" />
 
             <TextView
-                android:id="@+id/tv_response"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:id="@+id/tv_response"
                 android:layout_weight="0.10"
-                android:background="@android:color/background_dark"
-                android:paddingTop="10dp"
-                android:textAlignment="center"
+                android:layout_marginTop="15dp"
+                android:visibility="gone"
                 android:textColor="@android:color/background_light"
-                android:textSize="20sp"
-                android:visibility="gone" />
+                android:background="@android:color/background_dark"
+                android:textAlignment="center"
+                android:paddingTop="10dp"
+                android:textSize="20sp" />
 
         </LinearLayout>
     </ScrollView>

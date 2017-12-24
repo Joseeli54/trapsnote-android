@@ -1,9 +1,14 @@
 package com.exam.sid.aplicacion.model;
 
-public class Get { // aqui se convierte el lenguaje json a java, para poder asignarle el valor y enviarlos a la url
+public class Get {        //////////////////////////////////////
+                         // Esta clase guarda los objetos    //
+                        //   de Usuarios y Tareas. Y tiene  //
+                       // sus respectivos getter y setter  //
+                      //////////////////////////////////////
 
-    private Usuarios usuario;
-    private Tareas[] tareas;
+    private Usuarios usuario; //Se utiliza para leer un solo usuario
+    private Tareas[] tareas; //Se utiliza para leer todas las tareas
+    private Tareas tarea; // Se utiliza para leer una sola tarea
 
     public Usuarios getUsuario(){
         return this.usuario;
@@ -19,6 +24,14 @@ public class Get { // aqui se convierte el lenguaje json a java, para poder asig
 
     public Tareas[] getTareas() {
         return tareas;
+    }
+
+    public Tareas getTarea() {
+        return tarea;
+    }
+
+    public void setTarea(Tareas tarea) {
+        this.tarea = tarea;
     }
 
 }
