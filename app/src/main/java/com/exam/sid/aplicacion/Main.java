@@ -12,13 +12,13 @@ import android.widget.TextView;
 import com.exam.sid.aplicacion.model.Get;
 import com.exam.sid.aplicacion.model.Post;
 import com.exam.sid.aplicacion.model.Usuarios;
+import com.exam.sid.aplicacion.remote.ApiUtils;
+import com.exam.sid.aplicacion.remote.Validation;
 import com.exam.sid.aplicacion.service.UserClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Main extends AppCompatActivity{
         //////////////////////////////////////////////////////////////////////
@@ -30,8 +30,8 @@ public class Main extends AppCompatActivity{
     private Usuarios usuario; //Aqui se guarda los datos del usuario que inicia sesion
     private TextView mResponseTv; //Mensaje de aviso
     private Button btn_Update; //Boton de modificacion de datos de usuario
-    public static final String BASE_URL = "https://dry-forest-40048.herokuapp.com";
-    //URL principal del restApp
+    private UserClient mAPIService;
+    private Validation validar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -47,7 +47,8 @@ public class Main extends AppCompatActivity{
         * El email se requiere para el inicio de sesion
         * El password se requiere para el inicio de sesion
         */
-
+        validar = new Validation();
+        mAPIService = ApiUtils.getAPIService();
         btn_Update = (Button) findViewById(R.id.to_update);
         mResponseTv = (TextView) findViewById(R.id.tv_response);
         Button btnRegister = (Button) findViewById(R.id.register_button);
@@ -74,12 +75,30 @@ public class Main extends AppCompatActivity{
         btnSignIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                                                                  ///////////////////////////////////////////////////
-                showResponse("Cargando...");                     //       Si se tocase el boton de Sign In,       //
-                Post post = new Post(email.getText().toString(),// aparece el aviso "Cargando..", se insertan    //
-                        password.getText().toString());        //los datos de email y password, y se implementa //
-                sendLogin(post, email, password);             //     el metodo que envia los datos.            //
-                                                             ///////////////////////////////////////////////////
+
+                if(validar.LoginNoNulo(email,password) == 1) {
+                    colorResponse(0xab000000);                        ///////////////////////////////////////////////////
+                    showResponse("Cargando...");                     //       Si se tocase el boton de Sign In,       //
+                    Post post = new Post(email.getText().toString(),// aparece el aviso "Cargando..", se insertan    //
+                            password.getText().toString());        //los datos de email y password, y se implementa //
+                    sendLogin(post, email, password);             //     el metodo que envia los datos.            //
+                                                                 ///////////////////////////////////////////////////
+                }
+                else{
+
+                    if(validar.LoginNoNulo(email,password) == 2){
+                        colorResponse(0xeadc4126);
+                        showResponse("La contraseña es requerida");
+                    }
+                    else if(validar.LoginNoNulo(email,password) == 3){
+                        colorResponse(0xeadc4126);
+                        showResponse("El correo es requerido");
+                    }
+                    else if(validar.LoginNoNulo(email,password) == 4){
+                        colorResponse(0xeadc4126);
+                        showResponse("Los campos son requeridos");
+                    }
+                }
             }
         });
 
@@ -119,16 +138,7 @@ public class Main extends AppCompatActivity{
     }
 
     private void sendLogin(Post post, final TextView email, final TextView password){
-
-        Retrofit retrofit =                                                    //////////////////////////
-                new Retrofit.Builder()                                        //  Aqui se manda el    //
-                        .baseUrl(BASE_URL)                                   //  URL verifica y      //
-                        .addConverterFactory(GsonConverterFactory.create()) // se convierte en Json //
-                        .build();                                          // cada dato que este   //
-        UserClient client = retrofit.create(UserClient.class);            //     dentro de el.    //
-                                                                         //////////////////////////
-        Call<Post> listCall = client.postLogin(post);
-        listCall.enqueue(new Callback<Post>() {
+        mAPIService.postLogin(post).enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                                                                                    /////////////////////////////////////////////
@@ -143,33 +153,24 @@ public class Main extends AppCompatActivity{
                         DeleteDate(email,password);                       //       Al finalizar se borran los datos  //
                     }                                                    //             que se escribieron.         //
                 }else if(response.code() == 400){                       /////////////////////////////////////////////
-                    showResponse("Correo/Contraseña incorrecto");
+                    colorResponse(0xeadc4126);
+                    showResponse("El correo o la contraseña es incorrecto");
                 }
 
             }
 
             @Override
-            public void onFailure(Call<Post> call, Throwable t) {     /////////////////////////////////////////////
-                showResponse("Problem Connection");                  // Cuando no se puede realizar la peticion //
-            }                                                       /////////////////////////////////////////////
+            public void onFailure(Call<Post> call, Throwable t) {               /////////////////////////////////////////////
+                showResponse("Hay problema con la conexion al servicio");      // Cuando no se puede realizar la peticion //
+            }                                                                 /////////////////////////////////////////////
         });
 
 
     }
 
     private void getList(String username) {
-
-        Retrofit retrofit =                                                    //////////////////////////
-                new Retrofit.Builder()                                        //  Aqui se manda el    //
-                        .baseUrl(BASE_URL)                                   //  URL verifica y      //
-                        .addConverterFactory(GsonConverterFactory.create()) // se convierte en Json //
-                        .build();                                          // cada dato que este   //
-                                                                          //     dentro de el.    //
-        UserClient client = retrofit.create(UserClient.class);           //////////////////////////
-
-        Call<Get> listCall = client.getList(username);
                                                                                /////////////////////////////////////////////
-        listCall.enqueue(new Callback<Get>() {                                // Se crea la llamada al metodo getList.   //
+        mAPIService.getList(username).enqueue(new Callback<Get>() {           // Se crea la llamada al metodo getList.   //
             @Override                                                        //     Para ello se utiliza enqueue y      //
             public void onResponse(Call<Get> call, Response<Get> response) {//    Callback, que te devuelven las       //
                 if (response.isSuccessful()) {                             //      respuestas de la peticion.         //
@@ -205,7 +206,11 @@ public class Main extends AppCompatActivity{
         mResponseTv.setText(response);
     }
 
-    public void showUpdate() { 
+    public void colorResponse(int color){
+        mResponseTv.setBackgroundColor(color);
+    }
+
+    public void showUpdate() {
                                                        ///////////////////////////////////////////
         if(btn_Update.getVisibility() == View.GONE) { // Aqui hago visible el boton de Update  //
             btn_Update.setVisibility(View.VISIBLE);  //     Y le agrego un nuevo texto        //

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.exam.sid.aplicacion.model.Post;
+import com.exam.sid.aplicacion.remote.ApiUtils;
 import com.exam.sid.aplicacion.service.UserClient;
 
 import java.text.ParseException;
@@ -17,8 +18,6 @@ import java.util.Date;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Register extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////
@@ -26,10 +25,8 @@ public class Register extends AppCompatActivity {
       // Maneja el layout register.xml. Una vez registrado el usuario se    //
      // puede retroceder a la vista de inicion de sesion.                  //
     // /////////////////////////////////////////////////////////////////////
-
+    private UserClient mAPIService;
     private TextView mResponseTv; //Aviso de mensaje
-    public static final String BASE_URL = "https://dry-forest-40048.herokuapp.com/";
-    //URL principal del restApp
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +46,7 @@ public class Register extends AppCompatActivity {
         * Se inicializan las variables de cada EditText requerido para el registro
         */
 
+        mAPIService = ApiUtils.getAPIService();
         mResponseTv = (TextView) findViewById(R.id.tv_response);
         Button btnActionRegister = (Button) findViewById(R.id.guardar_registro);
 
@@ -60,7 +58,8 @@ public class Register extends AppCompatActivity {
         btnActionRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                colorResponse(0xab000000);
+                showResponse("Cargando...");
                 String fecha = year.getText().toString()+"-"+
                         mes.getText().toString()+"-"+
                         dia.getText().toString();
@@ -86,21 +85,14 @@ public class Register extends AppCompatActivity {
     }
 
     private void sendNetworkRequest(Post post) {
-        Retrofit retrofit =                                                    //////////////////////////
-                new Retrofit.Builder()                                        //  Aqui se manda el    //
-                        .baseUrl(BASE_URL)                                   //  URL verifica y      //
-                        .addConverterFactory(GsonConverterFactory.create()) // se convierte en Json //
-                        .build();                                          // cada dato que este   //
-        UserClient client = retrofit.create(UserClient.class);            //     dentro de el.    //
-                                                                         //////////////////////////
-        Call<Post> call = client.createAccount(post);
-        call.enqueue(new Callback<Post>() {
+        mAPIService.createAccount(post).enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
-                if(response.isSuccessful()) {                        /////////////////////////////////////////////////
+                if(response.isSuccessful()) {
+                    colorResponse(0xd810700e);                       /////////////////////////////////////////////////
                     showResponse("User Create Sucessfull");         // Se crea la llamada al metodo CreateAccount. //
                 }                                                  // Si la respuesta es satisfactoria,se creo el //
-                else{                                             //  usuario, pero sino se manda un aviso de    //
+                else{ colorResponse(0xeadc4126);                  //  usuario, pero sino se manda un aviso de    //
                     showResponse("We can't identify error");     //                 error                       //
                 }                                               /////////////////////////////////////////////////
             }
@@ -111,6 +103,10 @@ public class Register extends AppCompatActivity {
         });
     }
 
+    public void colorResponse(int color){
+        mResponseTv.setBackgroundColor(color);
+    }
+
     public void showResponse(String response) {
                                                         ///////////////////////////////////////////
         if(mResponseTv.getVisibility() == View.GONE) { // Aqui hago visible el aviso de mensaje //
@@ -119,4 +115,3 @@ public class Register extends AppCompatActivity {
         mResponseTv.setText(response);
     }
 }
-

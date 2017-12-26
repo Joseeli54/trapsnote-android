@@ -18,11 +18,22 @@
         android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/common_google_signin_btn_text_light_default"
+        android:background="@color/colorAccent"
         android:elevation="1dp"
         android:text=" Register"
         android:textColor="@android:color/background_light"
         android:textSize="36sp" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/tv_response"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        android:textColor="@android:color/background_light"
+        android:background="@color/colorAccent"
+        android:textAlignment="center"
+        android:textSize="20sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -37,7 +48,7 @@
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="0.09"
                 android:background="@color/colorPrimaryDark"
                 android:hint="@string/hint_username"
@@ -118,7 +129,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="0.09"
-                android:background="@color/common_google_signin_btn_text_light_default"
+                android:background="@color/colorAccent"
                 android:paddingTop="5dp"
                 android:text="Fecha de Nacimiento"
                 android:textAlignment="center"
@@ -186,19 +197,6 @@
                 android:background="@color/colorUsers"
                 android:text="@string/action_register"
                 android:textColor="@android:color/background_light" />
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:id="@+id/tv_response"
-                android:layout_weight="0.10"
-                android:layout_marginTop="15dp"
-                android:visibility="gone"
-                android:textColor="@android:color/background_light"
-                android:background="@android:color/background_dark"
-                android:textAlignment="center"
-                android:paddingTop="10dp"
-                android:textSize="20sp" />
 
         </LinearLayout>
     </ScrollView>
