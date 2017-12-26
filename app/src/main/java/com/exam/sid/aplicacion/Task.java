@@ -8,13 +8,12 @@ import android.widget.TextView;
 
 import com.exam.sid.aplicacion.model.Get;
 import com.exam.sid.aplicacion.model.Tareas;
+import com.exam.sid.aplicacion.remote.ApiUtils;
 import com.exam.sid.aplicacion.service.UserClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Elias Barrientos on 12/5/2017.
@@ -30,7 +29,7 @@ public class Task extends AppCompatActivity {
    ////////////////////////////////////////////////////////////////////////
 
     TextView mResponseTv, mWelcome; // Los avisos de mensaje
-    public static final String BASE_URL = "https://dry-forest-40048.herokuapp.com/"; //Url principal
+    UserClient mAPIService;
     Button btnTask, btnDelete, btnUpdate; //Botones de accion, aqui se ejecutan los procesos
     Tareas[] tareas; // Arreglo de las tareas que se lean en la base de datos
 
@@ -45,6 +44,7 @@ public class Task extends AppCompatActivity {
         * Se obtienen los datos suministrados por la clase Main
         */
 
+        mAPIService = ApiUtils.getAPIService();
         mResponseTv = (TextView) findViewById(R.id.tv_response);
         mWelcome = (TextView) findViewById(R.id.welcome);
         verBienvenida(name);
@@ -72,6 +72,7 @@ public class Task extends AppCompatActivity {
         btnTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                colorWelcome(0xab000000);
                 showWelcome("Cargando...");                                 //////////////////////////////////////////////
                 Tareas tareas = new Tareas(categoria.getText().toString(), // Si se da click en el boton de accion     //
                         descripcion.getText().toString());                // btnTask se guardaran los datos de tareas.//
@@ -95,8 +96,8 @@ public class Task extends AppCompatActivity {
         SelectGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                                                        ///////////////////////////////////////////////
-                                                       // Al tocar SelectGet se muestra un aviso de //
+                colorResponse(0xab000000);              ///////////////////////////////////////////////
+                colorWelcome(0xab000000);              // Al tocar SelectGet se muestra un aviso de //
                 showWelcome("Cargando...");           // mensaje de "Cargando..." y me envia al    //
                 getTask(nick);                       //      metodo de leer tareas                //
                                                     ///////////////////////////////////////////////
@@ -109,7 +110,7 @@ public class Task extends AppCompatActivity {
                                               //////////////////////////////////////////////////
                                              // Al tocar SelectDelete se muestra un TextView //
                 MostrarDelete(numero);      // del numero de la tarea y el boton btnDelete. //
-                                          ///////////////////////////////////////////////////
+                                           //////////////////////////////////////////////////
 
             }
         });
@@ -117,11 +118,12 @@ public class Task extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                                                                                  /////////////////////////////////////
-                                                                                 // Al tocar btnDelete se pasa como //
-                DeleteTask(Integer.parseInt(numero.getText().toString())-1,nick); // parametro el numero de la tarea //
-                                                                               // y me envia al metodo DeleteTask.//
-                                                                              /////////////////////////////////////
+                                                                                    /////////////////////////////////////
+                colorWelcome(0xab000000);                                          // Al tocar btnDelete se pasa como //
+                showWelcome("Cargando...");                                       // parametro el numero de la tarea //
+                DeleteTask(Integer.parseInt(numero.getText().toString())-1,nick);// y me envia al metodo DeleteTask.// 
+                                                                                ///////////////////////////////////// 
+                                                                              
 
             }
         });
@@ -137,6 +139,8 @@ public class Task extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                colorWelcome(0xab000000);
+                showWelcome("Cargando...");
                 Tareas tareas = new Tareas(updCategoria.getText().toString(),     /////////////////////////////
                                           updDescripcion.getText().toString());  // Si toco el boton se     //
                 updateTask(nick,tareas,                                         // pasan los datos que se  //
@@ -160,6 +164,14 @@ public class Task extends AppCompatActivity {
             mResponseTv.setVisibility(View.VISIBLE);  //     Y le agrego un nuevo texto        //
         }                                            ///////////////////////////////////////////
         mResponseTv.setText(response);
+    }
+
+    public void colorResponse(int color){
+        mResponseTv.setBackgroundColor(color);
+    }
+
+    public void colorWelcome(int color){
+        mWelcome.setBackgroundColor(color);
     }
 
     public void showWelcome(String response) {
@@ -207,58 +219,45 @@ public class Task extends AppCompatActivity {
     }
 
     private void sendTask(final String username, Tareas tareas){
-        Retrofit retrofit =                                                    //////////////////////////
-                new Retrofit.Builder()                                        //  Aqui se manda el    //
-                        .baseUrl(BASE_URL)                                   //  URL verifica y      //
-                        .addConverterFactory(GsonConverterFactory.create()) // se convierte en Json //
-                        .build();                                          // cada dato que este   //
-        UserClient client = retrofit.create(UserClient.class);            //     dentro de el.    //
-                                                                         //////////////////////////
-        Call<Tareas> call = client.sendTask(username, tareas);
-        call.enqueue(new Callback<Tareas>(){
+        mAPIService.sendTask(username, tareas).enqueue(new Callback<Tareas>(){
             @Override
             public void onResponse(Call<Tareas> call, Response<Tareas> response) {  ////////////////////////////////////////
                 if(response.isSuccessful()){                                       // Si la respuesta es satisfactoria,  //
-                    showWelcome("Tarea guardada");                                // Entonces se envia un aviso de      //
-                }                                                                // de que la tarea se mando con exito //
-            }                                                                   // Sino no se envia nada. Si la res-  //
-                                                                               // puesta no llego,    se dice que    //
-            @Override                                                         // Hay un problema con la conexion    //
-            public void onFailure(Call<Tareas> call, Throwable t) {          ////////////////////////////////////////
+                    colorWelcome(0xd810700e);                                     // Entonces se envia un aviso de      //
+                    showWelcome("Tarea guardada");                               // Sino no se envia nada. Si la res-  // 
+                }                                                               // puesta no llego,    se dice que    //
+                else{                                                          // Hay un problema con la conexion    //
+                    colorWelcome(0xeadc4126);                                 ////////////////////////////////////////
+                    showWelcome("Tarea no guardada");
+                }// de que la tarea se mando con exito //
+            }                                                                  
+                                                                              
+            @Override                                                         
+            public void onFailure(Call<Tareas> call, Throwable t) {          
                     showWelcome("No se guardo... Problema con la conexion");
             }
         });
-
     }
 
     private void getTask(String username){
-
-        Retrofit retrofit =                                                    //////////////////////////
-                new Retrofit.Builder()                                        //  Aqui se manda el    //
-                        .baseUrl(BASE_URL)                                   //  URL verifica y      //
-                        .addConverterFactory(GsonConverterFactory.create()) // se convierte en Json //
-                        .build();                                          // cada dato que este   //
-        UserClient client = retrofit.create(UserClient.class);            //     dentro de el.    //
-                                                                         //////////////////////////
-        Call<Get> listCall = client.getTask(username);
-        listCall.enqueue(new Callback<Get>() {
+        mAPIService.getTask(username).enqueue(new Callback<Get>() {
             @Override
             public void onResponse(Call<Get> call, Response<Get> response) {
                 if(response.isSuccessful()){
                     tareas = response.body().getTareas();
 
-                    if(tareas != null){
+                    if(tareas.length != 0){
                         String res = "";                                      ////////////////////////////////////////
                         for(int i = 0; i<tareas.length; i++){                // Se leen las tareas que estan       //
                             res = res+(i+1)+") "+tareas[i].getDescripcion()+// Si la respuesta es satisfactoria   //
                                                                "\n\n";     // Se verifica que hayan tareas       //
                         }                                                 // Si hay tareas se usa un arreglo    //
                         showResponse(res);                               // y una variable String para mostrar //
-                                                                        // la descripcion y el id             //
+                        showWelcome("");                                // la descripcion y el id             //
                     }                                                  ////////////////////////////////////////
-                }
-                else{
-                        showWelcome("Vacio");
+                    else{
+                        showWelcome("Lista de tareas vacia");
+                    }
                 }
             }
             @Override
@@ -276,23 +275,17 @@ public class Task extends AppCompatActivity {
             }                                 // Ya que se observa cada elemento de tareas         //
         }                                    // Para poder obtener su id y pasarlo a la interface //
                                             ///////////////////////////////////////////////////////
-        Retrofit retrofit =                                                    //////////////////////////
-                new Retrofit.Builder()                                        //  Aqui se manda el    //
-                        .baseUrl(BASE_URL)                                   //  URL verifica y      //
-                        .addConverterFactory(GsonConverterFactory.create()) // se convierte en Json //
-                        .build();                                          // cada dato que este   //
-        UserClient client = retrofit.create(UserClient.class);            //     dentro de el.    //
-                                                                         //////////////////////////
-        Call<Get> listCall = client.deleteTask(username, _id);
-        listCall.enqueue(new Callback<Get>() {
+        mAPIService.deleteTask(username, _id).enqueue(new Callback<Get>() {
             @Override
             public void onResponse(Call<Get> call, Response<Get> response) {
                 if(response.isSuccessful()){
-                    showResponse("Tarea Eliminado");            ////////////////////////////////////////////
+                    colorResponse(0xd810700e);
+                    showResponse("Tarea Eliminada");            ////////////////////////////////////////////
                 }                                              // Si la respuesta es satisfactoria       //
-                else                                          // Se envia el mensaje de tarea eliminada //
-                    showResponse("Tarea no Eliminado");      // Sino se envia lo contrario             //
-            }                                               ////////////////////////////////////////////
+                else{  colorResponse(0xeadc4126);             // Se envia el mensaje de tarea eliminada //
+                    showResponse("Tarea no Eliminada");}     // Sino se envia lo contrario             //
+            showWelcome("");                                ////////////////////////////////////////////
+            }                                               
             @Override
             public void onFailure(Call<Get> call, Throwable t) {   /////////////////////////////////////
                 showResponse("Error");                            // Si no se ejecuta las respuestas //
@@ -308,28 +301,22 @@ public class Task extends AppCompatActivity {
             }                                 // Ya que se observa cada elemento de tareas         //
         }                                    // Para poder obtener su id y pasarlo a la interface //
                                             ///////////////////////////////////////////////////////
-        Retrofit retrofit =                                                    //////////////////////////
-                new Retrofit.Builder()                                        //  Aqui se manda el    //
-                        .baseUrl(BASE_URL)                                   //  URL verifica y      //
-                        .addConverterFactory(GsonConverterFactory.create()) // se convierte en Json //
-                        .build();                                          // cada dato que este   //
-        UserClient client = retrofit.create(UserClient.class);            //     dentro de el.    //
-                                                                         //////////////////////////
-        Call<Get> listCall = client.updateTask(username, _id, task);
-        listCall.enqueue(new Callback<Get>() {
+        mAPIService.updateTask(username, _id, task).enqueue(new Callback<Get>() {
             @Override
             public void onResponse(Call<Get> call, Response<Get> response) {
                 if(response.isSuccessful()) {
                     if (response.body() != null) {
+                        colorResponse(0xd810700e);
                         showResponse("Una tarea ha sido modificada");  /////////////////////////////////////
-                    } else {                                          // Si la tarea se modifica         //
+                    } else {  colorResponse(0xeadc4126);              // Si la tarea se modifica         //
                         showWelcome("La tarea esta vacia");          // satisfactoriamente entonces     //
                     }                                               // se manda un aviso de mensaje    //
                 }                                                  // de tarea cambiada, sino se      //
-                else{                                             // manda error, y si no se envia   //
+                else{  colorResponse(0xeadc4126);                 // manda error, y si no se envia   //
                        showWelcome("Ha ocurrido un error");      // la peticion se manda error del  //
                 }                                               //           servidor              //
-            }                                                  /////////////////////////////////////
+                showWelcome("");                               /////////////////////////////////////
+            }                                                  
             @Override
             public void onFailure(Call<Get> call, Throwable t) {
                       showWelcome("Error con el servidor");

@@ -161,7 +161,7 @@ public class Main extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<Post> call, Throwable t) {               /////////////////////////////////////////////
-                showResponse("Hay problema con la conexion al servicio");      // Cuando no se puede realizar la peticion //
+                showResponse("Hay un problema con la conexion al servicio");   // Cuando no se puede realizar la peticion //
             }                                                                 /////////////////////////////////////////////
         });
 
