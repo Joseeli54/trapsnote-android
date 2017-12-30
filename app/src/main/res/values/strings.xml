@@ -10,11 +10,11 @@
     <string name="hint_nombre">Nombre</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
-    <string name="Register">Trapsnote</string>
+    <string name="Register">TrapsNote</string>
     <string name="Delete">Delete</string>
     <string name="to_Update">To Update</string>
     <string name="action_update">Update Now</string>
-    <string name="Task">Trapsnote</string>
+    <string name="Task">TrapsNote</string>
     <string name="Update">Update</string>
     <string name="hint_last_nombre">Last_name</string>
     <string name="Dia">Dia</string>

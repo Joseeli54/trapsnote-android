@@ -30,8 +30,8 @@ public class Main extends AppCompatActivity{
     private Usuarios usuario; //Aqui se guarda los datos del usuario que inicia sesion
     private TextView mResponseTv; //Mensaje de aviso
     private Button btn_Update; //Boton de modificacion de datos de usuario
-    private UserClient mAPIService;
-    private Validation validar;
+    private UserClient mAPIService; // Variable de tipo UserClient
+    private Validation validar; // Variable de tipo validacion
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -99,6 +99,8 @@ public class Main extends AppCompatActivity{
                         showResponse("Los campos son requeridos");
                     }
                 }
+
+                validar.campos_de_Login(email,password);
             }
         });
 
@@ -237,6 +239,7 @@ public class Main extends AppCompatActivity{
         ListSong.putExtra("variable_name", name);                        //  Paso el token, el nombre  //
         ListSong.putExtra("variable_username", username);               // del usuario y su username  //
         startActivity(ListSong);                                       ////////////////////////////////
+        finish();
     }
 
     public void mover_a_Actualizacion() {
