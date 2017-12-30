@@ -26,6 +26,10 @@ public class Tareas {   ///////////////////////////////////////////////////
         this.descripcion = descripcion;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
     public String get_id() {
         return _id;
     }

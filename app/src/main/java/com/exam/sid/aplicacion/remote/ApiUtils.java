@@ -7,6 +7,11 @@ import com.exam.sid.aplicacion.service.UserClient;
  */
 
  public class ApiUtils {
+ 	      ///////////////////////////////////////////////////////////////////
+       // Clase que se encarga de hacer la llamada al cliente e ingresa //
+      // El URL base que se utilizara, asi no sera necesario crear     //
+     //       un variable de tipo Call para hacer el trabajo          //
+    ///////////////////////////////////////////////////////////////////
 
         private ApiUtils() {}
 
@@ -15,7 +20,7 @@ import com.exam.sid.aplicacion.service.UserClient;
 
         public static UserClient getAPIService() {
 
-            return RetrofitClient.getClient(BASE_URL).create(UserClient.class);
+            return RetrofitClient.getClient(BASE_URL).create(UserClient.class); // Retorna un UserClient
         }
  }
 

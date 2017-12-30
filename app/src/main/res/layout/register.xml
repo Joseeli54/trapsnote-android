@@ -48,8 +48,8 @@
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_weight="0.09"
+                android:layout_marginTop="5dp"
                 android:background="@color/colorPrimaryDark"
                 android:hint="@string/hint_username"
                 android:paddingLeft="16px"
@@ -145,12 +145,10 @@
                 android:id="@+id/dia"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-
                 android:layout_weight="0.09"
                 android:background="@color/colorPrimaryDark"
                 android:hint="@string/Dia"
                 android:paddingLeft="16px"
-                android:textColor="@android:color/background_dark"
                 android:textColorHint="@color/colorAccent"
                 android:inputType="numberDecimal" />
             <View
@@ -166,7 +164,6 @@
                 android:background="@color/colorPrimaryDark"
                 android:hint="@string/Mes"
                 android:paddingLeft="16px"
-                android:textColor="@android:color/background_dark"
                 android:textColorHint="@color/colorAccent"
                 android:inputType="number"/>
             <View
@@ -183,7 +180,6 @@
                 android:background="@color/colorPrimaryDark"
                 android:hint="@string/Year"
                 android:paddingLeft="16px"
-                android:textColor="@android:color/background_dark"
                 android:textColorHint="@color/colorAccent"
                 android:inputType="number"/>
 
