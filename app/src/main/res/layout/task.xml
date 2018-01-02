@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,14 +11,14 @@
     android:paddingLeft="16px"
     android:paddingRight="16px"
     android:paddingTop="16px"
-    android:weightSum="1"
-    tools:context="com.exam.sid.aplicacion.Main">
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
+        android:visibility="gone"
         android:elevation="1dp"
         android:text=" Task"
         android:textColor="@android:color/background_light"
@@ -28,198 +29,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background="@color/colorAccent"
         android:textAlignment="center"
-        android:textColor="@android:color/background_light"
-        android:textSize="20sp" />
+        android:textColor="@android:color/background_dark"
+        android:textSize="20sp"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_tarea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:background="@color/colorUsers"
+        android:text="Crear Nueva Tarea"
+        android:textColor="@android:color/background_light" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/layout"
             android:layout_height="match_parent"
+            android:layout_width="match_parent"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btn_tarea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorUsers"
-                android:text="Crear Nueva Tarea"
-                android:textColor="@android:color/background_light" />
-
-            <EditText
-                android:id="@+id/et_descripcion"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.09"
-                android:background="@color/colorPrimaryDark"
-                android:hint="@string/descripcion"
-                android:paddingLeft="16px"
-                android:textColorHint="@color/colorAccent"
-                android:visibility="gone"
-                android:inputType="text"/>
-
-            <EditText
+            <TextView
                 android:id="@+id/et_categoria"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.09"
-                android:background="@color/colorPrimaryDark"
-                android:hint="@string/categoria"
-                android:paddingLeft="16px"
-                android:textColorHint="@color/colorAccent"
-                android:visibility="gone"
-                android:inputType="text"/>
-
-            <Button
-                android:id="@+id/guardar_tarea"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorUsers"
-                android:text="@string/send_task"
-                android:visibility="gone"
-                android:textColor="@android:color/background_light"/>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="0.2dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/background_dark"
-                android:visibility="visible" />
-
-            <Button
-                android:id="@+id/Ver_tarea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorUsers"
-                android:text="Ver Tareas Actuales"
-                android:textColor="@android:color/background_light" />
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="0.2dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/background_dark"
-                android:visibility="visible" />
-
-            <Button
-                android:id="@+id/eliminar_tarea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorUsers"
-                android:text="Eliminar Tarea"
-                android:textColor="@android:color/background_light" />
-
-            <EditText
-                android:id="@+id/numeritos"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.09"
-                android:background="@color/colorPrimaryDark"
-                android:hint="@string/numero"
-                android:paddingLeft="16px"
-                android:textColorHint="@color/colorAccent"
-                android:visibility="gone"
-                android:inputType="numberDecimal"/>
-
-            <Button
-                android:id="@+id/deletetask"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorPrimary"
-                android:text="Eliminar"
-                android:visibility="gone"
-                android:textColor="@android:color/background_light"/>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="0.2dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/background_dark"
-                android:visibility="visible" />
-
-            <Button
-                android:id="@+id/modificar_tarea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorUsers"
-                android:text="Modificar Alguna Tarea"
-                android:textColor="@android:color/background_light" />
-
-            <EditText
-                android:id="@+id/updnumeritos"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.09"
-                android:background="@color/colorPrimaryDark"
-                android:hint="@string/numero"
-                android:paddingLeft="16px"
-                android:textColorHint="@color/colorAccent"
-                android:visibility="gone"
-                android:inputType="numberDecimal"/>
-
-            <EditText
-                android:id="@+id/cambio_descripcion"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.09"
-                android:background="@color/colorPrimaryDark"
-                android:hint="@string/descripcion"
-                android:paddingLeft="16px"
-                android:textColorHint="@color/colorAccent"
-                android:visibility="gone"
-                android:inputType="text"/>
-
-            <EditText
-                android:id="@+id/cambio_categoria"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.09"
-                android:background="@color/colorPrimaryDark"
-                android:hint="@string/categoria"
-                android:paddingLeft="16px"
-                android:textColorHint="@color/colorAccent"
-                android:visibility="gone"
-                android:inputType="text"/>
-
-            <Button
-                android:id="@+id/updatetask"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorPrimary"
-                android:text="Cambiar"
-                android:visibility="gone"
-                android:textColor="@android:color/background_light"/>
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tv_response"
+                android:id="@+id/et_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@color/colorAccent"
-                android:paddingTop="10dp"
-                android:textColor="@android:color/background_light"
-                android:textSize="20sp"
-                android:visibility="gone" />
+                android:layout_weight="0.09"
+                android:background="@color/colorPrimaryDark"
+                android:text="Create Task"
+                android:paddingLeft="16px"
+                android:textSize="20sp"/>
 
         </LinearLayout>
-    </ScrollView>
 
+    </ScrollView>
 
 </LinearLayout>

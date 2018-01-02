@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Main"
+            android:name=".activities.Main"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,16 +27,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Register"
+            android:name=".activities.Register"
             android:label="@string/Register"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".Task"
+            android:name=".activities.Task"
             android:label="@string/Task"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".Update"
+            android:name=".activities.Update"
             android:label="@string/Update"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activities.Block_task"
+            android:label="@string/Block_task"
             android:screenOrientation="portrait"></activity>
     </application>
 

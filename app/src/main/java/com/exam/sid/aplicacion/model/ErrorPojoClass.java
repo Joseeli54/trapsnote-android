@@ -11,6 +11,7 @@ public class ErrorPojoClass {
       // al momento del usuario escribir un dato que  //
      // no cumple las validaciones de la aplicacion  //
     //////////////////////////////////////////////////
+    private String errormsg;
     private Integer code; // Este es el codigo que sale cuando el usuario 
                           //que se desea agregar ya existe, es decir, esta duplicado.
     private Integer index; // Este igualmente (Devuelve un 0) aparece cuando el usuario existe.
@@ -22,6 +23,10 @@ public class ErrorPojoClass {
                             * Cuando se escribe mas de 50 caracateres en nombre y apellido
                             * etc...
                             */
+
+    public String getErrormsg() {
+        return errormsg;
+    }
 
     public String getMessage() {
         return message;

@@ -1,4 +1,4 @@
-package com.exam.sid.aplicacion;
+package com.exam.sid.aplicacion.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.exam.sid.aplicacion.R;
 import com.exam.sid.aplicacion.model.ErrorPojoClass;
 import com.exam.sid.aplicacion.model.Post;
 import com.exam.sid.aplicacion.remote.ApiUtils;
@@ -75,27 +76,27 @@ public class Register extends AppCompatActivity {
                         && validar.FechaNacfull(dia,mes,year)){  // Verifica si los campos existen
 
                     if(validar.fecha_apropiada(dia,mes)){ // Verifica el dia y el mes son los correctos
-                    colorResponse(0xab000000);
-                    showResponse("Cargando...");
-                    Post post = new Post(username.getText().toString(),                  ////////////////////////
-                            name.getText().toString(),last_name.getText().toString(),   // Se pasan los datos //
-                            email.getText().toString(), password.getText().toString(), // la variables post  // 
-                            fechaProg);                                               ////////////////////////
+                        colorResponse(0xab000000);
+                        showResponse("Cargando...");
+                        Post post = new Post(username.getText().toString(),                  ////////////////////////
+                                name.getText().toString(),last_name.getText().toString(),   // Se pasan los datos //
+                                email.getText().toString(), password.getText().toString(), // la variables post  //
+                                fechaProg,"movil");                                       ////////////////////////
 
-                    sendNetworkRequest(post); // Si son los correctos y las variables existen envia los datos 
-                    }          
+                        sendNetworkRequest(post); // Si son los correctos y las variables existen envia los datos
+                    }
                     else{      //////////////////////////////////////////////////
-                              // Si el dia y la fecha no son los correctos    //         
+                              // Si el dia y el mes no son los correctos      //
                              // Se verifican a ver cual es el que esta       //
-                            // fallando, y dependiendo te cual este fallan- // 
+                            // fallando, y dependiendo te cual este fallan- //
                            // do, se envia un aviso de mensaje al usuario. //
                           //////////////////////////////////////////////////
                         String res = "";
-                        if(!validar.dia_correcto(Integer.parseInt(dia.getText().toString()))){ 
-                        res = res + " { " + "Este dia no existe"+" }";
+                        if(!validar.dia_correcto(Integer.parseInt(dia.getText().toString()))){
+                            res = res + " { " + "Este dia no existe"+" }";
                         }
                         if(!validar.mes_correcto(Integer.parseInt(mes.getText().toString()))){
-                        res = res + " { " + "Este mes no existe"+" }";
+                            res = res + " { " + "Este mes no existe"+" }";
                         }
                         colorResponse(0xeadc4126);
                         showResponse(res);

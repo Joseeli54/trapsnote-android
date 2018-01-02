@@ -9,10 +9,10 @@ import android.widget.TextView;
  */
 
 public class Validation {
-	    /////////////////////////////////////////////
-	   // Esta clase se encarga de validar o no,  //
-	  // los atributos de los objetos de dominio //
-	 //            de la aplicacion.            //
+        /////////////////////////////////////////////
+       // Esta clase se encarga de validar o no,  //
+      // los atributos de los objetos de dominio //
+     //            de la aplicacion.            //
     /////////////////////////////////////////////
 
     public int LoginNoNulo(TextView email, TextView password){
@@ -61,7 +61,7 @@ public class Validation {
 
     public void campos_de_Login(TextView email, TextView password){ // Solo para Login
         if(Textfull(email)){
-            email.setBackgroundColor(0x8cbfe2e2);
+            email.setBackgroundColor(0x8c74b7b7);
             email.setHintTextColor(0xab000000);                   ////////////////////////////////////
         }                                                        // Aqui se verifican los campos   //
         else{                                                   // Uno por uno que no esten escri //
@@ -70,7 +70,7 @@ public class Validation {
         }                                                    ////////////////////////////////////
 
         if(Textfull(password)){
-            password.setBackgroundColor(0x8cbfe2e2);
+            password.setBackgroundColor(0x8c74b7b7);
             password.setHintTextColor(0xab000000);
         }
         else{
@@ -83,14 +83,14 @@ public class Validation {
                                 TextView last_name, TextView email, TextView password){
         // Solo para Register
         if(Textfull(username)){
-            username.setBackgroundColor(0x8cbfe2e2);
+            username.setBackgroundColor(0x8c74b7b7);
             username.setHintTextColor(0xab000000);
         }else{
             username.setBackgroundColor(0xb6ef9c97);
             username.setHintTextColor(Color.RED);       ////////////////////////////////////////////////////
         }                                              // Aqui se verifican los campos de register       //
         if(Textfull(name)){                           // Uno por uno, para ver si estan bien escritos   //
-            name.setBackgroundColor(0x8cbfe2e2);     // Sino, se colorea el fondo de rojo, junto con   //
+            name.setBackgroundColor(0x8c74b7b7);     // Sino, se colorea el fondo de rojo, junto con   //
             name.setHintTextColor(0xab000000);      //               el texto.                        //
         }                                          ////////////////////////////////////////////////////
         else{
@@ -99,7 +99,7 @@ public class Validation {
         }
 
         if(Textfull(last_name)){
-            last_name.setBackgroundColor(0x8cbfe2e2);
+            last_name.setBackgroundColor(0x8c74b7b7);
             last_name.setHintTextColor(0xab000000);
         }
         else{
@@ -108,7 +108,7 @@ public class Validation {
         }
 
         if(Textfull(email)){
-            email.setBackgroundColor(0x8cbfe2e2);
+            email.setBackgroundColor(0x8c74b7b7);
             email.setHintTextColor(0xab000000);
         }
         else{
@@ -117,7 +117,7 @@ public class Validation {
         }
 
         if(Textfull(password)){
-            password.setBackgroundColor(0x8cbfe2e2);
+            password.setBackgroundColor(0x8c74b7b7);
             password.setHintTextColor(0xab000000);
         }
         else{
@@ -128,7 +128,7 @@ public class Validation {
 
     public void campos_de_fecha(TextView dia, TextView mes, TextView year){ // Solo para fecha
         if(Textfull(dia)){
-            dia.setBackgroundColor(0x8cbfe2e2);
+            dia.setBackgroundColor(0x8c74b7b7);
             dia.setHintTextColor(0xab000000);
         }else{
             dia.setBackgroundColor(0xb6ef9c97);    /////////////////////////////////////////////////////
@@ -136,7 +136,7 @@ public class Validation {
         }                                        // Y campos_de_Register, solo que es aplicada      //
                                                 //                 a las fechas.                   //
         if(Textfull(mes)){                     /////////////////////////////////////////////////////
-            mes.setBackgroundColor(0x8cbfe2e2);
+            mes.setBackgroundColor(0x8c74b7b7);
             mes.setHintTextColor(0xab000000);
         }
         else{
@@ -145,7 +145,7 @@ public class Validation {
         }
 
         if(Textfull(year)){
-            year.setBackgroundColor(0x8cbfe2e2);
+            year.setBackgroundColor(0x8c74b7b7);
             year.setHintTextColor(0xab000000);
         }
         else{

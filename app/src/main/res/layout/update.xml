@@ -12,7 +12,7 @@
     android:paddingRight="16px"
     android:paddingTop="16px"
     android:weightSum="1"
-    tools:context="com.exam.sid.aplicacion.Main">
+    tools:context="com.exam.sid.aplicacion.activities.Main">
 
     <TextView
         android:id="@+id/titulo"

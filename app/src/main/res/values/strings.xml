@@ -22,7 +22,8 @@
     <string name="Year">Year</string>
     <string name="descripcion">Descripcion</string>
     <string name="categoria">Categoria</string>
-    <string name="send_task">Save Task</string>
+    <string name="send_task">Save</string>
     <string name="numero">Numero de Tarea</string>
     <string name="hint_register">Register</string>
+    <string name="Block_task">TrapsNote</string>
 </resources>
