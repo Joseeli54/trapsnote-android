@@ -12,6 +12,7 @@ import com.exam.sid.aplicacion.model.ErrorPojoClass;
 import com.exam.sid.aplicacion.model.Get;
 import com.exam.sid.aplicacion.model.Tareas;
 import com.exam.sid.aplicacion.remote.ApiUtils;
+import com.exam.sid.aplicacion.remote.Validation;
 import com.exam.sid.aplicacion.service.UserClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -58,6 +59,7 @@ public class Block_task extends AppCompatActivity {
         final TextView descripcion = (TextView) findViewById(R.id.et_descripcion);
         final TextView categoria = (TextView) findViewById(R.id.et_categoria);
         final TextView nombre = (TextView) findViewById(R.id.et_nombre);
+        final Validation validar = new Validation();
 
         /*
         * Inicializo los textview existentes en la ventana de Block_task
@@ -100,6 +102,8 @@ public class Block_task extends AppCompatActivity {
                 sendTask(username, tareas);
                 else if (peticion == 1) // Si se presiono una tarea, se modifica la tarea
                     updateTask(username, tareas, id);
+
+                validar.campos_de_tareas(nombre, descripcion, categoria);
             }
         });
 
@@ -132,7 +136,7 @@ public class Block_task extends AppCompatActivity {
                         // Se leen los datos y dependiendo de las variables que esten ErrorPojoClass
                         // Se pasan los datos a las variables de esa clase
                         colorWelcome(0xeadc4126);
-                        showWelcome(mError.getMessage());
+                        showWelcome(mError.getMessage()); // Aqui se envia un mensaje de error si pasa algo
 
                     } catch (IOException e) {
                         // handle failure to read error
@@ -164,7 +168,7 @@ public class Block_task extends AppCompatActivity {
                         // Se leen los datos y dependiendo de las variables que esten ErrorPojoClass
                         // Se pasan los datos a las variables de esa clase
                         colorWelcome(0xeadc4126);
-                        showWelcome(mError.getMessage());
+                        showWelcome(mError.getMessage()); // Aqui se envia un mensaje de error si pasa algo
 
                     } catch (IOException e) {
                         // handle failure to read error
