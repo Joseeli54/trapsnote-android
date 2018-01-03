@@ -14,16 +14,18 @@ public class Post {   ///////////////////////////////////////////////////
     String email; //Se envia el correo
     String password; //Se envia la contraseña para usarse en el login
     Date fechaDeNacimiento; //Se envia la fechaNac para despues usarse
+    String formaRegistro; // Se debe tener una forma en la que se registro
+    // Obviamente para este proyecto es por medio del movil
 
     public Post(String username, String name, String last_name,
-                String email, String password, Date fecha){ //Constructor de datos, para crear el usuario
+                String email, String password, Date fecha, String formaRegistro){ //Constructor de datos, para crear el usuario
         this.username = username;
         this.name = name;
         this.last_name = last_name;
         this.email = email;
         this.password = password;
         this.fechaDeNacimiento = fecha;
-
+        this.formaRegistro = formaRegistro;
     }
 
     public Post(String email, String password){ //Constructor de email y password, para enviarlos al login

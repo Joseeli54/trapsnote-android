@@ -1,0 +1,163 @@
+package com.exam.sid.aplicacion.activities;
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.exam.sid.aplicacion.R;
+import com.exam.sid.aplicacion.remote.ApiUtils;
+import com.exam.sid.aplicacion.service.UserClient;
+
+/**
+ * Created by Elias Barrientos on 12/5/2017.
+ */
+
+public class Task extends AppCompatActivity {
+         ////////////////////////////////////////////////////////////////////////
+        //                Esta es la clase que muestra las tareas.            //
+       // Ventana de inicio donde se pueden visualizar los bloques de tareas,//
+      // Aqui se pueden seleccionar cualquiera de las tareas para ser modi- //
+     // ficadas y a las vez tambien poder eliminarlas, hay un boton arriba //
+    //            que es donde se crean las nuevas tareas.                //
+   ////////////////////////////////////////////////////////////////////////
+
+          // El antiguo modelo se cambio para facilitar la utilizacion
+         //            de esta aplicacion al usuario.
+
+    LinearLayout layout; // Se crea una variable layout
+    LinearLayout contenedorBoton[] = new LinearLayout[1000]; // Un contenedor es necesario para desplazar los
+                                                            // bloques de tareas
+    TextView btn[] = new TextView[1000]; // Y un contenedor de TextView tambien
+    TextView btnOrigin; // Es necesario el textView actual en el cual 
+                       // se duplicaran los otros y seran modificados
+    TextView mResponseTv, mWelcome; //Avisos de mensajes
+    UserClient mAPIService; // El cliente del servidor
+    int tamano; // El numero de tareas que se van a imprimir en pantalla
+
+
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.task);
+
+        Bundle datos = this.getIntent().getExtras();
+
+        final String token = datos.getString("variable_string");              /////////////////////////////////////
+        final String name = datos.getString("name");                         // Adquiero los datos que fueron   //
+        final String username = datos.getString("username");                // Suministrados por la clase Main // 
+                tamano = datos.getInt("tamano");                           // para poder saber cuantas y que  //
+        final String[] descripcion = datos.getStringArray("descripcion"); // tipo de tareas existen en la ba-//
+        final String[] categoria = datos.getStringArray("categoria");    //     base de datos del usuario   //
+        final String[] id = datos.getStringArray("id");                 /////////////////////////////////////
+        final String[] nombre = datos.getStringArray("nombre");
+
+        mAPIService = ApiUtils.getAPIService();
+        mWelcome = (TextView) findViewById(R.id.welcome);
+        mResponseTv = (TextView) findViewById(R.id.et_categoria);
+        TextView titulo = (TextView) findViewById(R.id.titulo);
+        Button create = (Button) findViewById(R.id.btn_tarea);
+        btnOrigin = (TextView) findViewById(R.id.et_nombre);
+
+        /*
+        * Aqui se inicializan todas las variales creadas arriba, agregando dos TextView que son el titulo,
+        * Y tambien el boton para seguir creando las tareas.
+        */
+
+        titulo.setVisibility(View.VISIBLE); // Hago visible el titulo
+        create.setVisibility(View.VISIBLE); // Hago visible el boton de crear
+                                             //////////////////////////////////////////////////////
+        btnOrigin.setVisibility(View.GONE); // Quito al TextView original de las tareas         //
+                                           // Esto es debido a que, de este TextView es donde  //
+                                          //      se sacan los otros TextView.                //
+                                         //////////////////////////////////////////////////////
+        verBienvenida(name); // Se le da la bienvenida al usuario
+ 
+        if(tamano != 0) // Si existen tareas en el sistema se empiezan a imprimir las tareas
+        inflarLayout(nombre, categoria);
+        else { // Sino, se manda un aviso de que se deben crear las tareas
+            mResponseTv.setBackgroundColor(Color.WHITE);
+            mResponseTv.setTextColor(Color.BLACK);
+            mResponseTv.setText("Lista de tareas vacia. Escriba su primera tarea :)");
+        }
+
+        /*
+        * Luego de esto, si existen las tareas, se puede comenzar a modificar las que sean existentes
+        * o eliminarse, aqui en btn, nos dice que si toco algun TextView que este dentro del contenedor
+        * pasare al activity de Block_task, encargado de modificar o eliminar las tareas
+        */
+
+        if(tamano != 0)
+        for(int i=0; i<tamano; i++) {
+            final int finalI = i;
+            if(btn[i] != null)
+                btn[i].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent ListSong = new Intent(getApplicationContext(), Block_task.class);
+                        ListSong.putExtra("peticion",1);
+                        ListSong.putExtra("variable_string", token);                      //////////////////////////////
+                        ListSong.putExtra("name", name);                                 // Paso todo lo importante  //
+                        ListSong.putExtra("username", username);                        // De la tareas a Block_task//
+                        ListSong.putExtra("nombre", btn[finalI].getText().toString()); // incluyendo una variable  //
+                        ListSong.putExtra("categoria", categoria[finalI]);            // "boleana", que me dice   //
+                        ListSong.putExtra("descripcion", descripcion[finalI]);       // el tipo de peticion que  //
+                        ListSong.putExtra("id", id[finalI]);                        // se activaran en la otra  //
+                        startActivity(ListSong);                                   //         ventana.         //
+                        finish();                                                 //////////////////////////////
+                    }
+                });
+        }
+
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ListSong = new Intent(getApplicationContext(), Block_task.class);
+                ListSong.putExtra("peticion",0);
+                ListSong.putExtra("variable_string", token);    ////////////////////////////////////                 
+                ListSong.putExtra("name", name);               //Aqui hago lo mismo que arriba   //
+                ListSong.putExtra("username", username);      // Lo unico distinto, es que como //          
+                ListSong.putExtra("nombre", "");             // no hay tareas existentes, los  //
+                ListSong.putExtra("categoria", "");         // datos de una tareas se pasan   //
+                ListSong.putExtra("descripcion", "");      //         vacios                 //
+                ListSong.putExtra("id", "");              ////////////////////////////////////
+                startActivity(ListSong);
+                finish();
+            }
+        });
+    }
+
+    public void verBienvenida(String name){
+        if(mWelcome.getVisibility()== View.GONE) {
+             mWelcome.setVisibility(View.VISIBLE); //Se envia el mensaje de bienvenida al usuario
+        }
+        mWelcome.setText(name);
+    }
+
+    public void inflarLayout(String[] nombre, String[] category){
+
+              ////////////////////////////////////////////////////////////////////////////////////////////////
+             // Este es un metodo muy importante, ya que es el que se encarga de inflar el layout de Task  //
+            // Para que se vayan creando las tareas existente, a medida que se van creando los TextView   //
+           // Se les pasa el dato de la categoria y el nombre de la tarea para que se impriman en        //
+          // pantalla, luego de eso se crea un nuevo contenedor y asi sucesivamente hasta acabar        //
+         //                                      el ciclo.                                             //
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+
+        mResponseTv.setVisibility(View.GONE);
+        layout = (LinearLayout)findViewById(R.id.layout);
+        for(int i = 0; i < tamano; i++) {
+            contenedorBoton[i] = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.task, null);
+            TextView categoria = (TextView) contenedorBoton[i].findViewById(R.id.et_categoria);
+            btn[i] = (TextView) contenedorBoton[i].findViewById(R.id.et_nombre);
+            categoria.setText(category[i]);
+            btn[i].setText(nombre[i]);
+            layout.addView(contenedorBoton[i]);
+        }
+
+    }
+}

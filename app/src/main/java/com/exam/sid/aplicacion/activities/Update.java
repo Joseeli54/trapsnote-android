@@ -1,4 +1,4 @@
-package com.exam.sid.aplicacion;
+package com.exam.sid.aplicacion.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.exam.sid.aplicacion.R;
 import com.exam.sid.aplicacion.model.Patch;
 import com.exam.sid.aplicacion.service.UserClient;
 
