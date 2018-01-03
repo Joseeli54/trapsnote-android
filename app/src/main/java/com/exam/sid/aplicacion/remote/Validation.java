@@ -154,6 +154,34 @@ public class Validation {
         }
     }
 
+    public void campos_de_tareas(TextView nombre, TextView descripcion, TextView categoria){ // Solo para fecha
+        if(Textfull(nombre)){
+            nombre.setBackgroundColor(0x8c74b7b7);
+            nombre.setHintTextColor(0xab000000);
+        }else{
+            nombre.setBackgroundColor(0xb6ef9c97);    /////////////////////////////////////////////////////
+            nombre.setHintTextColor(Color.RED);      // Esta tiene la misma funcion de campos_de_Login  //
+        }                                        // Y campos_de_Register, solo que es aplicada      //
+        //                 a las fechas.                   //
+        if(Textfull(descripcion)){                     /////////////////////////////////////////////////////
+            descripcion.setBackgroundColor(0x8c74b7b7);
+            descripcion.setHintTextColor(0xab000000);
+        }
+        else{
+            descripcion.setBackgroundColor(0xb6ef9c97);
+            descripcion.setHintTextColor(Color.RED);
+        }
+
+        if(Textfull(categoria)){
+            categoria.setBackgroundColor(0x8c74b7b7);
+            categoria.setHintTextColor(0xab000000);
+        }
+        else{
+            categoria.setBackgroundColor(0xb6ef9c97);
+            categoria.setHintTextColor(Color.RED);
+        }
+    }
+
     public boolean fecha_apropiada(TextView dia, TextView mes){
         boolean validado = false;
         if(dia_correcto(Integer.parseInt(dia.getText().toString())) &&
