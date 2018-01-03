@@ -46,13 +46,20 @@ public class Validation {
                 !TextUtils.isEmpty(email.getText().toString()) &&        ///////////////////////////////////////
                 !TextUtils.isEmpty(password.getText().toString());
     }
-
+    public boolean Taskfull(TextView nombre, TextView descripcion, TextView categoria){
+        return !TextUtils.isEmpty(nombre.getText().toString()) &&           ///////////////////////////////////////
+                !TextUtils.isEmpty(descripcion.getText().toString()) &&    // Aqui verifica si todos los campos //
+                !TextUtils.isEmpty(categoria.getText().toString());       // De tareas estan escritos.         //
+                                                                         ///////////////////////////////////////
+    }
+    
     public boolean Textfull(TextView text){                         ///////////////////////////////
            return !TextUtils.isEmpty(text.getText().toString());   //    Aqui verifica si       //
                                                                   // una variable en especifico// 
                                                                  //       Esta escrita.       // 
     }                                                           ///////////////////////////////
-
+    
+    
     public boolean FechaNacfull(TextView dia, TextView mes, TextView year){  /////////////////////////////
         return  !TextUtils.isEmpty(dia.getText().toString()) &&             // Aqui se verifica si los //
                 !TextUtils.isEmpty(mes.getText().toString()) &&            // Campos de fecha estan   //
