@@ -57,6 +57,7 @@ public class Task extends AppCompatActivity {
         final String[] id = datos.getStringArray("id");                 /////////////////////////////////////
         final String[] nombre = datos.getStringArray("nombre");
         final boolean[] completado = datos.getBooleanArray("completado");
+        final String[] fechaLimite = datos.getStringArray("fechaLimite");
 
         mAPIService = ApiUtils.getAPIService();
         mWelcome = (TextView) findViewById(R.id.welcome);
@@ -111,6 +112,7 @@ public class Task extends AppCompatActivity {
                         ListSong.putExtra("descripcion", descripcion[finalI]);       // el tipo de peticion que  //
                         ListSong.putExtra("id", id[finalI]);                        // se activaran en la otra  //
                         ListSong.putExtra("completado", completado[finalI]);
+                        ListSong.putExtra("fechaLimite", fechaLimite[finalI]);
                         startActivity(ListSong);                                   //         ventana.         //
                         finish();                                                 //////////////////////////////
                     }
@@ -130,6 +132,7 @@ public class Task extends AppCompatActivity {
                 ListSong.putExtra("descripcion", "");      //         vacios                 //
                 ListSong.putExtra("id", "");              ////////////////////////////////////
                 ListSong.putExtra("completado", false);
+                ListSong.putExtra("fechaLimite", "");
                 startActivity(ListSong);
                 finish();
             }

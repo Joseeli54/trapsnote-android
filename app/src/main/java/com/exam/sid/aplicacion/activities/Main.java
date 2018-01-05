@@ -1,31 +1,31 @@
 package com.exam.sid.aplicacion.activities;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.support.v7.app.AppCompatActivity;
+        import android.util.Log;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.TextView;
 
-import com.exam.sid.aplicacion.R;
-import com.exam.sid.aplicacion.model.ErrorPojoClass;
-import com.exam.sid.aplicacion.model.Get;
-import com.exam.sid.aplicacion.model.Post;
-import com.exam.sid.aplicacion.model.Tareas;
-import com.exam.sid.aplicacion.model.Usuarios;
-import com.exam.sid.aplicacion.remote.ApiUtils;
-import com.exam.sid.aplicacion.remote.Validation;
-import com.exam.sid.aplicacion.service.UserClient;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+        import com.exam.sid.aplicacion.R;
+        import com.exam.sid.aplicacion.model.ErrorPojoClass;
+        import com.exam.sid.aplicacion.model.Get;
+        import com.exam.sid.aplicacion.model.Post;
+        import com.exam.sid.aplicacion.model.Tareas;
+        import com.exam.sid.aplicacion.model.Usuarios;
+        import com.exam.sid.aplicacion.remote.ApiUtils;
+        import com.exam.sid.aplicacion.remote.Validation;
+        import com.exam.sid.aplicacion.service.UserClient;
+        import com.google.gson.Gson;
+        import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
+        import java.io.IOException;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+        import retrofit2.Call;
+        import retrofit2.Callback;
+        import retrofit2.Response;
 
 public class Main extends AppCompatActivity{
         //////////////////////////////////////////////////////////////////////
@@ -45,6 +45,7 @@ public class Main extends AppCompatActivity{
     private String[] categoria = new String[1000];    // Aqui estan los string a los que se pasaran los //
     private String[] id = new String[1000];          //        Datos mas importantes de las tareas     //
     private String[] nombretask = new String[1000]; ////////////////////////////////////////////////////
+    private String[] fechaLimite = new String[1000];
     private String token; // Variables string a la que se pasara la autenticacion
 
     @Override
@@ -100,8 +101,8 @@ public class Main extends AppCompatActivity{
                 }
                 else{
 
-                    if(validar.LoginNoNulo(email,password) == 2){          
-                        colorResponse(0xeadc4126);                          
+                    if(validar.LoginNoNulo(email,password) == 2){
+                        colorResponse(0xeadc4126);
                         showResponse("La contraseña es requerida");
                     }
                     else if(validar.LoginNoNulo(email,password) == 3){
@@ -167,10 +168,10 @@ public class Main extends AppCompatActivity{
                                                                             //    Si code == 400 el usuario no existe  //
                         getTask(response.body().getUsername(),             //       O algun dato esta mal escrito.    //
                                 response.body().getName()+" "+            //       Al finalizar se borran los datos  //
-                                response.body().getLastName());          //             que se escribieron.         //   
+                                        response.body().getLastName());  //             que se escribieron.         //   
                         DeleteDate(email,password);                     /////////////////////////////////////////////  
-                    }                                                    
-                }  else{                                                
+                    }
+                }  else{
                     Gson gson = new GsonBuilder().create();
                     ErrorPojoClass mError= new ErrorPojoClass();
                     //La variable gson se crea para poder ingresar ahi el JSON de respuesta
@@ -234,8 +235,13 @@ public class Main extends AppCompatActivity{
                             id[i]= tareas[i].get_id();                 //////////////////////////////////////////
                             nombretask[i] = tareas[i].getNombre();
                             completado[i] = tareas[i].getCompletado();
+
+                            if(tareas[i].getFechaLimite() != null)
+                                fechaLimite[i] = tareas[i].getFechaLimite().toString();
+                            else
+                                fechaLimite[i] = "No hay fecha limite";
                         }
-                            tocoResponse();
+                        tocoResponse();
                     }
                     mover_a_Tareas(name,username);
                 }
@@ -255,7 +261,7 @@ public class Main extends AppCompatActivity{
     }
 
     public void showResponse(String response) {
-                                                        ///////////////////////////////////////////
+        ///////////////////////////////////////////
         if(mResponseTv.getVisibility() == View.GONE) { // Aqui hago visible el aviso de mensaje //
             mResponseTv.setVisibility(View.VISIBLE);  //     Y le agrego un nuevo texto        //
         }                                            ///////////////////////////////////////////
@@ -288,9 +294,9 @@ public class Main extends AppCompatActivity{
     }
 
     public void mover_a_Tareas(String name, String username) {
-        Intent ListSong = new Intent(getApplicationContext(), Task.class); 
-        ListSong.putExtra("variable_string", token);                      
-        ListSong.putExtra("name", name);                                 
+        Intent ListSong = new Intent(getApplicationContext(), Task.class);
+        ListSong.putExtra("variable_string", token);
+        ListSong.putExtra("name", name);
         ListSong.putExtra("username", username);                        ////////////////////////////////
         ListSong.putExtra("descripcion", descripcion);                 //  Paso a la vista de Task   //
         ListSong.putExtra("categoria", categoria);                    //  Paso el token, y los otros//
@@ -298,6 +304,7 @@ public class Main extends AppCompatActivity{
         ListSong.putExtra("nombre", nombretask);                    //  del usuario y sus tareas  //       
         ListSong.putExtra("tamano", tareas.length);                ////////////////////////////////
         ListSong.putExtra("completado", completado);
+        ListSong.putExtra("fechaLimite", fechaLimite);
         startActivity(ListSong);
         finish();
     }
