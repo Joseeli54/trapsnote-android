@@ -1,5 +1,6 @@
 package com.exam.sid.aplicacion.activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -16,12 +19,16 @@ import com.exam.sid.aplicacion.model.ErrorPojoClass;
 import com.exam.sid.aplicacion.model.Get;
 import com.exam.sid.aplicacion.model.Tareas;
 import com.exam.sid.aplicacion.remote.ApiUtils;
+import com.exam.sid.aplicacion.remote.DatePickerFragment;
 import com.exam.sid.aplicacion.remote.Validation;
 import com.exam.sid.aplicacion.service.UserClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,8 +50,10 @@ public class Block_task extends AppCompatActivity {
     private String[] iden = new String[1000];        // Arreglos de los datos de las tareas//
     private String[] nametask = new String[1000];   ////////////////////////////////////////
     private boolean[] completado = new boolean[1000];
+    private String[] fechaLimit = new String[1000];
     private boolean listo;
     private Spinner spinner;
+    EditText etPlannedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,7 @@ public class Block_task extends AppCompatActivity {
         category = datos.getString("categoria");
         id = datos.getString("id");
         listo = datos.getBoolean("completado");
+        String fechaLimite = datos.getString("fechaLimite");
 
         final TextView descripcion = (TextView) findViewById(R.id.et_descripcion);
         final TextView categoria = (TextView) findViewById(R.id.et_categoria);
@@ -71,6 +81,7 @@ public class Block_task extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.spinner);
         String[] letra = {"Estudios","Trabajo","Hogar","Actividad","Ejercicio","Plan","Informacion"};
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));
+        etPlannedDate = (EditText) findViewById(R.id.etPlannedDate);
 
         /*
         * Inicializo los textview existentes en la ventana de Block_task
@@ -87,6 +98,9 @@ public class Block_task extends AppCompatActivity {
         nombre.setText(nombretask);
         descripcion.setText(description);
         categoria.setText(category);
+
+        if(peticion == 1)
+        etPlannedDate.setHint(fechaLimite);
 
         /*
         * Aqui les agrego los datos que se pasaron de la clase task, si no vinieron vacios 
@@ -111,11 +125,14 @@ public class Block_task extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Date fechaProg = convertir_Fecha(); // Te convertira los campos en Date
+
                 colorWelcome(0xab000000);
                 showWelcome("Cargando...");                                 //////////////////////////////
                 Tareas tareas = new Tareas(categoria.getText().toString(), // Se pasan los datos a una //
                         descripcion.getText().toString(),                 // variables de Tareas para //
-                        nombre.getText().toString());                    //      Guardarlas ahi.     //
+                        nombre.getText().toString(), fechaProg);         //      Guardarlas ahi.     //
                                                                         //////////////////////////////
                 if(peticion == 0) // Si solo se toco el boton de crear tarea, se crea la tarea
                 sendTask(username, tareas);
@@ -176,6 +193,40 @@ public class Block_task extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent){}
         });
 
+        etPlannedDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });
+    }
+
+    private void showDatePickerDialog() {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because january is zero
+                final String selectedDate = year + "-" + (month+1) + "-" + day;
+                etPlannedDate.setText(selectedDate);
+            }
+        });
+        newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    private Date convertir_Fecha(){
+        String fecha = etPlannedDate.getText().toString();
+
+        SimpleDateFormat sdfg = new SimpleDateFormat("yyyy-MM-dd");
+                                               ///////////////////////////////////
+        Date fechaProg = null;                //       Si toco el boton        //
+                                             //     de btnActionRegister      //
+        try {                               //     Los String de fecha se    //
+            fechaProg = sdfg.parse(fecha); // convierten en date, se pasan  //
+        } catch (ParseException e) {      // los datos del usuario al Post //
+            e.printStackTrace();         // y se llama al metodo de envio //
+        }                               ///////////////////////////////////
+
+        return fechaProg;
     }
 
     private void sendTask(final String username, Tareas tareas){
@@ -215,7 +266,7 @@ public class Block_task extends AppCompatActivity {
     private void updateTask(final String username, Tareas task, String _id){
         mAPIService.updateTask(username, _id, task).enqueue(new Callback<Tareas>() {
             @Override
-            public void onResponse(Call<Tareas> call, Response<Tareas> response) {       ////////////////////////////////////////
+            public void onResponse(Call<Tareas> call, Response<Tareas> response) { ////////////////////////////////////////
                 if(response.isSuccessful()) {                                     // Si la respuesta es satisfactoria,  //
                     getTask(username);                                           // Entonces se envia el username      //
                 }                                                               // a getTask, para volver a cargar las//
@@ -290,6 +341,10 @@ public class Block_task extends AppCompatActivity {
                             iden[i]= tareas[i].get_id();               // arreglos quedan nulos.               //
                             nametask[i] = tareas[i].getNombre();      //////////////////////////////////////////
                             completado[i] = tareas[i].getCompletado();
+                            if(tareas[i].getFechaLimite() != null)
+                                fechaLimit[i] = tareas[i].getFechaLimite().toString();
+                            else
+                                fechaLimit[i] = "No hay fecha limite";
                         }
                     }
                     tocoWelcome();
@@ -342,6 +397,7 @@ public class Block_task extends AppCompatActivity {
         ListSong.putExtra("id", iden);
         ListSong.putExtra("tamano", tareas.length);
         ListSong.putExtra("completado", completado);
+        ListSong.putExtra("fechaLimite", fechaLimit);
         startActivity(ListSong);                                       
         finish();
     }

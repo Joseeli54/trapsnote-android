@@ -116,6 +116,45 @@
                 android:textColor="@android:color/background_dark"
                 android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/fechaLim"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorAccent"
+                android:paddingTop="5dp"
+                android:text="Fecha Limite"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="22sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilPlannedDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/etPlannedDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:hint="Elegir Fecha Limite"
+                        android:inputType="date"
+                        android:maxLines="1"
+                        android:textColorHint="@android:color/background_dark"
+                        android:textAlignment="center"/>
+
+                </LinearLayout>
+
+            </android.support.design.widget.TextInputLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

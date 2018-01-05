@@ -1,5 +1,7 @@
 package com.exam.sid.aplicacion.model;
 
+import java.util.Date;
+
 /**
  * Created by bosie on 17/12/17.
  */
@@ -21,19 +23,26 @@ public class Tareas {
     private String username; //Toda tarea debe tener el username del usuario
     private String fechaRegistro; /*El servicio te devuelve la fecha en la que se registro
                                    la tarea*/
+    private Date fechaLimite;
     private String categoria; //Tipo de tarea que se va a realiza
 
-    public Tareas(String categoria, String descripcion, String nombre) { /*El sistema solo requiere que se envie
+    public Tareas(String categoria, String descripcion, String nombre,
+                  Date fechaLimite) { /*El sistema solo requiere que se envie
                                                             categoria, descripcion y nombre de la tarea*/
         this.categoria = categoria;
         this.descripcion = descripcion;
         this.nombre = nombre;
+        this.fechaLimite = fechaLimite;
+
     }
 
     public Tareas(boolean completado){
         this.completado = completado;
     }
 
+    public Date getFechaLimite() {
+        return fechaLimite;
+    }
 
     public String getNombre() {
         return nombre;
