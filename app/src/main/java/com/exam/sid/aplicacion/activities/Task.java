@@ -39,6 +39,7 @@ public class Task extends AppCompatActivity {
     TextView mResponseTv, mWelcome; //Avisos de mensajes
     UserClient mAPIService; // El cliente del servidor
     int tamano; // El numero de tareas que se van a imprimir en pantalla
+    LinearLayout[] layoiut = new LinearLayout[1000];
 
 
     public void onCreate(Bundle savedInstanceState){
@@ -55,19 +56,21 @@ public class Task extends AppCompatActivity {
         final String[] categoria = datos.getStringArray("categoria");    //     base de datos del usuario   //
         final String[] id = datos.getStringArray("id");                 /////////////////////////////////////
         final String[] nombre = datos.getStringArray("nombre");
+        final boolean[] completado = datos.getBooleanArray("completado");
 
         mAPIService = ApiUtils.getAPIService();
         mWelcome = (TextView) findViewById(R.id.welcome);
         mResponseTv = (TextView) findViewById(R.id.et_categoria);
         TextView titulo = (TextView) findViewById(R.id.titulo);
         Button create = (Button) findViewById(R.id.btn_tarea);
+        TextView completadoOrigin = (TextView) findViewById(R.id.et_completado);
         btnOrigin = (TextView) findViewById(R.id.et_nombre);
 
         /*
         * Aqui se inicializan todas las variales creadas arriba, agregando dos TextView que son el titulo,
         * Y tambien el boton para seguir creando las tareas.
         */
-
+        completadoOrigin.setVisibility(View.GONE);
         titulo.setVisibility(View.VISIBLE); // Hago visible el titulo
         create.setVisibility(View.VISIBLE); // Hago visible el boton de crear
                                              //////////////////////////////////////////////////////
@@ -78,7 +81,7 @@ public class Task extends AppCompatActivity {
         verBienvenida(name); // Se le da la bienvenida al usuario
  
         if(tamano != 0) // Si existen tareas en el sistema se empiezan a imprimir las tareas
-        inflarLayout(nombre, categoria);
+        inflarLayout(nombre, categoria, completado);
         else { // Sino, se manda un aviso de que se deben crear las tareas
             mResponseTv.setBackgroundColor(Color.WHITE);
             mResponseTv.setTextColor(Color.BLACK);
@@ -94,8 +97,8 @@ public class Task extends AppCompatActivity {
         if(tamano != 0)
         for(int i=0; i<tamano; i++) {
             final int finalI = i;
-            if(btn[i] != null)
-                btn[i].setOnClickListener(new View.OnClickListener() {
+            if(layoiut[i] != null)
+                layoiut[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent ListSong = new Intent(getApplicationContext(), Block_task.class);
@@ -103,10 +106,11 @@ public class Task extends AppCompatActivity {
                         ListSong.putExtra("variable_string", token);                      //////////////////////////////
                         ListSong.putExtra("name", name);                                 // Paso todo lo importante  //
                         ListSong.putExtra("username", username);                        // De la tareas a Block_task//
-                        ListSong.putExtra("nombre", btn[finalI].getText().toString()); // incluyendo una variable  //
+                        ListSong.putExtra("nombre", nombre[finalI]); // incluyendo una variable  //
                         ListSong.putExtra("categoria", categoria[finalI]);            // "boleana", que me dice   //
                         ListSong.putExtra("descripcion", descripcion[finalI]);       // el tipo de peticion que  //
                         ListSong.putExtra("id", id[finalI]);                        // se activaran en la otra  //
+                        ListSong.putExtra("completado", completado[finalI]);
                         startActivity(ListSong);                                   //         ventana.         //
                         finish();                                                 //////////////////////////////
                     }
@@ -125,6 +129,7 @@ public class Task extends AppCompatActivity {
                 ListSong.putExtra("categoria", "");         // datos de una tareas se pasan   //
                 ListSong.putExtra("descripcion", "");      //         vacios                 //
                 ListSong.putExtra("id", "");              ////////////////////////////////////
+                ListSong.putExtra("completado", false);
                 startActivity(ListSong);
                 finish();
             }
@@ -138,7 +143,7 @@ public class Task extends AppCompatActivity {
         mWelcome.setText(name);
     }
 
-    public void inflarLayout(String[] nombre, String[] category){
+    public void inflarLayout(String[] nombre, String[] category, boolean[] completado){
 
               ////////////////////////////////////////////////////////////////////////////////////////////////
              // Este es un metodo muy importante, ya que es el que se encarga de inflar el layout de Task  //
@@ -153,7 +158,20 @@ public class Task extends AppCompatActivity {
         for(int i = 0; i < tamano; i++) {
             contenedorBoton[i] = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.task, null);
             TextView categoria = (TextView) contenedorBoton[i].findViewById(R.id.et_categoria);
+            TextView listo = (TextView) contenedorBoton[i].findViewById(R.id.et_completado);
+
+            if(completado[i]){
+                listo.setBackgroundColor(0xD815A312);
+                listo.setText("Completado");
+            }
+            else
+            {
+                listo.setBackgroundColor(Color.RED);
+                listo.setText("No Completado");
+            }
+
             btn[i] = (TextView) contenedorBoton[i].findViewById(R.id.et_nombre);
+            layoiut[i] = (LinearLayout) contenedorBoton[i].findViewById(R.id.layout);
             categoria.setText(category[i]);
             btn[i].setText(nombre[i]);
             layout.addView(contenedorBoton[i]);

@@ -68,11 +68,20 @@
                 android:id="@+id/et_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="16dp"
                 android:layout_weight="0.09"
                 android:background="@color/colorPrimaryDark"
                 android:text="Create Task"
-                android:paddingLeft="16px"
                 android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/et_completado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorSuccessfull"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"/>
 
         </LinearLayout>
 

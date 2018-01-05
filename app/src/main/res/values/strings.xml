@@ -26,4 +26,5 @@
     <string name="numero">Numero de Tarea</string>
     <string name="hint_register">Register</string>
     <string name="Block_task">TrapsNote</string>
+    <string name="completado">Completado</string>
 </resources>

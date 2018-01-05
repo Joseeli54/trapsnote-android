@@ -30,6 +30,10 @@ public class Tareas {
         this.nombre = nombre;
     }
 
+    public Tareas(boolean completado){
+        this.completado = completado;
+    }
+
 
     public String getNombre() {
         return nombre;
