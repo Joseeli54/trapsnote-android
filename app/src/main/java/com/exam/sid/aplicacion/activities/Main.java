@@ -40,7 +40,8 @@ public class Main extends AppCompatActivity{
     private UserClient mAPIService; // Variable de tipo UserClient
     private Validation validar; // Variable de tipo validacion
     private Tareas[] tareas; // Necesitamos una variable de tipo tareas para leer las tareas del usuario
-     private String[] descripcion = new String[1000];  ////////////////////////////////////////////////////
+    private boolean[] completado = new boolean[1000];
+    private String[] descripcion = new String[1000];  ////////////////////////////////////////////////////
     private String[] categoria = new String[1000];    // Aqui estan los string a los que se pasaran los //
     private String[] id = new String[1000];          //        Datos mas importantes de las tareas     //
     private String[] nombretask = new String[1000]; ////////////////////////////////////////////////////
@@ -232,6 +233,7 @@ public class Main extends AppCompatActivity{
                             descripcion[i] = tareas[i].getDescripcion();// arreglos quedan nulos.               //
                             id[i]= tareas[i].get_id();                 //////////////////////////////////////////
                             nombretask[i] = tareas[i].getNombre();
+                            completado[i] = tareas[i].getCompletado();
                         }
                             tocoResponse();
                     }
@@ -295,7 +297,8 @@ public class Main extends AppCompatActivity{
         ListSong.putExtra("id", id);                                 // y los otros datos propios  //
         ListSong.putExtra("nombre", nombretask);                    //  del usuario y sus tareas  //       
         ListSong.putExtra("tamano", tareas.length);                ////////////////////////////////
-        startActivity(ListSong);                                       
+        ListSong.putExtra("completado", completado);
+        startActivity(ListSong);
         finish();
     }
 

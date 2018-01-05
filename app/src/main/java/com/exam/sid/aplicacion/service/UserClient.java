@@ -11,6 +11,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface UserClient{  ///////////////////////////////////////////////////////
@@ -47,8 +48,12 @@ public interface UserClient{  //////////////////////////////////////////////////
                          @Path("id") String id); //Requiere dos cabeceras
 
     @PATCH("{username}/tareas/{id}") //Modifica descripcion y categorias
-    Call<Get> updateTask(@Path("username") String username,
+    Call<Tareas> updateTask(@Path("username") String username,
                          @Path("id") String id,
                          @Body Tareas tareas); //Requiere dos cabeceras
 
+    @PUT("{username}/tareas/{id}")
+    Call<Tareas> updateComplete(@Path("username") String username,
+                                @Path("id") String id,
+                                @Body Tareas tareas);
 }

@@ -1,10 +1,14 @@
 package com.exam.sid.aplicacion.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.exam.sid.aplicacion.R;
@@ -38,7 +42,9 @@ public class Block_task extends AppCompatActivity {
     private String[] categoria = new String[1000];    ////////////////////////////////////////
     private String[] iden = new String[1000];        // Arreglos de los datos de las tareas//
     private String[] nametask = new String[1000];   ////////////////////////////////////////
-
+    private boolean[] completado = new boolean[1000];
+    private boolean listo;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +61,29 @@ public class Block_task extends AppCompatActivity {
         description = datos.getString("descripcion");
         category = datos.getString("categoria");
         id = datos.getString("id");
+        listo = datos.getBoolean("completado");
 
         final TextView descripcion = (TextView) findViewById(R.id.et_descripcion);
         final TextView categoria = (TextView) findViewById(R.id.et_categoria);
         final TextView nombre = (TextView) findViewById(R.id.et_nombre);
+        final TextView completado = (TextView) findViewById(R.id.et_completado);
         final Validation validar = new Validation();
+        spinner = (Spinner) findViewById(R.id.spinner);
+        String[] letra = {"Estudios","Trabajo","Hogar","Actividad","Ejercicio","Plan","Informacion"};
+        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));
 
         /*
         * Inicializo los textview existentes en la ventana de Block_task
         */
 
+        if(listo){
+            completado.setBackgroundColor(0xD815A312);
+            completado.setText("Completado");
+        }
+        else{
+            completado.setBackgroundColor(Color.RED);
+            completado.setText("No Completado");
+        }
         nombre.setText(nombretask);
         descripcion.setText(description);
         categoria.setText(category);
@@ -100,8 +119,9 @@ public class Block_task extends AppCompatActivity {
                                                                         //////////////////////////////
                 if(peticion == 0) // Si solo se toco el boton de crear tarea, se crea la tarea
                 sendTask(username, tareas);
-                else if (peticion == 1) // Si se presiono una tarea, se modifica la tarea
+                else if (peticion == 1){ // Si se presiono una tarea, se modifica la tarea
                     updateTask(username, tareas, id);
+                }
 
                 validar.campos_de_tareas(nombre, descripcion, categoria);
             }
@@ -115,6 +135,47 @@ public class Block_task extends AppCompatActivity {
                 DeleteTask(id, username);    ////////////////////////////////////////
             }
         });
+
+        completado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(peticion == 1){
+                    if(listo){
+                        //listo = false;
+                        //completado.setBackgroundColor(Color.RED);
+                        //completado.setText("No Completado");
+                    }
+                    else{
+                        colorWelcome(0xab000000);
+                        showWelcome("Cargando...");
+
+                        listo = true;
+                        completado.setBackgroundColor(0xD815A312);
+                        completado.setText("Completado");
+                        Tareas tareas = new Tareas(listo);
+                        updateCompletado(username, tareas, id);
+                    }
+                }
+            }
+        });
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
+            {
+                if(peticion == 1){
+                    if(category != categoria.getText().toString() ||
+                        (String)adapterView.getItemAtPosition(pos) != "Estudios")
+                            categoria.setText((String) adapterView.getItemAtPosition(pos));
+                }
+                else
+                    categoria.setText((String) adapterView.getItemAtPosition(pos));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent){}
+        });
+
     }
 
     private void sendTask(final String username, Tareas tareas){
@@ -152,15 +213,15 @@ public class Block_task extends AppCompatActivity {
     }
 
     private void updateTask(final String username, Tareas task, String _id){
-        mAPIService.updateTask(username, _id, task).enqueue(new Callback<Get>() {
+        mAPIService.updateTask(username, _id, task).enqueue(new Callback<Tareas>() {
             @Override
-            public void onResponse(Call<Get> call, Response<Get> response) {       ////////////////////////////////////////
+            public void onResponse(Call<Tareas> call, Response<Tareas> response) {       ////////////////////////////////////////
                 if(response.isSuccessful()) {                                     // Si la respuesta es satisfactoria,  //
                     getTask(username);                                           // Entonces se envia el username      //
                 }                                                               // a getTask, para volver a cargar las//
                 else{                                                          // Tareas que esten existentes en ese //
-                    Gson gson = new GsonBuilder().create();                   // momento y pasarlas a la clase Task //  
-                    ErrorPojoClass mError= new ErrorPojoClass();             //////////////////////////////////////// 
+                    Gson gson = new GsonBuilder().create();                   // momento y pasarlas a la clase Task //
+                    ErrorPojoClass mError= new ErrorPojoClass();             ////////////////////////////////////////
                     //La variable gson se crea para poder ingresar ahi el JSON de respuesta
                     // Se instancia la variable de la clase ErrorPojoClass
                     try {
@@ -168,7 +229,11 @@ public class Block_task extends AppCompatActivity {
                         // Se leen los datos y dependiendo de las variables que esten ErrorPojoClass
                         // Se pasan los datos a las variables de esa clase
                         colorWelcome(0xeadc4126);
+
+                        if(mError.getMessage() != null)
                         showWelcome(mError.getMessage()); // Aqui se envia un mensaje de error si pasa algo
+                        else
+                        showWelcome(mError.getErrormsg());
 
                     } catch (IOException e) {
                         // handle failure to read error
@@ -176,8 +241,22 @@ public class Block_task extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<Get> call, Throwable t) {
+            public void onFailure(Call<Tareas> call, Throwable t) {
                 showWelcome("Hay un problema con el servidor");  // Aqui hay un problema de conectividad
+            }
+        });
+    }
+
+    private void updateCompletado(final String username, Tareas task, String _id){
+        mAPIService.updateComplete(username, _id, task).enqueue(new Callback<Tareas>() {
+            @Override
+            public void onResponse(Call<Tareas> call, Response<Tareas> response) {
+                showWelcome("Se ha modificado");
+            }
+
+            @Override
+            public void onFailure(Call<Tareas> call, Throwable t) {
+                showWelcome("Hay un problema con el servidor");
             }
         });
     }
@@ -193,7 +272,7 @@ public class Block_task extends AppCompatActivity {
             }                                                //////////////////////////////////////////////
             @Override
             public void onFailure(Call<Get> call, Throwable t) {   //////////////////////////////////////
-                showResponse("Hay un problema con el servidor");  // Si no se ejecutan las respuestas //
+                showWelcome("Hay un problema con el servidor");  // Si no se ejecutan las respuestas //
             }                                                    //////////////////////////////////////
         });
     }
@@ -210,6 +289,7 @@ public class Block_task extends AppCompatActivity {
                             descripcion[i] = tareas[i].getDescripcion();// tareas, no se agregan datos y los    //
                             iden[i]= tareas[i].get_id();               // arreglos quedan nulos.               //
                             nametask[i] = tareas[i].getNombre();      //////////////////////////////////////////
+                            completado[i] = tareas[i].getCompletado();
                         }
                     }
                     tocoWelcome();
@@ -231,7 +311,6 @@ public class Block_task extends AppCompatActivity {
 
     }
 
-
     public void showResponse(String response) {
                                                         ///////////////////////////////////////////
         if(mResponseTv.getVisibility() == View.GONE) { // Aqui hago visible el aviso de mensaje //
@@ -239,7 +318,6 @@ public class Block_task extends AppCompatActivity {
         }                                            ///////////////////////////////////////////
         mResponseTv.setText(response);
     }
-
 
     public void colorWelcome(int color){
         mWelcome.setBackgroundColor(color); //El aviso de mensaje se puede colorear
@@ -263,6 +341,7 @@ public class Block_task extends AppCompatActivity {
         ListSong.putExtra("categoria", categoria);                        
         ListSong.putExtra("id", iden);
         ListSong.putExtra("tamano", tareas.length);
+        ListSong.putExtra("completado", completado);
         startActivity(ListSong);                                       
         finish();
     }

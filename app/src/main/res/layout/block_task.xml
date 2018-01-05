@@ -27,10 +27,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:background="@color/colorAccent"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textSize="20sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,46 +43,78 @@
             android:orientation="vertical"
             android:weightSum="1">
 
+            <TextView
+                android:id="@+id/et_completado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/white"
+                android:hint="@string/completado"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:textColorHint="@color/colorAccent"
+                android:textSize="20sp" />
+
             <EditText
                 android:id="@+id/et_nombre"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="0.10"
                 android:background="@color/colorPrimaryDark"
                 android:hint="Nombre"
-                android:paddingLeft="16px"
-                android:textColorHint="@color/colorAccent"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:paddingLeft="16dp"
+                android:textColorHint="@color/colorAccent" />
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.2dp"
                 android:background="@android:color/background_dark"
                 android:visibility="visible" />
+
             <EditText
                 android:id="@+id/et_descripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.30"
                 android:background="@color/colorPrimaryDark"
                 android:hint="@string/descripcion"
-                android:paddingLeft="16px"
+                android:padding="16dp"
                 android:textColorHint="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/avisoCategoria"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.09"
+                android:background="@color/colorAccent"
+                android:paddingTop="5dp"
+                android:text="Categoria"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="22sp" />
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.2dp"
+                android:layout_marginTop="10dp"
                 android:background="@android:color/background_dark"
                 android:visibility="visible" />
-            <EditText
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"/>
+
+            <TextView
                 android:id="@+id/et_categoria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.10"
-                android:background="@color/colorPrimaryDark"
-                android:hint="@string/categoria"
-                android:paddingLeft="16px"
-                android:textColorHint="@color/colorAccent"
-                android:inputType="text"/>
+                android:background="@android:color/darker_gray"
+                android:padding="5dp"
+                android:textColor="@android:color/background_dark"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,20 +126,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_weight="1"
                     android:background="@color/colorUsers"
                     android:text="@string/send_task"
-                    android:textColor="@android:color/background_light"
-                    android:layout_weight="1"/>
+                    android:textColor="@android:color/background_light" />
+
                 <Button
                     android:id="@+id/deletetask"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_weight="1"
                     android:background="#D6CC1A0F"
                     android:text="Eliminar"
-                    android:visibility="gone"
                     android:textColor="@android:color/background_light"
-                    android:layout_weight="1"/>
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -118,4 +156,6 @@
                 android:visibility="gone" />
 
         </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>
