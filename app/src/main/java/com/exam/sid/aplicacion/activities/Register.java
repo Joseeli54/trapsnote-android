@@ -1,9 +1,11 @@
 package com.exam.sid.aplicacion.activities;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ import com.exam.sid.aplicacion.R;
 import com.exam.sid.aplicacion.model.ErrorPojoClass;
 import com.exam.sid.aplicacion.model.Post;
 import com.exam.sid.aplicacion.remote.ApiUtils;
+import com.exam.sid.aplicacion.remote.DatePickerFragment;
 import com.exam.sid.aplicacion.remote.Validation;
 import com.exam.sid.aplicacion.service.UserClient;
 import com.google.gson.Gson;
@@ -35,6 +38,7 @@ public class Register extends AppCompatActivity {
     private UserClient mAPIService; // Aqui se asigna la variable del UserClient
     private Validation validar;    // Variable de validacion
     private TextView mResponseTv; //Aviso de mensaje
+    EditText etPlannedDate;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +50,6 @@ public class Register extends AppCompatActivity {
         final EditText email = (EditText) findViewById(R.id.et_email);
         final EditText password = (EditText) findViewById(R.id.et_password);
 
-        final EditText dia = (EditText) findViewById(R.id.dia);
-        final EditText mes = (EditText) findViewById(R.id.mes);
-        final EditText year = (EditText) findViewById(R.id.year);
-
         /*
         * Se inicializan las variables de cada EditText requerido para el registro
         */
@@ -58,6 +58,7 @@ public class Register extends AppCompatActivity {
         mAPIService = ApiUtils.getAPIService();
         mResponseTv = (TextView) findViewById(R.id.tv_response);
         Button btnActionRegister = (Button) findViewById(R.id.guardar_registro);
+        etPlannedDate = (EditText) findViewById(R.id.etPlannedDate);
 
         /*
         * validar se utilizara para verificar los campos
@@ -69,13 +70,9 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Date fechaProg = convertir_Fecha(dia,mes,year); // Te convertira los campos en Date
+                Date fechaProg = convertir_Fecha(); // Te convertira los campos en Date
 
-
-                if(validar.Registerfull(username,name,last_name,email,password)
-                        && validar.FechaNacfull(dia,mes,year)){  // Verifica si los campos existen
-
-                    if(validar.fecha_apropiada(dia,mes)){ // Verifica el dia y el mes son los correctos
+                if(validar.Registerfull(username,name,last_name,email,password)){  // Verifica si los campos existen
                         colorResponse(0xab000000);
                         showResponse("Cargando...");
                         Post post = new Post(username.getText().toString(),                  ////////////////////////
@@ -84,24 +81,6 @@ public class Register extends AppCompatActivity {
                                 fechaProg,"movil");                                       ////////////////////////
 
                         sendNetworkRequest(post); // Si son los correctos y las variables existen envia los datos
-                    }
-                    else{      //////////////////////////////////////////////////
-                              // Si el dia y el mes no son los correctos      //
-                             // Se verifican a ver cual es el que esta       //
-                            // fallando, y dependiendo te cual este fallan- //
-                           // do, se envia un aviso de mensaje al usuario. //
-                          //////////////////////////////////////////////////
-                        String res = "";
-                        if(!validar.dia_correcto(Integer.parseInt(dia.getText().toString()))){
-                            res = res + " { " + "Este dia no existe"+" }";
-                        }
-                        if(!validar.mes_correcto(Integer.parseInt(mes.getText().toString()))){
-                            res = res + " { " + "Este mes no existe"+" }";
-                        }
-                        colorResponse(0xeadc4126);
-                        showResponse(res);
-                    }
-
                 }
                 else{ // Sino existen los campos te manda un aviso para que los llenes
                     colorResponse(0xeadc4126);
@@ -109,15 +88,33 @@ public class Register extends AppCompatActivity {
                 }
                                                                                    ////////////////////////////
                 validar.campos_de_textos(username,name,last_name,email,password); // Se colorean los campos //
-                validar.campos_de_fecha(dia, mes, year);                         // que no esten escritos  //
+                                                                                 // que no esten escritos  //
             }                                                                   ////////////////////////////
         });
+
+        etPlannedDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });
+
     }
 
-    private Date convertir_Fecha(TextView dia, TextView mes, TextView year){
-        String fecha = year.getText().toString()+"-"+
-                mes.getText().toString()+"-"+
-                dia.getText().toString();
+    private void showDatePickerDialog() {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because january is zero
+                final String selectedDate = year + "-" + (month+1) + "-" + day;
+                etPlannedDate.setText(selectedDate);
+            }
+        });
+        newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    private Date convertir_Fecha(){
+        String fecha = etPlannedDate.getText().toString();
 
         SimpleDateFormat sdfg = new SimpleDateFormat("yyyy-MM-dd");
                                                ///////////////////////////////////

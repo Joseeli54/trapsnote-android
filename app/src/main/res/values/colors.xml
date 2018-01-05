@@ -6,4 +6,6 @@
     <color name="colorUsers">#d13b69a9</color>
     <color name="colorSuccessfull">#d810700e</color>
     <color name="colorError">#b6ef9c97</color>
+    <item name="visible" type="id"/>
+    <item name="masked" type="id"/>
 </resources>
