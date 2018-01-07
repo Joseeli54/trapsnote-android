@@ -7,11 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="16px"
-    android:paddingLeft="16px"
-    android:paddingRight="16px"
-    android:paddingTop="16px"
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp"
     android:weightSum="1">
+
+    <!-- Titulo -->
 
     <TextView
         android:id="@+id/titulo"
@@ -24,6 +26,8 @@
         android:textColor="@android:color/background_light"
         android:textSize="36sp" />
 
+        <!-- Aviso de Mensaje -->
+
     <TextView
         android:id="@+id/welcome"
         android:layout_width="match_parent"
@@ -34,19 +38,36 @@
         android:textSize="20sp"
         android:visibility="gone"/>
 
+        <!-- Boton para cerrar Sesion -->
+
+    <Button
+        android:id="@+id/cerrar_sesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        android:background="#D6CC1A0F"
+        android:text="Cerrar Sesion"
+        android:textColor="@android:color/background_light" />
+
+        <!-- Boton para crear la tarea -->
+
     <Button
         android:id="@+id/btn_tarea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:visibility="gone"
         android:background="@color/colorUsers"
         android:text="Crear Nueva Tarea"
         android:textColor="@android:color/background_light" />
 
+        <!-- Deslizador de la pantalla -->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <!-- Un LinearLayout -->
 
         <LinearLayout
             android:id="@+id/layout"
@@ -54,15 +75,20 @@
             android:layout_width="match_parent"
             android:orientation="vertical">
 
+            <!-- Categoria -->
+
             <TextView
                 android:id="@+id/et_categoria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/colorAccent"
                 android:textAlignment="center"
                 android:textColor="@android:color/background_light"
                 android:textSize="20sp" />
+
+                <!-- Nombre de la tarea -->
 
             <TextView
                 android:id="@+id/et_nombre"
@@ -73,6 +99,8 @@
                 android:background="@color/colorPrimaryDark"
                 android:text="Create Task"
                 android:textSize="20sp"/>
+
+                <!-- Completado o no -->
 
             <TextView
                 android:id="@+id/et_completado"

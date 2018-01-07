@@ -23,7 +23,7 @@ public class Tareas {
     private String username; //Toda tarea debe tener el username del usuario
     private String fechaRegistro; /*El servicio te devuelve la fecha en la que se registro
                                    la tarea*/
-    private Date fechaLimite;
+    private Date fechaLimite; // Fecha limite de la tarea
     private String categoria; //Tipo de tarea que se va a realiza
 
     public Tareas(String categoria, String descripcion, String nombre,

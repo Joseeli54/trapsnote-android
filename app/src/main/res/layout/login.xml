@@ -7,12 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="16px"
-    android:paddingLeft="16px"
-    android:paddingRight="16px"
-    android:paddingTop="16px"
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp"
     android:weightSum="1"
     >
+
+   <!-- Titulo -->
 
     <TextView
         android:id="@+id/titulo"
@@ -23,6 +25,8 @@
         android:text=" TrapsNote"
         android:textColor="@android:color/background_light"
         android:textSize="36sp" />
+
+        <!-- Aviso de mensaje -->
 
     <TextView
         android:layout_height="wrap_content"
@@ -35,14 +39,20 @@
         android:textAlignment="center"
         android:textSize="20sp" />
 
+        <!-- Pantalla deslizable hacia arriba y hacia abajo -->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="fill_parent">
+
+        <!-- Un LinearLayout -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <!-- Icono de la aplicacion -->
 
             <ImageView
                 android:id="@+id/icono"
@@ -52,6 +62,9 @@
                 android:layout_marginTop="10dp"
                 app:srcCompat="@mipmap/iconote" />
 
+
+                <!-- Este boton ya no se usara, pero se tiene por si se necesita-->
+
             <Button
                 android:id="@+id/to_update"
                 android:layout_width="match_parent"
@@ -60,6 +73,8 @@
                 android:visibility="gone"
                 android:text="@string/to_Update"
                 android:textColor="@android:color/white" />
+
+                <!-- Este boton ya no se usara, pero se tiene por si se necesita-->
 
             <EditText
                 android:id="@+id/et_username"
@@ -76,19 +91,23 @@
                 android:textColorHint="@android:color/background_light"
                 />
 
+                <!-- TextView del correo-->
+
             <EditText
                 android:id="@+id/login_email"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="0.23"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:background="@color/colorPrimaryDark"
                 android:ems="10"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
-                android:paddingLeft="16px"
+                android:paddingLeft="10dp"
                 android:textColor="@android:color/background_dark"
                 android:textColorHint="@color/colorAccent"
                 android:textColorLink="@android:color/background_dark" />
+
+                <!-- Separador-->
 
             <View
                 android:id="@+id/separator"
@@ -97,19 +116,24 @@
                 android:background="@android:color/background_dark"
                 android:visibility="visible" />
 
+                <!-- TextView de la clave-->
+
             <EditText
                 android:id="@+id/login_password"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="0.23"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:background="@color/colorPrimaryDark"
                 android:ems="10"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:paddingLeft="16px"
+                android:paddingLeft="10dp"
                 android:textColor="@android:color/background_dark"
                 android:textColorHint="@color/colorAccent"
                 android:textColorLink="@android:color/background_dark" />
+
+
+                <!-- Botones que se van a ejecutar-->
 
             <LinearLayout
                 android:layout_width="match_parent"

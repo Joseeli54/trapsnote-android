@@ -30,16 +30,23 @@ public class Task extends AppCompatActivity {
           // El antiguo modelo se cambio para facilitar la utilizacion
          //            de esta aplicacion al usuario.
 
-    LinearLayout layout; // Se crea una variable layout
-    LinearLayout contenedorBoton[] = new LinearLayout[1000]; // Un contenedor es necesario para desplazar los
+    private LinearLayout layout; // Se crea una variable layout
+    private LinearLayout contenedorBoton[] = new LinearLayout[1000]; // Un contenedor es necesario para desplazar los
                                                             // bloques de tareas
     TextView btn[] = new TextView[1000]; // Y un contenedor de TextView tambien
     TextView btnOrigin; // Es necesario el textView actual en el cual 
                        // se duplicaran los otros y seran modificados
-    TextView mResponseTv, mWelcome; //Avisos de mensajes
-    UserClient mAPIService; // El cliente del servidor
-    int tamano; // El numero de tareas que se van a imprimir en pantalla
-    LinearLayout[] layoiut = new LinearLayout[1000];
+    private TextView mResponseTv, mWelcome; //Avisos de mensajes
+    private UserClient mAPIService; // El cliente del servidor
+    private int tamano; // El numero de tareas que se van a imprimir en pantalla
+    private LinearLayout[] layoiut = new LinearLayout[1000];
+    private String token, name, username;
+    private String[] descripcion = new String[1000];
+    private String[] categoria = new String[1000];    ////////////////////////////////////////
+    private String[] id = new String[1000];          // Arreglos de los datos de las tareas//
+    private String[] nombre = new String[1000];     ////////////////////////////////////////
+    private boolean[] completado = new boolean[1000];
+    private String[] fechaLimite = new String[1000];
 
 
     public void onCreate(Bundle savedInstanceState){
@@ -48,16 +55,16 @@ public class Task extends AppCompatActivity {
 
         Bundle datos = this.getIntent().getExtras();
 
-        final String token = datos.getString("variable_string");              /////////////////////////////////////
-        final String name = datos.getString("name");                         // Adquiero los datos que fueron   //
-        final String username = datos.getString("username");                // Suministrados por la clase Main // 
-                tamano = datos.getInt("tamano");                           // para poder saber cuantas y que  //
-        final String[] descripcion = datos.getStringArray("descripcion"); // tipo de tareas existen en la ba-//
-        final String[] categoria = datos.getStringArray("categoria");    //     base de datos del usuario   //
-        final String[] id = datos.getStringArray("id");                 /////////////////////////////////////
-        final String[] nombre = datos.getStringArray("nombre");
-        final boolean[] completado = datos.getBooleanArray("completado");
-        final String[] fechaLimite = datos.getStringArray("fechaLimite");
+        token = datos.getString("variable_string");              /////////////////////////////////////
+        name = datos.getString("name");                         // Adquiero los datos que fueron   //
+        username = datos.getString("username");                // Suministrados por la clase Main //
+        tamano = datos.getInt("tamano");                      // para poder saber cuantas y que  //
+        descripcion = datos.getStringArray("descripcion");   // tipo de tareas existen en la ba-//
+        categoria = datos.getStringArray("categoria");      //     base de datos del usuario   //
+        id = datos.getStringArray("id");                   /////////////////////////////////////
+        nombre = datos.getStringArray("nombre");
+        completado = datos.getBooleanArray("completado");
+        fechaLimite = datos.getStringArray("fechaLimite");
 
         mAPIService = ApiUtils.getAPIService();
         mWelcome = (TextView) findViewById(R.id.welcome);
@@ -66,6 +73,7 @@ public class Task extends AppCompatActivity {
         Button create = (Button) findViewById(R.id.btn_tarea);
         TextView completadoOrigin = (TextView) findViewById(R.id.et_completado);
         btnOrigin = (TextView) findViewById(R.id.et_nombre);
+        Button logout = (Button) findViewById(R.id.cerrar_sesion);
 
         /*
         * Aqui se inicializan todas las variales creadas arriba, agregando dos TextView que son el titulo,
@@ -74,6 +82,7 @@ public class Task extends AppCompatActivity {
         completadoOrigin.setVisibility(View.GONE);
         titulo.setVisibility(View.VISIBLE); // Hago visible el titulo
         create.setVisibility(View.VISIBLE); // Hago visible el boton de crear
+        logout.setVisibility(View.VISIBLE); // Hago visible el boton de cerrar sesion
                                              //////////////////////////////////////////////////////
         btnOrigin.setVisibility(View.GONE); // Quito al TextView original de las tareas         //
                                            // Esto es debido a que, de este TextView es donde  //
@@ -88,6 +97,7 @@ public class Task extends AppCompatActivity {
             mResponseTv.setTextColor(Color.BLACK);
             mResponseTv.setText("Lista de tareas vacia. Escriba su primera tarea :)");
         }
+
 
         /*
         * Luego de esto, si existen las tareas, se puede comenzar a modificar las que sean existentes
@@ -107,14 +117,14 @@ public class Task extends AppCompatActivity {
                         ListSong.putExtra("variable_string", token);                      //////////////////////////////
                         ListSong.putExtra("name", name);                                 // Paso todo lo importante  //
                         ListSong.putExtra("username", username);                        // De la tareas a Block_task//
-                        ListSong.putExtra("nombre", nombre[finalI]); // incluyendo una variable  //
+                        ListSong.putExtra("nombre", nombre[finalI]);                   // incluyendo una variable  //
                         ListSong.putExtra("categoria", categoria[finalI]);            // "boleana", que me dice   //
                         ListSong.putExtra("descripcion", descripcion[finalI]);       // el tipo de peticion que  //
                         ListSong.putExtra("id", id[finalI]);                        // se activaran en la otra  //
-                        ListSong.putExtra("completado", completado[finalI]);
-                        ListSong.putExtra("fechaLimite", fechaLimite[finalI]);
-                        startActivity(ListSong);                                   //         ventana.         //
-                        finish();                                                 //////////////////////////////
+                        ListSong.putExtra("completado", completado[finalI]);       //         ventana.         //
+                        ListSong.putExtra("fechaLimite", fechaLimite[finalI]);    //////////////////////////////
+                        startActivity(ListSong);                                   
+                        finish();                                                 
                     }
                 });
         }
@@ -137,6 +147,27 @@ public class Task extends AppCompatActivity {
                 finish();
             }
         });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ListSong = new Intent(getApplicationContext(), Logout.class);
+                ListSong.putExtra("peticion", 1);
+                ListSong.putExtra("variable_string", token);
+                ListSong.putExtra("name", name);                      ////////////////////////////////////
+                ListSong.putExtra("username", username);             // Al momento de tocar esta opcion//
+                ListSong.putExtra("tamano", tamano);                // Se pasan los datos de task para//
+                ListSong.putExtra("descripcion", descripcion);     // que no se pierdan si se decide //
+                ListSong.putExtra("categoria", categoria);        // Regresar o cancelar el cerra-  //
+                ListSong.putExtra("id", id);                     //         do de sesion           //
+                ListSong.putExtra("nombre", nombre);            ////////////////////////////////////
+                ListSong.putExtra("completado", completado);
+                ListSong.putExtra("fechaLimite", fechaLimite);
+                startActivity(ListSong);
+                finish();
+            }
+        });
+
     }
 
     public void verBienvenida(String name){
@@ -180,5 +211,23 @@ public class Task extends AppCompatActivity {
             layout.addView(contenedorBoton[i]);
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent ListSong = new Intent(getApplicationContext(), Logout.class);
+        ListSong.putExtra("peticion", 0);
+        ListSong.putExtra("variable_string", token);
+        ListSong.putExtra("name", name);
+        ListSong.putExtra("username", username);
+        ListSong.putExtra("tamano", tamano);
+        ListSong.putExtra("descripcion", descripcion);
+        ListSong.putExtra("categoria", categoria);
+        ListSong.putExtra("id", id);
+        ListSong.putExtra("nombre", nombre);
+        ListSong.putExtra("completado", completado);
+        ListSong.putExtra("fechaLimite", fechaLimite);
+        startActivity(ListSong);
+        finish();
     }
 }
