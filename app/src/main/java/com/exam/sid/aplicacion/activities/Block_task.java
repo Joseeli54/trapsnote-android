@@ -51,9 +51,9 @@ public class Block_task extends AppCompatActivity {
     private String[] nametask = new String[1000];   ////////////////////////////////////////
     private boolean[] completado = new boolean[1000];
     private String[] fechaLimit = new String[1000];
-    private boolean listo;
-    private Spinner spinner;
-    EditText etPlannedDate;
+    private boolean listo; // Bolean de completado
+    private Spinner spinner; // El Spinner que se usara para escoger las categorias
+    EditText etPlannedDate; // Calendario de fecha limite
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,27 +79,31 @@ public class Block_task extends AppCompatActivity {
         final TextView completado = (TextView) findViewById(R.id.et_completado);
         final Validation validar = new Validation();
         spinner = (Spinner) findViewById(R.id.spinner);
-        String[] letra = {"Estudios","Trabajo","Hogar","Actividad","Ejercicio","Plan","Informacion"};
-        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));
+        String[] palabras = {"Estudios","Trabajo","Hogar","Actividad","Ejercicio","Plan","Informacion"};
+        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, palabras));
         etPlannedDate = (EditText) findViewById(R.id.etPlannedDate);
 
         /*
+        * Inicializamos spinner junto con un String[] llamado palabras
         * Inicializo los textview existentes en la ventana de Block_task
         */
 
-        if(listo){
+        if(listo){ // Si listo es true se colorea completado de verde y se asigna completado
             completado.setBackgroundColor(0xD815A312);
             completado.setText("Completado");
         }
-        else{
+        else{ // Si listo es false se colorea completado de rojo y se asigna no completado
             completado.setBackgroundColor(Color.RED);
             completado.setText("No Completado");
         }
-        nombre.setText(nombretask);
+
+        // Se escribe lo que se mando a los Textview
+       
+        nombre.setText(nombretask); 
         descripcion.setText(description);
         categoria.setText(category);
 
-        if(peticion == 1)
+        if(peticion == 1) // Si ya existia una fecha limite esta se escribira en el etPlannedDate
         etPlannedDate.setHint(fechaLimite);
 
         /*
@@ -163,8 +167,8 @@ public class Block_task extends AppCompatActivity {
                         //completado.setText("No Completado");
                     }
                     else{
-                        colorWelcome(0xab000000);
-                        showWelcome("Cargando...");
+                        colorWelcome(0xab000000);   // Si la peticion es 1 y completado es falso, puede pasarse
+                        showWelcome("Cargando..."); // a completado true, pero no al reves
 
                         listo = true;
                         completado.setBackgroundColor(0xD815A312);
@@ -180,12 +184,12 @@ public class Block_task extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
             {
-                if(peticion == 1){
+                if(peticion == 1){ // Si la categoria ya existe se pone la que ya se tenia
                     if(category != categoria.getText().toString() ||
                         (String)adapterView.getItemAtPosition(pos) != "Estudios")
                             categoria.setText((String) adapterView.getItemAtPosition(pos));
                 }
-                else
+                else // Si la categoria se pone por defecto la primera o la que se seleccione
                     categoria.setText((String) adapterView.getItemAtPosition(pos));
             }
 
@@ -196,12 +200,17 @@ public class Block_task extends AppCompatActivity {
         etPlannedDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDatePickerDialog();
+                showDatePickerDialog(); //Este metodo se saco de internet
             }
         });
     }
 
     private void showDatePickerDialog() {
+
+         ////////////////////////////////////////////////////////////////
+        // Aqui se selecciona la fecha que desea agregar el usuario   //
+       ////////////////////////////////////////////////////////////////
+
         DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -302,12 +311,12 @@ public class Block_task extends AppCompatActivity {
         mAPIService.updateComplete(username, _id, task).enqueue(new Callback<Tareas>() {
             @Override
             public void onResponse(Call<Tareas> call, Response<Tareas> response) {
-                showWelcome("Se ha modificado");
+                showWelcome("Se ha modificado"); // Si se modifica completado satisfactoriamente envia este aviso
             }
 
             @Override
             public void onFailure(Call<Tareas> call, Throwable t) {
-                showWelcome("Hay un problema con el servidor");
+                showWelcome("Hay un problema con el servidor"); // Si hay un problema con la conexion
             }
         });
     }
@@ -323,7 +332,7 @@ public class Block_task extends AppCompatActivity {
             }                                                //////////////////////////////////////////////
             @Override
             public void onFailure(Call<Get> call, Throwable t) {   //////////////////////////////////////
-                showWelcome("Hay un problema con el servidor");  // Si no se ejecutan las respuestas //
+                showWelcome("Hay un problema con el servidor");   // Si no se ejecutan las respuestas //
             }                                                    //////////////////////////////////////
         });
     }

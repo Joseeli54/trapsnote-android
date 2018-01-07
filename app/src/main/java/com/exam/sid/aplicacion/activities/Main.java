@@ -41,7 +41,7 @@ public class Main extends AppCompatActivity{
     private Validation validar; // Variable de tipo validacion
     private Tareas[] tareas; // Necesitamos una variable de tipo tareas para leer las tareas del usuario
     private boolean[] completado = new boolean[1000];
-    private String[] descripcion = new String[1000];  ////////////////////////////////////////////////////
+    private String[] descripcion = new String[1000];   ////////////////////////////////////////////////////
     private String[] categoria = new String[1000];    // Aqui estan los string a los que se pasaran los //
     private String[] id = new String[1000];          //        Datos mas importantes de las tareas     //
     private String[] nombretask = new String[1000]; ////////////////////////////////////////////////////
@@ -261,7 +261,7 @@ public class Main extends AppCompatActivity{
     }
 
     public void showResponse(String response) {
-        ///////////////////////////////////////////
+                                                        ///////////////////////////////////////////
         if(mResponseTv.getVisibility() == View.GONE) { // Aqui hago visible el aviso de mensaje //
             mResponseTv.setVisibility(View.VISIBLE);  //     Y le agrego un nuevo texto        //
         }                                            ///////////////////////////////////////////

@@ -52,8 +52,11 @@ public interface UserClient{  //////////////////////////////////////////////////
                          @Path("id") String id,
                          @Body Tareas tareas); //Requiere dos cabeceras
 
-    @PUT("{username}/tareas/{id}")
+    @PUT("{username}/tareas/{id}") //Modifica solo completado
     Call<Tareas> updateComplete(@Path("username") String username,
                                 @Path("id") String id,
-                                @Body Tareas tareas);
+                                @Body Tareas tareas); //Requiere dos cabeceras
+
+    @DELETE("usuarios/logout") //Peticion para cerrar sesion
+    Call<String> cerrarsesion();
 }

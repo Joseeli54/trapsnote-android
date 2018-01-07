@@ -38,7 +38,7 @@ public class Register extends AppCompatActivity {
     private UserClient mAPIService; // Aqui se asigna la variable del UserClient
     private Validation validar;    // Variable de validacion
     private TextView mResponseTv; //Aviso de mensaje
-    EditText etPlannedDate;
+    EditText etPlannedDate; // Calendario que se modificara
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,13 +95,18 @@ public class Register extends AppCompatActivity {
         etPlannedDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDatePickerDialog();
+                showDatePickerDialog(); // Este metodo fue sacado de internet
             }
         });
 
     }
 
     private void showDatePickerDialog() {
+
+         ////////////////////////////////////////////////////////////////
+        // Aqui se selecciona la fecha que desea agregar el usuario   //
+       ////////////////////////////////////////////////////////////////
+
         DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {

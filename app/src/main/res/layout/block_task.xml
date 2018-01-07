@@ -6,11 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="16px"
-    android:paddingLeft="16px"
-    android:paddingRight="16px"
-    android:paddingTop="16px"
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp"
     android:weightSum="1">
+
+<!-- Aqui se muestra el titulo de la aplicacion-->  
 
     <TextView
         android:id="@+id/titulo"
@@ -21,6 +23,8 @@
         android:text=" Task"
         android:textColor="@android:color/background_light"
         android:textSize="36sp" />
+
+        <!-- welcome es el aviso de mensaje que aparece cuando se inicia sesion-->  
 
     <TextView
         android:id="@+id/welcome"
@@ -33,15 +37,21 @@
         android:textColor="@android:color/background_light"
         android:textSize="20sp" />
 
+        <!-- Se requiere que la pantalla sea deslizable -->  
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <!-- Dentro de un ScrollView siempre debe hacer un LinearLayout-->  
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="1">
+
+            <!-- TextView de completado, rojo si no esta completado, verde si esta-->  
 
             <TextView
                 android:id="@+id/et_completado"
@@ -55,10 +65,13 @@
                 android:textColorHint="@color/colorAccent"
                 android:textSize="20sp" />
 
+                <!-- El nombre, es de tipo Text-->  
+
             <EditText
                 android:id="@+id/et_nombre"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="0.10"
                 android:background="@color/colorPrimaryDark"
@@ -67,11 +80,15 @@
                 android:paddingLeft="16dp"
                 android:textColorHint="@color/colorAccent" />
 
+                <!--Un separador-->  
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.2dp"
                 android:background="@android:color/background_dark"
                 android:visibility="visible" />
+
+                <!-- Descripcion, se permite generar espacios por si el texto es largo -->  
 
             <EditText
                 android:id="@+id/et_descripcion"
@@ -82,18 +99,21 @@
                 android:padding="16dp"
                 android:textColorHint="@color/colorAccent" />
 
+                <!-- Un simple aviso de la categoria -->  
+
             <TextView
                 android:id="@+id/avisoCategoria"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="0.09"
                 android:background="@color/colorAccent"
                 android:paddingTop="5dp"
                 android:text="Categoria"
                 android:textAlignment="center"
                 android:textColor="@android:color/background_light"
                 android:textSize="22sp" />
+
+                <!--Un separador-->  
 
             <View
                 android:layout_width="fill_parent"
@@ -102,10 +122,14 @@
                 android:background="@android:color/background_dark"
                 android:visibility="visible" />
 
+                <!--Una lista de las categorias que estan disponibles-->  
+
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"/>
+
+                <!--Aqui se escribe la categoria que se seleccione-->  
 
             <TextView
                 android:id="@+id/et_categoria"
@@ -115,6 +139,8 @@
                 android:padding="5dp"
                 android:textColor="@android:color/background_dark"
                 android:textSize="18sp" />
+
+                <!-- Aviso de la fecha limite-->  
 
             <TextView
                 android:id="@+id/fechaLim"
@@ -128,6 +154,8 @@
                 android:textAlignment="center"
                 android:textColor="@android:color/background_light"
                 android:textSize="22sp" />
+
+                <!-- Aqui esta una vista del calendario que se escribira en la fecha limite-->
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/tilPlannedDate"
@@ -154,6 +182,8 @@
                 </LinearLayout>
 
             </android.support.design.widget.TextInputLayout>
+
+            <!-- Botones que se van a ejecutar -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -182,6 +212,8 @@
                     android:visibility="gone" />
 
             </LinearLayout>
+
+            <!-- Otro aviso de mensaje -->
 
             <TextView
                 android:id="@+id/tv_response"

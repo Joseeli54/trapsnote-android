@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <!-- Aqui se ubica el activity del Clase Main, el activity principal-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,21 +27,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
+
+        <!-- Aqui se ubica el activity de la clase Registro-->
+        
+        <activity 
             android:name=".activities.Register"
             android:label="@string/Register"
             android:screenOrientation="portrait"></activity>
+
+        <!-- Aqui se ubica el activity de la clase Task-->    
         <activity
             android:name=".activities.Task"
             android:label="@string/Task"
             android:screenOrientation="portrait"></activity>
+
+        <!-- Aqui se ubica el activity de la clase Update-->  
         <activity
             android:name=".activities.Update"
             android:label="@string/Update"
             android:screenOrientation="portrait"></activity>
+
+        <!-- Aqui se ubica el activity de la clase Block_task-->      
         <activity
             android:name=".activities.Block_task"
             android:label="@string/Block_task"
+            android:screenOrientation="portrait"></activity>
+
+        <!-- Aqui se ubica el activity de la clase Logout-->  
+        <activity
+            android:name=".activities.Logout"
+            android:label="@string/Logout"
             android:screenOrientation="portrait"></activity>
     </application>
 

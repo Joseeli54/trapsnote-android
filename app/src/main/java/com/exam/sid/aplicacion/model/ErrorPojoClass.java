@@ -11,7 +11,7 @@ public class ErrorPojoClass {
       // al momento del usuario escribir un dato que  //
      // no cumple las validaciones de la aplicacion  //
     //////////////////////////////////////////////////
-    private String errormsg;
+    private String errormsg; // Este error se activa cuando la contraseña o el usuario no existe
     private Integer code; // Este es el codigo que sale cuando el usuario 
                           //que se desea agregar ya existe, es decir, esta duplicado.
     private Integer index; // Este igualmente (Devuelve un 0) aparece cuando el usuario existe.
