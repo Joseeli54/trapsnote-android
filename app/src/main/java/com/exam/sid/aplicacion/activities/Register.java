@@ -39,6 +39,7 @@ public class Register extends AppCompatActivity {
     private Validation validar;    // Variable de validacion
     private TextView mResponseTv; //Aviso de mensaje
     EditText etPlannedDate; // Calendario que se modificara
+    private boolean Logica;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,7 @@ public class Register extends AppCompatActivity {
         mResponseTv = (TextView) findViewById(R.id.tv_response);
         Button btnActionRegister = (Button) findViewById(R.id.guardar_registro);
         etPlannedDate = (EditText) findViewById(R.id.etPlannedDate);
+        Logica = false;
 
         /*
         * validar se utilizara para verificar los campos
@@ -66,30 +68,42 @@ public class Register extends AppCompatActivity {
         * btnActionRegister se encarga de generar el envio de usuario
         */
 
+        mResponseTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                                                     /////////////////////////////////////////////
+                showResponse("");                   //     Si se tocase el boton de aviso,     //
+                tocoResponse();                    // simplemente se vacia el texto y se pone //
+                                                  //         invisible de nuevo.             //
+                                                 /////////////////////////////////////////////
+            }
+        });
+
         btnActionRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Logica == false) {
+                    Logica = true;
+                    Date fechaProg = convertir_Fecha(); // Te convertira los campos en Date
 
-                Date fechaProg = convertir_Fecha(); // Te convertira los campos en Date
-
-                if(validar.Registerfull(username,name,last_name,email,password)){  // Verifica si los campos existen
+                    if (validar.Registerfull(username, name, last_name, email, password)) {  // Verifica si los campos existen
                         colorResponse(0xab000000);
                         showResponse("Cargando...");
-                        Post post = new Post(username.getText().toString(),                  ////////////////////////
-                                name.getText().toString(),last_name.getText().toString(),   // Se pasan los datos //
-                                email.getText().toString(), password.getText().toString(), // la variables post  //
-                                fechaProg,"movil");                                       ////////////////////////
+                        Post post = new Post(username.getText().toString(),                   ////////////////////////
+                                name.getText().toString(), last_name.getText().toString(),   // Se pasan los datos //
+                                email.getText().toString(), password.getText().toString(),  // la variables post  //
+                                fechaProg, "movil");                                       ////////////////////////
 
                         sendNetworkRequest(post); // Si son los correctos y las variables existen envia los datos
-                }
-                else{ // Sino existen los campos te manda un aviso para que los llenes
-                    colorResponse(0xeadc4126);
-                    showResponse("Todos los campos deben estar escritos");
-                }
-                                                                                   ////////////////////////////
-                validar.campos_de_textos(username,name,last_name,email,password); // Se colorean los campos //
-                                                                                 // que no esten escritos  //
-            }                                                                   ////////////////////////////
+                    } else { // Sino existen los campos te manda un aviso para que los llenes
+                        colorResponse(0xeadc4126);
+                        showResponse("Todos los campos deben estar escritos");
+                        Logica = false;
+                    }
+                                                                                           ////////////////////////////
+                    validar.campos_de_textos(username, name, last_name, email, password); // Se colorean los campos //
+                }                                                                        // que no esten escritos  //
+            }                                                                           ////////////////////////////
         });
 
         etPlannedDate.setOnClickListener(new View.OnClickListener() {
@@ -139,12 +153,13 @@ public class Register extends AppCompatActivity {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                 if(response.isSuccessful()) {
-                    colorResponse(0xd810700e);                        /////////////////////////////////////////////////
-                    showResponse("User Create Sucessfull");          // Se crea la llamada al metodo CreateAccount. //
-                }                                                   // Si la respuesta es satisfactoria,se creo el //
-                else{                                              //  usuario, pero sino se manda un aviso de    //
-                    Gson gson = new GsonBuilder().create();       //                 error                       //
-                    ErrorPojoClass mError= new ErrorPojoClass(); /////////////////////////////////////////////////
+                    colorResponse(0xd810700e);                         /////////////////////////////////////////////////
+                    showResponse("Usuario creado Satisfactoriamente");// Se crea la llamada al metodo CreateAccount. //
+                    Logica = false;                                  // Si la respuesta es satisfactoria,se creo el //
+                }                                                   //  usuario, pero sino se manda un aviso de    //
+                else{                                              //                 error                       //
+                    Gson gson = new GsonBuilder().create();       /////////////////////////////////////////////////
+                    ErrorPojoClass mError= new ErrorPojoClass();
                     //La variable gson se crea para poder ingresar ahi el JSON de respuesta
                     // Se instancia la variable de la clase ErrorPojoClass
                     try {
@@ -153,20 +168,30 @@ public class Register extends AppCompatActivity {
                         // Se pasan los datos a las variables de esa clase
                         colorResponse(0xeadc4126);
                         if(mError.getErrmsg()!=null) // Si el usuario es un duplicado
-                            showResponse(mError.toString());
+                            showResponse(mError.getErrmsg());
                         else{                       // Si hay otro error diferente
                             showResponse(mError.getMessage());
                         }
                     } catch (IOException e) {
                         // handle failure to read error
                     }
+
+                    Logica = false;
                 }
             }
             @Override
             public void onFailure(Call<Post> call, Throwable t) { //////////////////////////////////////
-                showResponse("Error Service");                   // Si no se puede hacer la peticion //
-            }                                                   //////////////////////////////////////
+                showResponse("Hay un problema con la conexion"); // Si no se puede hacer la peticion //
+                Logica = false;                                 //////////////////////////////////////
+            }
         });
+    }
+
+    public void tocoResponse(){
+                                                              ////////////////////////////////////////
+        if(mResponseTv.getVisibility() == View.VISIBLE) {    // Metodo que hace invisible el aviso //
+            mResponseTv.setVisibility(View.GONE);           //              de mensaje.           //
+        }                                                  ////////////////////////////////////////
     }
 
     public void colorResponse(int color){         /////////////////////////////////

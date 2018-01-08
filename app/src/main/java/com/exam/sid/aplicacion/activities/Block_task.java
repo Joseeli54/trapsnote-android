@@ -54,6 +54,7 @@ public class Block_task extends AppCompatActivity {
     private boolean listo; // Bolean de completado
     private Spinner spinner; // El Spinner que se usara para escoger las categorias
     EditText etPlannedDate; // Calendario de fecha limite
+    private boolean Logica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,7 @@ public class Block_task extends AppCompatActivity {
         String[] palabras = {"Estudios","Trabajo","Hogar","Actividad","Ejercicio","Plan","Informacion"};
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, palabras));
         etPlannedDate = (EditText) findViewById(R.id.etPlannedDate);
+        Logica = false;
 
         /*
         * Inicializamos spinner junto con un String[] llamado palabras
@@ -126,34 +128,50 @@ public class Block_task extends AppCompatActivity {
             delete.setVisibility(View.VISIBLE);
         }
 
+        mWelcome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                                                    /////////////////////////////////////////////
+                showWelcome("");                   //     Si se tocase el boton de aviso,     //
+                tocoWelcome();                    // simplemente se vacia el texto y se pone //
+                                                 //         invisible de nuevo.             //
+                                                /////////////////////////////////////////////
+            }
+        });
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Logica == false) {
+                    Logica = true;
+                    Date fechaProg = convertir_Fecha(); // Te convertira los campos en Date
 
-                Date fechaProg = convertir_Fecha(); // Te convertira los campos en Date
+                    colorWelcome(0xab000000);
+                    showWelcome("Cargando...");                                 //////////////////////////////
+                    Tareas tareas = new Tareas(categoria.getText().toString(), // Se pasan los datos a una //
+                            descripcion.getText().toString(),                 // variables de Tareas para //
+                            nombre.getText().toString(), fechaProg);         //      Guardarlas ahi.     //
+                    //////////////////////////////
+                    if (peticion == 0) // Si solo se toco el boton de crear tarea, se crea la tarea
+                        sendTask(username, tareas);
+                    else if (peticion == 1) { // Si se presiono una tarea, se modifica la tarea
+                        updateTask(username, tareas, id);
+                    }
 
-                colorWelcome(0xab000000);
-                showWelcome("Cargando...");                                 //////////////////////////////
-                Tareas tareas = new Tareas(categoria.getText().toString(), // Se pasan los datos a una //
-                        descripcion.getText().toString(),                 // variables de Tareas para //
-                        nombre.getText().toString(), fechaProg);         //      Guardarlas ahi.     //
-                                                                        //////////////////////////////
-                if(peticion == 0) // Si solo se toco el boton de crear tarea, se crea la tarea
-                sendTask(username, tareas);
-                else if (peticion == 1){ // Si se presiono una tarea, se modifica la tarea
-                    updateTask(username, tareas, id);
+                    validar.campos_de_tareas(nombre, descripcion, categoria);
                 }
-
-                validar.campos_de_tareas(nombre, descripcion, categoria);
             }
         });
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {    ////////////////////////////////////////
-                colorWelcome(0xab000000);      // Si se toco el boton de delete      //
-                showWelcome("Cargando...");   // inmediatamente se elimina la tareas//
-                DeleteTask(id, username);    ////////////////////////////////////////
+            public void onClick(View view) {
+                if(Logica == false) {
+                    Logica = true;                  ////////////////////////////////////////
+                    colorWelcome(0xab000000);      // Si se toco el boton de delete      //
+                    showWelcome("Cargando...");   // inmediatamente se elimina la tareas//
+                    DeleteTask(id, username);    ////////////////////////////////////////
+                }
             }
         });
 
@@ -167,14 +185,18 @@ public class Block_task extends AppCompatActivity {
                         //completado.setText("No Completado");
                     }
                     else{
-                        colorWelcome(0xab000000);   // Si la peticion es 1 y completado es falso, puede pasarse
-                        showWelcome("Cargando..."); // a completado true, pero no al reves
 
-                        listo = true;
-                        completado.setBackgroundColor(0xD815A312);
-                        completado.setText("Completado");
-                        Tareas tareas = new Tareas(listo);
-                        updateCompletado(username, tareas, id);
+                        if(Logica == false) {
+                            Logica = true;
+                            colorWelcome(0xab000000);   // Si la peticion es 1 y completado es falso, puede pasarse
+                            showWelcome("Cargando..."); // a completado true, pero no al reves
+
+                            listo = true;
+                            completado.setBackgroundColor(0xD815A312);
+                            completado.setText("Completado");
+                            Tareas tareas = new Tareas(listo);
+                            updateCompletado(username, tareas, id);
+                        }
                     }
                 }
             }
@@ -262,12 +284,14 @@ public class Block_task extends AppCompatActivity {
                     } catch (IOException e) {
                         // handle failure to read error
                     }
+                    Logica = false;
                 }// de que la tarea se mando con exito //
             }
 
             @Override
             public void onFailure(Call<Tareas> call, Throwable t) {
                 showWelcome("No se guardo... Problema con la conexion"); // Aqui hay un problema de conectividad
+                Logica = false;
             }
         });
     }
@@ -298,11 +322,13 @@ public class Block_task extends AppCompatActivity {
                     } catch (IOException e) {
                         // handle failure to read error
                     }
+                    Logica = false;
                 }
             }
             @Override
             public void onFailure(Call<Tareas> call, Throwable t) {
                 showWelcome("Hay un problema con el servidor");  // Aqui hay un problema de conectividad
+                Logica = false;
             }
         });
     }
@@ -311,12 +337,15 @@ public class Block_task extends AppCompatActivity {
         mAPIService.updateComplete(username, _id, task).enqueue(new Callback<Tareas>() {
             @Override
             public void onResponse(Call<Tareas> call, Response<Tareas> response) {
+                if(response.isSuccessful())
                 showWelcome("Se ha modificado"); // Si se modifica completado satisfactoriamente envia este aviso
+                Logica = false;
             }
 
             @Override
             public void onFailure(Call<Tareas> call, Throwable t) {
                 showWelcome("Hay un problema con el servidor"); // Si hay un problema con la conexion
+                Logica = false;
             }
         });
     }
@@ -333,7 +362,8 @@ public class Block_task extends AppCompatActivity {
             @Override
             public void onFailure(Call<Get> call, Throwable t) {   //////////////////////////////////////
                 showWelcome("Hay un problema con el servidor");   // Si no se ejecutan las respuestas //
-            }                                                    //////////////////////////////////////
+                Logica = false;                                  //////////////////////////////////////
+            }
         });
     }
 
@@ -359,11 +389,13 @@ public class Block_task extends AppCompatActivity {
                     tocoWelcome();
                     mover_a_Tareas(username);
                 }
+                Logica = false;
             }
             @Override
             public void onFailure(Call<Get> call, Throwable t) {          /////////////////////////////////////////
                 showWelcome("Hay un problema con el servidor");          // Si la respuesta no se pudo ejecutar //
-            }                                                           /////////////////////////////////////////
+                Logica = false;                                         /////////////////////////////////////////
+            }
         });
     }
 
@@ -388,6 +420,10 @@ public class Block_task extends AppCompatActivity {
     }
 
     public void showWelcome(String response) {
+                                                     ///////////////////////////////////////////
+        if(mWelcome.getVisibility() == View.GONE) { // Aqui hago visible el aviso de mensaje //
+            mWelcome.setVisibility(View.VISIBLE);  //     Y le agrego un nuevo texto        //
+        }                                         ///////////////////////////////////////////
         mWelcome.setText(response); //El aviso de mensaje se puede modificar
     }
 
@@ -413,9 +449,12 @@ public class Block_task extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        colorWelcome(0xab000000);
-        showWelcome("Cargando Tareas..."); // Si hecho para atras, se cargan las tareas y se llama al metodo
-        getTask(username);                // getTask para regresarme a task
+        if(Logica == false) {
+            Logica = true;
+            colorWelcome(0xab000000);
+            showWelcome("Cargando Tareas..."); // Si hecho para atras, se cargan las tareas y se llama al metodo
+            getTask(username);                // getTask para regresarme a task
+        }
     }
 
 }

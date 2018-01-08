@@ -47,6 +47,7 @@ public class Task extends AppCompatActivity {
     private String[] nombre = new String[1000];     ////////////////////////////////////////
     private boolean[] completado = new boolean[1000];
     private String[] fechaLimite = new String[1000];
+    private boolean Logica;
 
 
     public void onCreate(Bundle savedInstanceState){
@@ -74,6 +75,7 @@ public class Task extends AppCompatActivity {
         TextView completadoOrigin = (TextView) findViewById(R.id.et_completado);
         btnOrigin = (TextView) findViewById(R.id.et_nombre);
         Button logout = (Button) findViewById(R.id.cerrar_sesion);
+        Logica = false;
 
         /*
         * Aqui se inicializan todas las variales creadas arriba, agregando dos TextView que son el titulo,
@@ -112,19 +114,22 @@ public class Task extends AppCompatActivity {
                 layoiut[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent ListSong = new Intent(getApplicationContext(), Block_task.class);
-                        ListSong.putExtra("peticion",1);
-                        ListSong.putExtra("variable_string", token);                      //////////////////////////////
-                        ListSong.putExtra("name", name);                                 // Paso todo lo importante  //
-                        ListSong.putExtra("username", username);                        // De la tareas a Block_task//
-                        ListSong.putExtra("nombre", nombre[finalI]);                   // incluyendo una variable  //
-                        ListSong.putExtra("categoria", categoria[finalI]);            // "boleana", que me dice   //
-                        ListSong.putExtra("descripcion", descripcion[finalI]);       // el tipo de peticion que  //
-                        ListSong.putExtra("id", id[finalI]);                        // se activaran en la otra  //
-                        ListSong.putExtra("completado", completado[finalI]);       //         ventana.         //
-                        ListSong.putExtra("fechaLimite", fechaLimite[finalI]);    //////////////////////////////
-                        startActivity(ListSong);                                   
-                        finish();                                                 
+                        if(Logica == false) {
+                            Logica = true;
+                            Intent ListSong = new Intent(getApplicationContext(), Block_task.class);
+                            ListSong.putExtra("peticion", 1);
+                            ListSong.putExtra("variable_string", token);                      //////////////////////////////
+                            ListSong.putExtra("name", name);                                 // Paso todo lo importante  //
+                            ListSong.putExtra("username", username);                        // De la tareas a Block_task//
+                            ListSong.putExtra("nombre", nombre[finalI]);                   // incluyendo una variable  //
+                            ListSong.putExtra("categoria", categoria[finalI]);            // "boleana", que me dice   //
+                            ListSong.putExtra("descripcion", descripcion[finalI]);       // el tipo de peticion que  //
+                            ListSong.putExtra("id", id[finalI]);                        // se activaran en la otra  //
+                            ListSong.putExtra("completado", completado[finalI]);       //         ventana.         //
+                            ListSong.putExtra("fechaLimite", fechaLimite[finalI]);    //////////////////////////////
+                            startActivity(ListSong);
+                            finish();
+                        }
                     }
                 });
         }
@@ -132,42 +137,47 @@ public class Task extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ListSong = new Intent(getApplicationContext(), Block_task.class);
-                ListSong.putExtra("peticion",0);
-                ListSong.putExtra("variable_string", token);    ////////////////////////////////////                 
-                ListSong.putExtra("name", name);               //Aqui hago lo mismo que arriba   //
-                ListSong.putExtra("username", username);      // Lo unico distinto, es que como //          
-                ListSong.putExtra("nombre", "");             // no hay tareas existentes, los  //
-                ListSong.putExtra("categoria", "");         // datos de una tareas se pasan   //
-                ListSong.putExtra("descripcion", "");      //         vacios                 //
-                ListSong.putExtra("id", "");              ////////////////////////////////////
-                ListSong.putExtra("completado", false);
-                ListSong.putExtra("fechaLimite", "");
-                startActivity(ListSong);
-                finish();
+                if(Logica == false) {
+                    Logica = true;
+                    Intent ListSong = new Intent(getApplicationContext(), Block_task.class);
+                    ListSong.putExtra("peticion", 0);
+                    ListSong.putExtra("variable_string", token);    ////////////////////////////////////
+                    ListSong.putExtra("name", name);               //Aqui hago lo mismo que arriba   //
+                    ListSong.putExtra("username", username);      // Lo unico distinto, es que como //
+                    ListSong.putExtra("nombre", "");             // no hay tareas existentes, los  //
+                    ListSong.putExtra("categoria", "");         // datos de una tareas se pasan   //
+                    ListSong.putExtra("descripcion", "");      //         vacios                 //
+                    ListSong.putExtra("id", "");              ////////////////////////////////////
+                    ListSong.putExtra("completado", false);
+                    ListSong.putExtra("fechaLimite", "");
+                    startActivity(ListSong);
+                    finish();
+                }
             }
         });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ListSong = new Intent(getApplicationContext(), Logout.class);
-                ListSong.putExtra("peticion", 1);
-                ListSong.putExtra("variable_string", token);
-                ListSong.putExtra("name", name);                      ////////////////////////////////////
-                ListSong.putExtra("username", username);             // Al momento de tocar esta opcion//
-                ListSong.putExtra("tamano", tamano);                // Se pasan los datos de task para//
-                ListSong.putExtra("descripcion", descripcion);     // que no se pierdan si se decide //
-                ListSong.putExtra("categoria", categoria);        // Regresar o cancelar el cerra-  //
-                ListSong.putExtra("id", id);                     //         do de sesion           //
-                ListSong.putExtra("nombre", nombre);            ////////////////////////////////////
-                ListSong.putExtra("completado", completado);
-                ListSong.putExtra("fechaLimite", fechaLimite);
-                startActivity(ListSong);
-                finish();
+                if(Logica == false) {
+                    Logica = true;
+                    Intent ListSong = new Intent(getApplicationContext(), Logout.class);
+                    ListSong.putExtra("peticion", 1);
+                    ListSong.putExtra("variable_string", token);
+                    ListSong.putExtra("name", name);                      ////////////////////////////////////
+                    ListSong.putExtra("username", username);             // Al momento de tocar esta opcion//
+                    ListSong.putExtra("tamano", tamano);                // Se pasan los datos de task para//
+                    ListSong.putExtra("descripcion", descripcion);     // que no se pierdan si se decide //
+                    ListSong.putExtra("categoria", categoria);        // Regresar o cancelar el cerra-  //
+                    ListSong.putExtra("id", id);                     //         do de sesion           //
+                    ListSong.putExtra("nombre", nombre);            ////////////////////////////////////
+                    ListSong.putExtra("completado", completado);
+                    ListSong.putExtra("fechaLimite", fechaLimite);
+                    startActivity(ListSong);
+                    finish();
+                }
             }
         });
-
     }
 
     public void verBienvenida(String name){
@@ -215,19 +225,22 @@ public class Task extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent ListSong = new Intent(getApplicationContext(), Logout.class);
-        ListSong.putExtra("peticion", 0);
-        ListSong.putExtra("variable_string", token);
-        ListSong.putExtra("name", name);
-        ListSong.putExtra("username", username);
-        ListSong.putExtra("tamano", tamano);
-        ListSong.putExtra("descripcion", descripcion);
-        ListSong.putExtra("categoria", categoria);
-        ListSong.putExtra("id", id);
-        ListSong.putExtra("nombre", nombre);
-        ListSong.putExtra("completado", completado);
-        ListSong.putExtra("fechaLimite", fechaLimite);
-        startActivity(ListSong);
-        finish();
+        if(Logica == false) {
+            Logica = true;
+            Intent ListSong = new Intent(getApplicationContext(), Logout.class);
+            ListSong.putExtra("peticion", 0);
+            ListSong.putExtra("variable_string", token);
+            ListSong.putExtra("name", name);
+            ListSong.putExtra("username", username);
+            ListSong.putExtra("tamano", tamano);
+            ListSong.putExtra("descripcion", descripcion);
+            ListSong.putExtra("categoria", categoria);
+            ListSong.putExtra("id", id);
+            ListSong.putExtra("nombre", nombre);
+            ListSong.putExtra("completado", completado);
+            ListSong.putExtra("fechaLimite", fechaLimite);
+            startActivity(ListSong);
+            finish();
+        }
     }
 }

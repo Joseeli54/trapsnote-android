@@ -47,6 +47,7 @@ public class Main extends AppCompatActivity{
     private String[] nombretask = new String[1000]; ////////////////////////////////////////////////////
     private String[] fechaLimite = new String[1000];
     private String token; // Variables string a la que se pasara la autenticacion
+    private boolean Logica; //Variable logica que se usara en todos los activities para bloquear botones
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -69,6 +70,7 @@ public class Main extends AppCompatActivity{
         Button btnRegister = (Button) findViewById(R.id.register_button);
         Button btnGetList = (Button) findViewById(R.id.search_button);
         Button btnSignIn = (Button) findViewById(R.id.signin_button);
+        Logica = false; //El boton no ha sido tocado
 
         /*
         * Asignacion de los botones que esta en el layout login
@@ -90,32 +92,34 @@ public class Main extends AppCompatActivity{
         btnSignIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                if (Logica == false) {
+                    Logica = true;
 
-                if(validar.LoginNoNulo(email,password) == 1) {
-                    colorResponse(0xab000000);                        ///////////////////////////////////////////////////
-                    showResponse("Cargando...");                     //       Si se tocase el boton de Sign In,       //
-                    Post post = new Post(email.getText().toString(),// aparece el aviso "Cargando..", se insertan    //
-                            password.getText().toString());        //los datos de email y password, y se implementa //
-                    sendLogin(post, email, password);             //     el metodo que envia los datos.            //
-                                                                 ///////////////////////////////////////////////////
+                    if (validar.LoginNoNulo(email, password) == 1) {
+                        colorResponse(0xab000000);                        ///////////////////////////////////////////////////
+                        showResponse("Cargando...");                     //       Si se tocase el boton de Sign In,       //
+                        Post post = new Post(email.getText().toString(),// aparece el aviso "Cargando..", se insertan    //
+                                password.getText().toString());        //los datos de email y password, y se implementa //
+                        sendLogin(post, email, password);             //     el metodo que envia los datos.            //
+                                                                     ///////////////////////////////////////////////////
+                    } else {
+
+                        if (validar.LoginNoNulo(email, password) == 2) {
+                            colorResponse(0xeadc4126);
+                            showResponse("La contraseña es requerida");
+                        } else if (validar.LoginNoNulo(email, password) == 3) {
+                            colorResponse(0xeadc4126);
+                            showResponse("El correo es requerido");
+                        } else if (validar.LoginNoNulo(email, password) == 4) {
+                            colorResponse(0xeadc4126);
+                            showResponse("Los campos son requeridos");
+                        }
+
+                        Logica = false;
+                    }
+
+                    validar.campos_de_Login(email, password);
                 }
-                else{
-
-                    if(validar.LoginNoNulo(email,password) == 2){
-                        colorResponse(0xeadc4126);
-                        showResponse("La contraseña es requerida");
-                    }
-                    else if(validar.LoginNoNulo(email,password) == 3){
-                        colorResponse(0xeadc4126);
-                        showResponse("El correo es requerido");
-                    }
-                    else if(validar.LoginNoNulo(email,password) == 4){
-                        colorResponse(0xeadc4126);
-                        showResponse("Los campos son requeridos");
-                    }
-                }
-
-                validar.campos_de_Login(email,password);
             }
         });
 
@@ -133,11 +137,14 @@ public class Main extends AppCompatActivity{
         btnRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                                              //////////////////////////////////
-                                             //    Si se presiona el boton   //
-                mover_a_Registro();         // Register se cambia al layout //
-                                           //          de registro         //
-                                          //////////////////////////////////
+                if(Logica == false) {
+                    Logica = true;
+                                                 //////////////////////////////////
+                                                //    Si se presiona el boton   //
+                    mover_a_Registro();        // Register se cambia al layout //
+                                              //          de registro         //
+                    Logica = false;          //////////////////////////////////
+                }
             }
         });
 
@@ -186,6 +193,7 @@ public class Main extends AppCompatActivity{
                     } catch (IOException e) {
                         // handle failure to read error
                     }
+                    Logica = false;
                 }
 
             }
@@ -193,7 +201,8 @@ public class Main extends AppCompatActivity{
             @Override
             public void onFailure(Call<Post> call, Throwable t) {              /////////////////////////////////////////////
                 showResponse("Hay un problema con la conexion a Internet");   // Cuando no se puede realizar la peticion //
-            }                                                                /////////////////////////////////////////////
+                Logica = false;                                              /////////////////////////////////////////////
+            }
         });
 
 
@@ -245,11 +254,13 @@ public class Main extends AppCompatActivity{
                     }
                     mover_a_Tareas(name,username);
                 }
+                Logica = false;
             }
             @Override
             public void onFailure(Call<Get> call, Throwable t) {            /////////////////////////////////////////
                 showResponse("Hay un problema con la conexion a Internet");// Si la respuesta no se pudo ejecutar //
-            }                                                             /////////////////////////////////////////
+                Logica = false;                                           /////////////////////////////////////////
+            }
         });
     }
 
