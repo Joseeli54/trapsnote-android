@@ -38,28 +38,35 @@
         android:textSize="20sp"
         android:visibility="gone"/>
 
-        <!-- Boton para cerrar Sesion -->
+    <!-- LinearLayout de botoneas -->
 
-    <Button
-        android:id="@+id/cerrar_sesion"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:visibility="gone"
-        android:background="#D6CC1A0F"
-        android:text="Cerrar Sesion"
-        android:textColor="@android:color/background_light" />
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/cerrar_sesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:background="#D6CC1A0F"
+            android:text="Cerrar Sesion"
+            android:textColor="@android:color/background_light" />
 
-        <!-- Boton para crear la tarea -->
+        <Button
+            android:id="@+id/btn_tarea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorUsers"
+            android:text="Crear Nueva Tarea"
+            android:textColor="@android:color/background_light" />
 
-    <Button
-        android:id="@+id/btn_tarea"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:background="@color/colorUsers"
-        android:text="Crear Nueva Tarea"
-        android:textColor="@android:color/background_light" />
+    </LinearLayout>
 
         <!-- Deslizador de la pantalla -->
 

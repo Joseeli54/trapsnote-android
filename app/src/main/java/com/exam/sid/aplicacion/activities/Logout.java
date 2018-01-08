@@ -43,6 +43,7 @@ public class Logout extends AppCompatActivity {
     private boolean[] completado = new boolean[1000];
     private String[] fechaLimit = new String[1000];
     int tamano;
+    private boolean Logica;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +66,7 @@ public class Logout extends AppCompatActivity {
         mResponseTv = (TextView) findViewById(R.id.tv_response); // Aviso de mensaje
         Button logout = (Button) findViewById(R.id.salir); // Boton de Cerrar sesion
         Button cancel = (Button) findViewById(R.id.cancel); // Boton de Cancelar
+        Logica = false;
 
         if(peticion == 0){ // Si se desea salir de la app se quita el boton de cerrar sesion
             mResponseTv.setVisibility(View.GONE); // Se quita el mensaje de aviso
@@ -77,28 +79,34 @@ public class Logout extends AppCompatActivity {
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {             /////////////////////////////////////////
-                showResponse("Cargando...");            // Aqui se hace la peticion del logout //
-                SendLogout();                          /////////////////////////////////////////
+            public void onClick(View view) {
+                if(Logica == false) {
+                    Logica = true;                           /////////////////////////////////////////
+                    showResponse("Cargando...");            // Aqui se hace la peticion del logout //
+                    SendLogout();                          /////////////////////////////////////////
+                }
             }
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ListSong = new Intent(getApplicationContext(), Task.class);
-                ListSong.putExtra("variable_string", token);
-                ListSong.putExtra("name", name);                       /////////////////////////////////////////
-                ListSong.putExtra("username", username);              // Si se cancela, se regresan los datos//
-                ListSong.putExtra("tamano", tamano);                 // Pertenecientes a Task de nuevo, como//
-                ListSong.putExtra("descripcion", descripcion);      //        Si nada hubiese pasado.      //
-                ListSong.putExtra("categoria", categoria);         /////////////////////////////////////////
-                ListSong.putExtra("id", id);
-                ListSong.putExtra("nombre", nombre);
-                ListSong.putExtra("completado", completado);
-                ListSong.putExtra("fechaLimite", fechaLimit);
-                startActivity(ListSong);
-                finish();
+                if(Logica == false) {
+                    Logica = true;
+                    Intent ListSong = new Intent(getApplicationContext(), Task.class);
+                    ListSong.putExtra("variable_string", token);
+                    ListSong.putExtra("name", name);                       /////////////////////////////////////////
+                    ListSong.putExtra("username", username);              // Si se cancela, se regresan los datos//
+                    ListSong.putExtra("tamano", tamano);                 // Pertenecientes a Task de nuevo, como//
+                    ListSong.putExtra("descripcion", descripcion);      //        Si nada hubiese pasado.      //
+                    ListSong.putExtra("categoria", categoria);         /////////////////////////////////////////
+                    ListSong.putExtra("id", id);
+                    ListSong.putExtra("nombre", nombre);
+                    ListSong.putExtra("completado", completado);
+                    ListSong.putExtra("fechaLimite", fechaLimit);
+                    startActivity(ListSong);
+                    finish();
+                }
             }
         });
     }
@@ -138,6 +146,7 @@ public class Logout extends AppCompatActivity {
                     showResponse("Sesion No Cerrada"); // Si el token no existe o 
                                                       // ya se cerro sesion te devuelve 400
                 }
+                Logica = false;
             }
 
             @Override
@@ -161,22 +170,28 @@ public class Logout extends AppCompatActivity {
     public void onBackPressed() {
 
         if(peticion == 1) { // Si la peticion es cerrar sesion, si se presiona Back, se regresa a Task
-            Intent ListSong = new Intent(getApplicationContext(), Task.class);
-            ListSong.putExtra("variable_string", token);
-            ListSong.putExtra("name", name);
-            ListSong.putExtra("username", username);
-            ListSong.putExtra("tamano", tamano);
-            ListSong.putExtra("descripcion", descripcion);
-            ListSong.putExtra("categoria", categoria);
-            ListSong.putExtra("id", id);
-            ListSong.putExtra("nombre", nombre);
-            ListSong.putExtra("completado", completado);
-            ListSong.putExtra("fechaLimite", fechaLimit);
-            startActivity(ListSong);
-            finish();
+            if(Logica == false) {
+                Logica = true;
+                Intent ListSong = new Intent(getApplicationContext(), Task.class);
+                ListSong.putExtra("variable_string", token);
+                ListSong.putExtra("name", name);
+                ListSong.putExtra("username", username);
+                ListSong.putExtra("tamano", tamano);
+                ListSong.putExtra("descripcion", descripcion);
+                ListSong.putExtra("categoria", categoria);
+                ListSong.putExtra("id", id);
+                ListSong.putExtra("nombre", nombre);
+                ListSong.putExtra("completado", completado);
+                ListSong.putExtra("fechaLimite", fechaLimit);
+                startActivity(ListSong);
+                finish();
+            }
         }
         else{ // Pero si se quiere salir de la aplicacion, cuando se presione Back, se saldra de la App
-            finish();
+            if(Logica == false){
+                Logica = true;
+                finish();
+            }
         }
     }
 
