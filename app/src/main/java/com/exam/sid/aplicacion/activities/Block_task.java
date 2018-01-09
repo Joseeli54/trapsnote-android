@@ -95,7 +95,7 @@ public class Block_task extends AppCompatActivity {
             completado.setText("Completado");
         }
         else{ // Si listo es false se colorea completado de rojo y se asigna no completado
-            completado.setBackgroundColor(Color.RED);
+            completado.setBackgroundColor(0xD4AE880B);
             completado.setText("No Completado");
         }
 
