@@ -210,7 +210,7 @@ public class Task extends AppCompatActivity {
             }
             else
             {
-                listo.setBackgroundColor(Color.RED);
+                listo.setBackgroundColor(0xD4AE880B);
                 listo.setText("No Completado");
             }
 
